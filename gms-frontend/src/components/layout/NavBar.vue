@@ -1,6 +1,10 @@
 <template>
-  <v-navigation-drawer v-model="drawer" :rail="rail" permanent>
-    <v-list-item height="64px">
+  <v-navigation-drawer
+    v-model="drawer"
+    :rail="rail"
+    :permanent="$vuetify.display.mdAndUp"
+  >
+    <!-- <v-list-item height="64px">
       <template #prepend>
         <span class="block" style="font-size: 1.5rem" v-show="!rail"
           >Bản đồ</span
@@ -19,18 +23,21 @@
       </template>
     </v-list-item>
 
-    <v-divider></v-divider>
+    <v-divider></v-divider> -->
 
     <v-list density="compact">
       <v-list-item
         v-for="item in navItem"
         :key="item.title"
-        :prepend-icon="item.icon"
         :title="item.title"
         :value="item.value"
         active-color="#2196F3"
         class="py-3"
-      />
+      >
+        <template #prepend>
+          <v-icon :icon="item.icon" size="20"></v-icon>
+        </template>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -55,7 +62,7 @@ const navItem = [
   {
     title: 'Xe rác',
     value: 'Xe rác',
-    icon: 'fas fa-truck-moving',
+    icon: 'fas fa-truck',
   },
   {
     title: 'Điểm thu rác',

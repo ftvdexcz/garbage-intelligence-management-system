@@ -2,7 +2,7 @@
   <v-layout class="h-screen">
     <nav-bar />
 
-    <v-app-bar title="Application bar"></v-app-bar>
+    <v-app-bar flat title="Application bar"></v-app-bar>
 
     <v-main> Main Content </v-main>
   </v-layout>

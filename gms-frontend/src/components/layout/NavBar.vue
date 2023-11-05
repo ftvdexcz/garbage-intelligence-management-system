@@ -1,30 +1,21 @@
 <template>
-  <v-navigation-drawer v-model="drawer" :rail="rail" permanent :rail-width="70">
-    <!-- <v-list>
-      <v-list-item>
-        <template #prepend>
-          <div>
-            <p class="block" v-show="!rail">Bản đồ</p>
-          </div>
-        </template>
-        <template #default>
-          <div class="d-flex justify-space-between">
-            <v-icon icon="fas fa-chevron-left" @click.stop="rail = !rail" />
-          </div>
-        </template>
-      </v-list-item>
-    </v-list> -->
+  <v-navigation-drawer v-model="drawer" :rail="rail" permanent>
+    <v-list-item height="64px">
+      <template #prepend>
+        <span class="block" style="font-size: 1.5rem" v-show="!rail"
+          >Bản đồ</span
+        >
+      </template>
 
-    <v-list-item
-      prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
-      nav
-    >
-      <template v-slot:append>
-        <v-btn
-          variant="text"
-          icon="fas fa-chevron-left"
-          @click.stop="rail = !rail"
-        ></v-btn>
+      <template #default v-if="rail">
+        <div @click.stop="rail = !rail" style="cursor: pointer">
+          <v-icon icon="fas fa-chevron-left"></v-icon>
+        </div>
+      </template>
+      <template #append v-else>
+        <div @click.stop="rail = !rail" style="cursor: pointer">
+          <v-icon icon="fas fa-chevron-left"></v-icon>
+        </div>
       </template>
     </v-list-item>
 
@@ -32,30 +23,14 @@
 
     <v-list density="compact">
       <v-list-item
-        prepend-icon="fas fa-globe-europe"
-        title="Bản đồ"
-        value="Bản đồ"
-      ></v-list-item>
-      <v-list-item
-        prepend-icon="fas fa-terminal"
-        title="Log"
-        value="Log"
-      ></v-list-item>
-      <v-list-item
-        prepend-icon="fas fa-truck-moving"
-        title="Xe rác"
-        value="Xe rác"
-      ></v-list-item>
-      <v-list-item
-        prepend-icon="fas fa-trash-alt"
-        title="Điểm thu rác"
-        value="Điểm thu rác"
-      ></v-list-item>
-      <v-list-item
-        prepend-icon="fas fa-bell"
-        title="Thông báo"
-        value="Thông báo"
-      ></v-list-item>
+        v-for="item in navItem"
+        :key="item.title"
+        :prepend-icon="item.icon"
+        :title="item.title"
+        :value="item.value"
+        active-color="#2196F3"
+        class="py-3"
+      />
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -65,4 +40,32 @@ import { ref } from 'vue';
 
 const drawer = ref<boolean>(true);
 const rail = ref<boolean>(true);
+
+const navItem = [
+  {
+    title: 'Bản đồ',
+    value: 'Bản đồ',
+    icon: 'fas fa-globe-europe',
+  },
+  {
+    title: 'Log',
+    value: 'Log',
+    icon: 'fas fa-terminal',
+  },
+  {
+    title: 'Xe rác',
+    value: 'Xe rác',
+    icon: 'fas fa-truck-moving',
+  },
+  {
+    title: 'Điểm thu rác',
+    value: 'Điểm thu rác',
+    icon: 'fas fa-trash-alt',
+  },
+  {
+    title: 'Thông báo',
+    value: 'Thông báo',
+    icon: 'fas fa-bell',
+  },
+];
 </script>

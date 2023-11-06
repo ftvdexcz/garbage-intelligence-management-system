@@ -13,11 +13,8 @@
         layer-type="base"
         name="OpenStreetMap"
       />
-      <l-marker
-        :lat-lng="[21.23385, 105.811164]"
-        icon-url="http://203.162.10.109:2209/static/media/green_bin.8b4bbbea249d9fac22a1.png"
-        :icon-size="[20, 20]"
-      >
+      <l-marker :lat-lng="[21.23385, 105.811164]">
+        <l-icon :icon-url="greenBinIcon" :icon-size="[16, 24]" />
       </l-marker>
     </l-map>
   </div>
@@ -30,8 +27,12 @@ import {
   LTileLayer,
   LControlLayers,
   LMarker,
+  LIcon,
 } from '@vue-leaflet/vue-leaflet';
 import { ref } from 'vue';
+
+const greenBinIcon = new URL('./../../assets/green_bin.png', import.meta.url)
+  .href;
 
 const zoom = ref<number>(16);
 </script>

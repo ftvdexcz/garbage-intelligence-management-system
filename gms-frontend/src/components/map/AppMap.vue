@@ -1,26 +1,32 @@
 <template>
-  <div style="height: 100%; width: 100%">
-    <l-map ref="map" v-model:zoom="zoom" :center="[21.23385, 105.811164]">
-      <l-control-layers position="topright"></l-control-layers>
-      <l-tile-layer
-        url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
-        name="GoogleMap"
-        layer-type="base"
-      />
+  <div style="height: 100%; width: 100%; position: relative">
+    <div style="height: 100%; width: 100%">
+      <l-map ref="map" v-model:zoom="zoom" :center="[20.980605, 105.787527]">
+        <l-control-layers position="topright"></l-control-layers>
+        <l-tile-layer
+          url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+          name="GoogleMap"
+          layer-type="base"
+        />
 
-      <l-tile-layer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        layer-type="base"
-        name="OpenStreetMap"
-      />
-      <l-marker :lat-lng="[21.23385, 105.811164]">
-        <l-icon :icon-url="greenBinIcon" :icon-size="[16, 24]" />
-      </l-marker>
-    </l-map>
+        <l-tile-layer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          layer-type="base"
+          name="OpenStreetMap"
+        />
+        <l-marker :lat-lng="[20.980605, 105.787527]">
+          <l-icon :icon-url="greenBinIcon" :icon-size="[16, 24]" />
+        </l-marker>
+      </l-map>
+    </div>
+
+    <info-map />
   </div>
 </template>
 
 <script lang="ts" setup>
+import InfoMap from './InfoMap.vue';
+
 import 'leaflet/dist/leaflet.css';
 import {
   LMap,

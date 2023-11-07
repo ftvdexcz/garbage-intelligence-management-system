@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar :elevation="1" flat>
+  <v-app-bar>
     <template #prepend>
       <v-app-bar-nav-icon
         class="d-md-none"

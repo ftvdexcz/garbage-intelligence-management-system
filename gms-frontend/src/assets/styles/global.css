@@ -1,6 +1,8 @@
-:root {
-}
-
 html {
   overflow: hidden;
+}
+
+.v-main {
+  overflow: auto;
+  background-color: #212121;
 }

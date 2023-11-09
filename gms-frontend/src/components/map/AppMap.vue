@@ -1,6 +1,6 @@
 <template>
-  <div style="height: 100%; width: 100%; position: relative">
-    <div style="height: 100%; width: 100%">
+  <div class="app-map">
+    <div class="leaflet-map">
       <l-map ref="map" v-model:zoom="zoom" :center="[20.980605, 105.787527]">
         <l-control-layers position="topright"></l-control-layers>
         <l-tile-layer
@@ -43,4 +43,15 @@ const greenBinIcon = new URL('./../../assets/green_bin.png', import.meta.url)
 const zoom = ref<number>(16);
 </script>
 
-<style></style>
+<style scoped>
+.app-map {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.leaflet-map {
+  height: 100%;
+  width: 100%;
+}
+</style>

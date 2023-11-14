@@ -3,7 +3,7 @@ html {
 }
 
 .v-main {
-  overflow: hidden;
+  overflow: auto;
   background-color: #212121;
   /* max-height: 100vh; */
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="info-container">
-    <v-toolbar color="blue" height="48">
+    <v-toolbar color="blue" height="45">
       <template #default>
         <v-tabs v-model="tab">
           <v-tab value="info">thông tin</v-tab>
@@ -65,7 +65,7 @@
         </v-row>
       </v-window-item>
       <v-window-item value="camera">
-        <v-card height="836px">
+        <v-card :height="800">
           <video controls style="width: 100%; height: 100%">
             <source
               src="ptitsure.tk:8888/index-80/index.m3u8"
@@ -92,7 +92,7 @@ const emit = defineEmits({
 .info-container {
   position: absolute;
   width: 100%;
-  bottom: 0;
+  top: 62.5vh;
   left: 0;
   background-color: #212121;
   z-index: 1000;

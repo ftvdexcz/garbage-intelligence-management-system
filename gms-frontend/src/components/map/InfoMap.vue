@@ -65,14 +65,16 @@
         </v-row>
       </v-window-item>
       <v-window-item value="camera">
-        <v-card :height="800">
-          <video controls style="width: 100%; height: 100%">
-            <source
-              src="ptitsure.tk:8888/index-80/index.m3u8"
-              type="application/x-mpegURL"
-            />
-          </video>
-        </v-card>
+        <div style="height: 240px">
+          <div style="height: 90vh">
+            <video controls style="width: 100%; height: 100%">
+              <source
+                src="ptitsure.tk:8888/index-80/index.m3u8"
+                type="application/x-mpegURL"
+              />
+            </video>
+          </div>
+        </div>
       </v-window-item>
     </v-window>
   </div>
@@ -92,7 +94,7 @@ const emit = defineEmits({
 .info-container {
   position: absolute;
   width: 100%;
-  top: 62.5vh;
+  bottom: 0;
   left: 0;
   background-color: #212121;
   z-index: 1000;

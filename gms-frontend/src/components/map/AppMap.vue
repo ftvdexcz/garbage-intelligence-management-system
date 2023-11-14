@@ -14,13 +14,18 @@
           layer-type="base"
           name="OpenStreetMap"
         />
-        <l-marker :lat-lng="[20.980605, 105.787527]">
+        <l-marker
+          @click="showInfoMap = !showInfoMap"
+          :lat-lng="[20.980605, 105.787527]"
+        >
           <l-icon :icon-url="greenBinIcon" :icon-size="[16, 24]" />
         </l-marker>
       </l-map>
     </div>
 
-    <info-map />
+    <v-slide-y-reverse-transition>
+      <info-map v-show="showInfoMap" @close="closeInfoMap" />
+    </v-slide-y-reverse-transition>
   </div>
 </template>
 
@@ -41,6 +46,11 @@ const greenBinIcon = new URL('./../../assets/green_bin.png', import.meta.url)
   .href;
 
 const zoom = ref<number>(16);
+const showInfoMap = ref<boolean>(false);
+
+const closeInfoMap = () => {
+  showInfoMap.value = false;
+};
 </script>
 
 <style scoped>

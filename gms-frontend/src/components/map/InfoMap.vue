@@ -8,17 +8,17 @@
         </v-tabs>
       </template>
       <template #append>
-        <v-btn>
+        <v-btn @click="$emit('close')">
           <v-icon icon="fas fa-xmark" />
         </v-btn>
       </template>
     </v-toolbar>
 
-    <div style="height: 260px">
-      <v-container>
-        <v-row align="center" justify="center" class="ma-2">
+    <v-window v-model="tab" direction="vertical">
+      <v-window-item value="info">
+        <v-row justify="center" class="ma-2">
           <v-col cols="12" lg="4" class="mx-3" md="5" sm="12">
-            <v-card>
+            <v-card :height="200">
               <v-list>
                 <v-list-item prepend-icon="far fa-building">
                   <template #default> Doanh nghiệp </template>
@@ -37,7 +37,7 @@
           </v-col>
 
           <v-col cols="12" lg="4" class="mx-3" md="5" sm="12">
-            <v-card>
+            <v-card :height="200">
               <v-list>
                 <v-list-item prepend-icon="far fa-id-card">
                   <template #default> Mã doanh nghiệp </template>
@@ -55,23 +55,37 @@
             </v-card>
           </v-col>
 
-          <v-col offset="1" cols="12" lg="2" md="5" sm="12">
+          <v-col offset-lg="1" cols="12" lg="2" md="5" sm="12">
             <v-img
-              :height="180"
-              aspect-ratio="16/9"
-              src="http://203.162.10.109:2208//bin/bin_1693499509653.png"
+              :height="200"
+              cover
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuj1UDbNWg4W06IuBlsPkaRav1oZyPq6Y1bCVNFayJHyATsG25m4DZV7QspnxA9XVXMEQ&usqp=CAU"
             ></v-img>
           </v-col>
         </v-row>
-      </v-container>
-    </div>
+      </v-window-item>
+      <v-window-item value="camera">
+        <v-card height="836px">
+          <video controls style="width: 100%; height: 100%">
+            <source
+              src="ptitsure.tk:8888/index-80/index.m3u8"
+              type="application/x-mpegURL"
+            />
+          </video>
+        </v-card>
+      </v-window-item>
+    </v-window>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, defineEmits } from 'vue';
 
 const tab = ref<string>('');
+
+const emit = defineEmits({
+  close: null,
+});
 </script>
 
 <style scoped>

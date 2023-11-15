@@ -1,3 +1,4 @@
+import AppBin from '@/components/bins/AppBin.vue';
 import AppMap from '@/components/map/AppMap.vue';
 import HomeView from '@/views/HomeView.vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
@@ -11,6 +12,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/map',
         component: AppMap,
+      },
+      {
+        path: '/bins',
+        component: AppBin,
       },
     ],
   },

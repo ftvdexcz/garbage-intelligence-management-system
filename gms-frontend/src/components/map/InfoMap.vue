@@ -1,6 +1,6 @@
 <template>
   <div class="info-container">
-    <v-toolbar color="blue" height="45">
+    <v-toolbar color="blue" height="48">
       <template #default>
         <v-tabs v-model="tab">
           <v-tab value="info">thông tin</v-tab>
@@ -65,16 +65,14 @@
         </v-row>
       </v-window-item>
       <v-window-item value="camera">
-        <div style="height: 240px">
-          <div style="height: 90vh">
-            <video controls style="width: 100%; height: 100%">
-              <source
-                src="ptitsure.tk:8888/index-80/index.m3u8"
-                type="application/x-mpegURL"
-              />
-            </video>
-          </div>
-        </div>
+        <v-card height="calc(100vh - 64px - 48px)">
+          <video controls style="width: 100%; height: 100%">
+            <source
+              src="ptitsure.tk:8888/index-80/index.m3u8"
+              type="application/x-mpegURL"
+            />
+          </video>
+        </v-card>
       </v-window-item>
     </v-window>
   </div>
@@ -85,7 +83,7 @@ import { ref, defineEmits } from 'vue';
 
 const tab = ref<string>('');
 
-const emit = defineEmits({
+defineEmits({
   close: null,
 });
 </script>
@@ -93,11 +91,10 @@ const emit = defineEmits({
 <style scoped>
 .info-container {
   position: absolute;
-  width: 100%;
-  bottom: 0;
+  right: 0;
+  top: calc(100vh - 64px - 240px - 48px);
   left: 0;
   background-color: #212121;
   z-index: 1000;
-  box-shadow: 0 -4px 3px -5px #212121;
 }
 </style>

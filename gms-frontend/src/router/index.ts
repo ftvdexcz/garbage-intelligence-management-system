@@ -1,6 +1,8 @@
 import AppBin from '@/components/bins/AppBin.vue';
 import AppMap from '@/components/map/AppMap.vue';
 import HomeView from '@/views/HomeView.vue';
+import CreateBin from '@/components/bins/CreateBin.vue';
+import ListBin from '@/components/bins/ListBin.vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
@@ -16,6 +18,16 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/bins',
         component: AppBin,
+        children: [
+          {
+            path: '',
+            component: ListBin,
+          },
+          {
+            path: 'add',
+            component: CreateBin,
+          },
+        ],
       },
     ],
   },

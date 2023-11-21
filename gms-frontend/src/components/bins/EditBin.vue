@@ -1,6 +1,6 @@
 <template>
   <v-toolbar flat color="primary" class="d-flex align-center">
-    <v-toolbar-title>Thêm mới điểm thu</v-toolbar-title>
+    <v-toolbar-title>Sửa thông tin</v-toolbar-title>
   </v-toolbar>
   <v-container class="mx-auto mt-8" style="width: 70%">
     <v-row align="start" style="height: 150px">
@@ -140,7 +140,6 @@
         >
           Lưu
         </v-btn>
-        <v-btn append-icon="fas fa-paperclip"> Hủy </v-btn>
       </v-col>
     </v-row>
   </v-container>

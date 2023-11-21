@@ -24,20 +24,15 @@
     </template>
     <!-- eslint-disable-next-line vue/valid-v-slot -->
     <template #item.actions="{ item }">
-      <v-icon
-        size="small"
-        class="me-4"
-        @click="console.log(item)"
+      <v-btn
         icon="fas fa-pencil"
         color="primary"
+        size="small"
+        variant="text"
+        :to="`/bins/edit/${item.id}`"
       />
 
-      <v-icon
-        size="small"
-        @click="console.log(item)"
-        icon="fas fa-trash"
-        color="red"
-      />
+      <v-btn icon="fas fa-trash" color="red" size="small" variant="text" />
     </template>
   </v-data-table-server>
 </template>
@@ -54,7 +49,7 @@ const data = [
     owner: 'Đặng Quốc Long',
   },
   {
-    id: 'ptit 2',
+    id: 'ptit-2',
     name: 'Điểm thu IEC 2',
     lat: 20.980075,
     lon: 105.794389,

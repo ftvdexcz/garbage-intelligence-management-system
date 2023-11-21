@@ -3,6 +3,7 @@ import AppMap from '@/components/map/AppMap.vue';
 import HomeView from '@/views/HomeView.vue';
 import CreateBin from '@/components/bins/CreateBin.vue';
 import ListBin from '@/components/bins/ListBin.vue';
+import EditBin from '@/components/bins/EditBin.vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
@@ -26,6 +27,11 @@ const routes: Array<RouteRecordRaw> = [
           {
             path: 'add',
             component: CreateBin,
+          },
+          {
+            path: 'edit/:id',
+            component: EditBin,
+            props: true,
           },
         ],
       },

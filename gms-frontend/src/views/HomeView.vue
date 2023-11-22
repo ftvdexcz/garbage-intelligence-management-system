@@ -95,7 +95,7 @@ const navItem = [
     title: 'Cảnh báo',
     value: 'Cảnh báo',
     icon: 'fas fa-triangle-exclamation',
-    link: '/warn',
+    link: '/warning',
   },
 ];
 </script>

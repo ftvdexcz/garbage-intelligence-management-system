@@ -78,6 +78,16 @@
                     <v-text-field
                       v-model="email"
                       :rules="emailRules"
+                      label="Khối lượng tối đa"
+                      hide-details
+                      required
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" class="mb-3">
+                    <v-text-field
+                      v-model="email"
+                      :rules="emailRules"
                       label="Camera"
                       hide-details
                       required
@@ -132,14 +142,23 @@
           </v-card-text>
         </v-card>
 
-        <v-btn
-          width="100%"
-          color="primary"
-          append-icon="fas fa-floppy-disk"
-          class="mt-4"
-        >
-          Lưu
-        </v-btn>
+        <v-container>
+          <v-row justify="space-between">
+            <v-col cols="6">
+              <v-btn width="100%" color="grey-lighten-5"> Hủy </v-btn>
+            </v-col>
+
+            <v-col cols="6">
+              <v-btn
+                width="100%"
+                color="primary"
+                append-icon="fas fa-floppy-disk"
+              >
+                Lưu
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
       </v-col>
     </v-row>
   </v-container>

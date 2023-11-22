@@ -1,9 +1,14 @@
 import AppBin from '@/components/bins/AppBin.vue';
+import AppTruck from '@/components/truck/AppTruck.vue';
+import AppWarning from '@/components/warning/AppWarning.vue';
 import AppMap from '@/components/map/AppMap.vue';
 import HomeView from '@/views/HomeView.vue';
 import CreateBin from '@/components/bins/CreateBin.vue';
 import ListBin from '@/components/bins/ListBin.vue';
 import EditBin from '@/components/bins/EditBin.vue';
+import CreateTruck from '@/components/truck/CreateTruck.vue';
+import ListTruck from '@/components/truck/ListTruck.vue';
+import EditTruck from '@/components/truck/EditTruck.vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
@@ -15,6 +20,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/map',
         component: AppMap,
+      },
+      {
+        path: '/warning',
+        component: AppWarning,
       },
       {
         path: '/bins',
@@ -31,6 +40,25 @@ const routes: Array<RouteRecordRaw> = [
           {
             path: 'edit/:id',
             component: EditBin,
+            props: true,
+          },
+        ],
+      },
+      {
+        path: '/trucks',
+        component: AppTruck,
+        children: [
+          {
+            path: '',
+            component: ListTruck,
+          },
+          {
+            path: 'add',
+            component: CreateTruck,
+          },
+          {
+            path: 'edit/:id',
+            component: EditTruck,
             props: true,
           },
         ],

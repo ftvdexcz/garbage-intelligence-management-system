@@ -10,32 +10,20 @@
   >
     <template #top>
       <v-toolbar flat color="primary" class="d-flex align-center">
-        <v-toolbar-title>Điểm thu rác</v-toolbar-title>
+        <v-toolbar-title>Xe rác</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn
-          to="/bins/add"
+          to="/trucks/add"
           prepend-icon="fas fa-plus"
           variant="outlined"
           flat
         >
-          Thêm điểm thu rác
+          Thêm Xe rác
         </v-btn>
       </v-toolbar>
     </template>
     <!-- eslint-disable-next-line vue/valid-v-slot -->
     <template #item.actions="{ item }">
-      <v-tooltip text="Chi tiết" location="bottom">
-        <template v-slot:activator="{ props }">
-          <v-btn
-            icon="fas fa-eye"
-            color="white"
-            size="small"
-            variant="text"
-            v-bind="props"
-            :to="`/bins/detail/${item.id}`"
-          />
-        </template>
-      </v-tooltip>
       <v-tooltip text="Sửa" location="bottom">
         <template v-slot:activator="{ props }">
           <v-btn
@@ -44,10 +32,11 @@
             size="small"
             variant="text"
             v-bind="props"
-            :to="`/bins/edit/${item.id}`"
+            :to="`/trucks/edit/${item.id}`"
           />
         </template>
       </v-tooltip>
+
       <v-tooltip text="Xóa" location="bottom">
         <template v-slot:activator="{ props }">
           <v-btn
@@ -68,27 +57,22 @@ import { reactive, ref } from 'vue';
 
 const data = [
   {
-    id: 'ptit',
+    id: 1,
+    plate: '30H-12345',
     company: 'Điểm thu IEC',
-    lat: 20.980075,
-    lon: 105.794389,
-    owner: 'Đặng Quốc Long',
-  },
-  {
-    id: 'ptit-2',
-    company: 'Điểm thu IEC 2',
-    lat: 20.980075,
-    lon: 105.794389,
-    owner: 'Đặng Quốc Long 2',
+    max_weight: 15.99,
   },
 ];
 
 const headers: any = [
-  { title: 'Mã doanh nghiệp', key: 'id', align: 'start', sortable: false },
-  { title: 'Tên doanh nghiệp', key: 'company', align: 'start' },
-  { title: 'Vĩ độ (Lat)', key: 'lat', align: 'start', sortable: false },
-  { title: 'Kinh độ (Lon)', key: 'lon', align: 'start', sortable: false },
-  { title: 'Chủ sở hữu', key: 'owner', align: 'start' },
+  { title: 'Biển số xe', key: 'plate', align: 'start', sortable: false },
+  { title: 'Đơn vị thu gom', key: 'company', align: 'start' },
+  {
+    title: 'Khối lượng tối đa (kg)',
+    key: 'max_weight',
+    align: 'start',
+    sortable: false,
+  },
   { title: 'Actions', key: 'actions', sortable: false, align: 'center' },
 ];
 

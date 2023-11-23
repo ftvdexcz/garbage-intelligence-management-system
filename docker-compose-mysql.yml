@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+  mysql:
+    image: mysql:8.0.13
+    container_name: gms-garbage-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: garbage-service
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./database/db:/var/lib/mysql

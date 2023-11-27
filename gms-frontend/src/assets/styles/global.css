@@ -1,9 +1,0 @@
-html {
-  overflow: hidden;
-}
-
-.v-main {
-  overflow: auto;
-  background-color: #212121;
-  /* max-height: 100vh; */
-}

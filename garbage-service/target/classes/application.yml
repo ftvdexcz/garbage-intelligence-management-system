@@ -11,7 +11,6 @@ server:
     include-stacktrace: on_param
     include-exception: false
 
-reflectoring.trace: true
 
 # actuator metrics
 management.endpoint.metrics.enabled: true
@@ -33,7 +32,7 @@ management.endpoint.shutdown.enabled: true
 #              BasicBinder: TRACE
 spring:
   application:
-    name: kafka-service
+    name: garbage-service
   jackson:
     property-naming-strategy: SNAKE_CASE # since jackson 2.7
     time-zone: Asia/Ho_Chi_Minh
@@ -59,7 +58,7 @@ spring:
 mysql:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/garbage-service?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Ho_Chi_Minh&useLegacyDatetimeCode=false}
+    url: ${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/garbage_service?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Ho_Chi_Minh&useLegacyDatetimeCode=false}
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:123456}
 

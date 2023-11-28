@@ -1,0 +1,30 @@
+package ptit.gms.config;
+
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Data
+@Component
+public class Config {
+    @Value("${env}")
+    private String env;
+
+    @Value("${mysql.datasource.driver-class-name}")
+    private String mysqlClassName;
+
+    @Value("${mysql.datasource.url}")
+    private String mysqlUrl;
+
+    @Value("${mysql.datasource.username}")
+    private String mysqlUsername;
+
+    @Value("${mysql.datasource.password}")
+    private String mysqlPassword;
+
+    @Value("${jwt.expiration}")
+    private long jwtExpirationMs;
+
+    @Value("${jwt.secret-key}")
+    private String jwtSecretKey;
+}

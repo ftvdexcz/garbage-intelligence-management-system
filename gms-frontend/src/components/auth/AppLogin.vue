@@ -1,0 +1,91 @@
+<template>
+  <div class="app-map">
+    <div class="leaflet-map">
+      <l-map
+        ref="map"
+        :center="[20.980605, 105.787527]"
+        :zoom="10"
+        :max-zoom="10"
+        :min-zoom="10"
+      >
+        <l-tile-layer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          layer-type="base"
+          name="OpenStreetMap"
+        />
+      </l-map>
+    </div>
+
+    <div
+      class="w-100 h-100 d-flex justify-center align-center"
+      style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      "
+    >
+      <v-card
+        variant="outlined"
+        width="500px"
+        style="background-color: #212121"
+      >
+        <template #title> Đăng nhập </template>
+        <v-card-text>
+          <v-form>
+            <v-container>
+              <v-row>
+                <v-col cols="12" class="mb-3">
+                  <v-text-field
+                    v-model="firstname"
+                    :counter="10"
+                    label="Email"
+                    required
+                    hide-details
+                  ></v-text-field>
+                </v-col>
+
+                <v-col cols="12" class="mb-3">
+                  <v-text-field
+                    v-model="lastname"
+                    :counter="10"
+                    label="Mật khẩu"
+                    hide-details
+                    required
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-btn width="100%" size="large" color="primary" class="mt-4">
+                Đăng nhập
+              </v-btn>
+            </v-container>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+
+import { LMap, LTileLayer } from '@vue-leaflet/vue-leaflet';
+
+const valid = ref<boolean>(false);
+const firstname = ref<string>('');
+const lastname = ref<string>('');
+</script>
+
+<style scoped>
+.app-map {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.leaflet-map {
+  height: 100%;
+  width: 100%;
+}
+</style>

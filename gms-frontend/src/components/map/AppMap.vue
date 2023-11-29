@@ -28,8 +28,6 @@
 
 <script lang="ts" setup>
 import InfoMap from './InfoMap.vue';
-
-import 'leaflet/dist/leaflet.css';
 import {
   LMap,
   LTileLayer,

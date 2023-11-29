@@ -23,6 +23,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 
 // css
 import '@/assets/styles/global.css';
+import 'leaflet/dist/leaflet.css';
 
 loadFonts();
 

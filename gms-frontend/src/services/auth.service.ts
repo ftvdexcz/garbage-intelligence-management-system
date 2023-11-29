@@ -1,16 +1,17 @@
 import { createInstance } from '@/services/index';
 import axios from 'axios';
 
-interface CatDataType {
-  id: string;
-  height: number;
-  url: string;
-  width: number;
+interface authResponse {
+  acccessToken: string;
+  user_id: string;
 }
 
-const getCatImg = async (): Promise<CatDataType> => {
+export const login = async (
+  email: string,
+  password: string
+): Promise<authResponse> => {
   try {
-    return await createInstance().get('/v1/images/search');
+    return await createInstance().get('/auth');
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw error;

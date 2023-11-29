@@ -56,7 +56,7 @@
                 </v-col>
               </v-row>
               <v-btn
-                @click.self="login"
+                @click.self="loginBtn"
                 width="100%"
                 size="large"
                 color="primary"
@@ -76,6 +76,7 @@
 import { ref } from 'vue';
 
 import { LMap, LTileLayer } from '@vue-leaflet/vue-leaflet';
+import { login } from '@/services/auth.service';
 const valid = ref<boolean>(false);
 const email = ref<string>('');
 const password = ref<string>('');
@@ -101,10 +102,8 @@ const passwordRules = [
   },
 ];
 
-const login = () => {
-  if (valid.value) {
-    //
-  }
+const loginBtn = () => {
+  login('', '');
 };
 </script>
 

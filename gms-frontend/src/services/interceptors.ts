@@ -6,11 +6,11 @@ import {
 } from 'axios';
 import { useCommonStore } from '@/stores/common';
 
-interface BaseResponse<T> {
+interface BaseResponse {
   code: number;
   status: string;
   message: string;
-  data: T;
+  data: any;
 }
 
 const onLoading = async (type: string) => {
@@ -48,7 +48,7 @@ const onRequestError = (error: Error | AxiosError): Promise<AxiosError> => {
   return Promise.reject(error);
 };
 
-const onResponse = (response: AxiosResponse): AxiosResponse => {
+const onResponse = (response: AxiosResponse): AxiosResponse<BaseResponse> => {
   onLoading('end');
   return response;
 };

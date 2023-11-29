@@ -34,16 +34,14 @@ public class CellServiceImpl implements CellService {
     @Transactional
     public LoadCellResDto loadCell(LoadCellReqDto loadCellReqDto) {
         log.info("[CellServiceImpl - loadCell] loadCellReqDto: {}", loadCellReqDto);
-
         String binCode = loadCellReqDto.getBinCode();
-
-        Optional<BinEntity> bin = binRepository.findById(binCode);
-        if(bin.isEmpty()){
-            throw ApiException.ErrNotFound().message(String.format("bin_code %s (mã điểm thu) không tồn tại", binCode)).build();
+        BinEntity bin = binRepository.findByStatusAndId(Constant.STATUS_BIN_ACTIVE, binCode);
+        if(!Constant.X_USER_ROLE.equals(Constant.ADMIN_ROLE_TYPE) && !Constant.X_USER_ROLE.equals((Constant.INTERNAL_ROLE_TYPE))){
+            if(!Constant.X_USER_ID.equals(bin.getCreatedUser()))
+                throw ApiException.ErrUnauthorized().build();
         }
 
-        BinEntity binEntity = bin.get();
-        if(binEntity.getStatus() != Constant.STATUS_BIN_ACTIVE){
+        if(bin == null){
             throw ApiException.ErrNotFound().message(String.format("bin_code %s (mã điểm thu) không tồn tại", binCode)).build();
         }
 

@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface BinRepository extends JpaRepository<BinEntity, String> {
+    BinEntity findByStatusAndId(int status, String id);
 
     @Query("SELECT new ptit.gms.dto.response.GetBinResDto(b.id," +
             " b.company," +

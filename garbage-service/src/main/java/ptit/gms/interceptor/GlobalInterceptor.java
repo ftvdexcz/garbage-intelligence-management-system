@@ -14,7 +14,15 @@ public class GlobalInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Constant.X_USER_ID = request.getHeader(Constant.X_USER_ID_HEADER);
-        log.info("[GlobalInterceptor - preHandler] X-USER-ID: {}", Constant.X_USER_ID);
+        Constant.X_USER_ROLE = request.getHeader(Constant.X_USER_ROLE_HEADER);
+
+        if(Constant.X_USER_ID == null)
+            Constant.X_USER_ID = "";
+
+        if(Constant.X_USER_ROLE == null)
+            Constant.X_USER_ROLE = "";
+
+        log.info("[GlobalInterceptor - preHandler] X-USER-ID: {}, X-USER-ROLE: {}", Constant.X_USER_ID, Constant.X_USER_ROLE);
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 }

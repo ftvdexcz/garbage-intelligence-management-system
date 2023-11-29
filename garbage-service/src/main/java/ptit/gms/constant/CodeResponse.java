@@ -13,8 +13,8 @@ public enum CodeResponse {
     NOT_FOUND(HttpURLConnection.HTTP_NOT_FOUND, "NotFound", "Không tìm thấy thông tin yêu cầu"),
     INVALID_ARGUMENT(HttpURLConnection.HTTP_BAD_REQUEST, "InvalidArgument", "Tham số không hợp lệ"),
     INTERNAL(HttpURLConnection.HTTP_INTERNAL_ERROR, "InternalServerError", "Có lỗi xảy ra"),
-    FORBIDDEN(HttpURLConnection.HTTP_FORBIDDEN, "Forbidden", "Bạn không có quyền truy cập tài nguyên"),
-    UNAUTHORIZED(HttpURLConnection.HTTP_UNAUTHORIZED, "Unauthorized", "Không xác thực được thông tin người dùng"),
+    FORBIDDEN(HttpURLConnection.HTTP_FORBIDDEN, "Forbidden", "Không xác thực được thông tin người dùng"),
+    UNAUTHORIZED(HttpURLConnection.HTTP_UNAUTHORIZED, "Unauthorized", "Bạn không có quyền truy cập tài nguyên"),
     FILE_IO_EXCEPTION(HttpURLConnection.HTTP_BAD_REQUEST, "FileException", "Có lỗi xảy ra khi xử lý file"),
     DATA_LOSS(HttpURLConnection.HTTP_INTERNAL_ERROR, "DataLoss", "Có lỗi xảy ra với dữ liệu");
 

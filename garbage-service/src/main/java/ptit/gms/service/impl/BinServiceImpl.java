@@ -50,6 +50,10 @@ public class BinServiceImpl implements BinService {
     public CreateBinResDto createBin(CreateBinReqDto createBinReqDto, MultipartFile file) {
         log.info("[BinServiceImpl - createBin] createBinReqDto: {}", createBinReqDto);
 
+        if(!Constant.X_USER_ROLE.equals(Constant.ADMIN_ROLE_TYPE) && !Constant.X_USER_ROLE.equals(Constant.USER_ROLE_TYPE))
+            throw ApiException.ErrUnauthorized().build();
+
+
         CompanyOwnerEntity ownerEntity = CompanyOwnerEntity.builder().
                 id(GenerateUtils.generateRandomUUID()).
                 name(createBinReqDto.getOwnerName()).
@@ -75,7 +79,7 @@ public class BinServiceImpl implements BinService {
                 lon(createBinReqDto.getLon()).
                 ownerId(ownerEntity.getId()).
                 capacity(createBinReqDto.getCapacity()).
-                createdUser(GenerateUtils.generateRandomUUID()). // get created user id from header later ...
+                createdUser(Constant.X_USER_ID). // get created user id from header ...
                 address(createBinReqDto.getAddress()).
                 imageUrl(imageUrl).
                 status(Constant.STATUS_BIN_ACTIVE).
@@ -116,6 +120,11 @@ public class BinServiceImpl implements BinService {
         log.info("[BinServiceImpl - getBin] id: {}", id);
 
         GetBinResDto bin = binRepository.getBinById(id);
+        if(!Constant.X_USER_ROLE.equals(Constant.ADMIN_ROLE_TYPE)){
+            if(!Constant.X_USER_ID.equals(bin.getCreatedUser()))
+                throw ApiException.ErrUnauthorized().build();
+        }
+
         if(bin == null){
             throw ApiException.ErrNotFound().message(String.format("bin_code %s (mã điểm thu) không tồn tại", id)).build();
         }
@@ -127,14 +136,15 @@ public class BinServiceImpl implements BinService {
     public List<GetBinResDto> listBins(){
         log.info("[BinServiceImpl - listBins]");
 
-        String role = "ADMIN";
         List<GetBinResDto> bins = new ArrayList<>();
 
         // check role, if user: get bin belong to this user, if admin return all
-        if (role.equals("ADMIN")){
+        if (Constant.X_USER_ROLE.equals(Constant.ADMIN_ROLE_TYPE)){
             bins = binRepository.listBins();
-        }else if(role.equals("USER")){
-            bins = binRepository.listBinsByCreatedUser("id-of-user");
+        }else if(Constant.X_USER_ROLE.equals(Constant.USER_ROLE_TYPE)){
+            bins = binRepository.listBinsByCreatedUser(Constant.X_USER_ID);
+        } else {
+            throw ApiException.ErrUnauthorized().build();
         }
         return bins;
     }
@@ -142,14 +152,18 @@ public class BinServiceImpl implements BinService {
     @Override
     public void deleteBin(String id){
         log.info("[BinServiceImpl - deleteBin] id: {}", id);
-        Optional<BinEntity> bin = binRepository.findById(id);
-        if(bin.isEmpty()){
+        BinEntity bin = binRepository.findByStatusAndId(Constant.STATUS_BIN_ACTIVE, id);
+        if(!Constant.X_USER_ROLE.equals(Constant.ADMIN_ROLE_TYPE)){
+            if(!Constant.X_USER_ID.equals(bin.getCreatedUser()))
+                throw ApiException.ErrUnauthorized().build();
+        }
+
+        if(bin == null){
             throw ApiException.ErrNotFound().message(String.format("bin_code %s (mã điểm thu) không tồn tại", id)).build();
         }
 
-        BinEntity binEntity = bin.get();
-        binEntity.setStatus(Constant.STATUS_BIN_INACTIVE);
-        binRepository.save(binEntity);
+        bin.setStatus(Constant.STATUS_BIN_INACTIVE);
+        binRepository.save(bin);
     }
 
     @Override
@@ -157,13 +171,13 @@ public class BinServiceImpl implements BinService {
     public UpdateBinResDto updateBin(String id, UpdateBinReqDto updateBinReqDto, MultipartFile file) {
         log.info("[BinServiceImpl - updateBin] id: {}, updateBinResDto: {}", id, updateBinReqDto);
 
-        Optional<BinEntity> bin = binRepository.findById(id);
-        if(bin.isEmpty()){
-            throw ApiException.ErrNotFound().message(String.format("bin_code %s (mã điểm thu) không tồn tại", id)).build();
+        BinEntity bin = binRepository.findByStatusAndId(Constant.STATUS_BIN_ACTIVE, id);
+        if(!Constant.X_USER_ROLE.equals(Constant.ADMIN_ROLE_TYPE)){
+            if(!Constant.X_USER_ID.equals(bin.getCreatedUser()))
+                throw ApiException.ErrUnauthorized().build();
         }
 
-        BinEntity binEntity = bin.get();
-        if(binEntity.getStatus() != Constant.STATUS_BIN_ACTIVE){
+        if(bin == null){
             throw ApiException.ErrNotFound().message(String.format("bin_code %s (mã điểm thu) không tồn tại", id)).build();
         }
 
@@ -176,26 +190,26 @@ public class BinServiceImpl implements BinService {
             }
         }
         if(!imageUrl.equals(""))
-            binEntity.setImageUrl(imageUrl);
+            bin.setImageUrl(imageUrl);
 
         if(updateBinReqDto.getCompany() != null)
-            binEntity.setCompany(updateBinReqDto.getCompany());
+            bin.setCompany(updateBinReqDto.getCompany());
 
         if(updateBinReqDto.getLat() != null)
-            binEntity.setLat(updateBinReqDto.getLat());
+            bin.setLat(updateBinReqDto.getLat());
 
         if(updateBinReqDto.getLon() != null)
-            binEntity.setLon(updateBinReqDto.getLon());
+            bin.setLon(updateBinReqDto.getLon());
 
         if(updateBinReqDto.getCapacity() != null)
-            binEntity.setCapacity(updateBinReqDto.getCapacity());
+            bin.setCapacity(updateBinReqDto.getCapacity());
 
         if(updateBinReqDto.getAddress() != null)
-            binEntity.setAddress(updateBinReqDto.getAddress());
+            bin.setAddress(updateBinReqDto.getAddress());
 
-        binRepository.save(binEntity);
+        binRepository.save(bin);
 
-        Optional<CompanyOwnerEntity> owner = companyOwnerRepository.findById(binEntity.getOwnerId());
+        Optional<CompanyOwnerEntity> owner = companyOwnerRepository.findById(bin.getOwnerId());
         if(owner.isEmpty()){
             throw ApiException.ErrDataLoss().build();
         }
@@ -213,20 +227,19 @@ public class BinServiceImpl implements BinService {
         companyOwnerRepository.save(ownerEntity);
 
         UpdateBinResDto updateBinResDto = UpdateBinResDto.builder().
-                id(binEntity.getId()).
-                company(binEntity.getCompany()).
-                address(binEntity.getAddress()).
-                lat(binEntity.getLat()).
-                lon(binEntity.getLon()).
-                capacity(binEntity.getCapacity()).
-                imageUrl(binEntity.getImageUrl()).
+                id(bin.getId()).
+                company(bin.getCompany()).
+                address(bin.getAddress()).
+                lat(bin.getLat()).
+                lon(bin.getLon()).
+                capacity(bin.getCapacity()).
+                imageUrl(bin.getImageUrl()).
                 owner(CompanyOwnerResDto.builder().
                         id(ownerEntity.getId()).
                         name(ownerEntity.getName()).
                         phone(ownerEntity.getPhone()).
                         email(ownerEntity.getEmail()).
                         build()).
-                createdUser(binEntity.getCreatedUser()).
                 build();
 
         return updateBinResDto;

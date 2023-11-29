@@ -9,6 +9,18 @@ public class Constant {
 
     public static String X_USER_ID_HEADER = "X-USER-ID";
 
+    public static String X_USER_ROLE_HEADER = "X-USER-ROLE";
+
     // get from header "X_USER_ID"
-    public static String X_USER_ID = null;
+    public static String X_USER_ID = "";
+
+    // get from header "X_USER_ROLE"
+
+    public static String X_USER_ROLE = "";
+
+    public static String ADMIN_ROLE_TYPE = "2";
+
+    public static String USER_ROLE_TYPE = "1";
+
+    public static String INTERNAL_ROLE_TYPE = "3";
 }

@@ -23,4 +23,8 @@ public class ApiException extends RuntimeException{
     public static ApiExceptionBuilder ErrDataLoss(){
         return new ApiExceptionBuilder().code(CodeResponse.DATA_LOSS);
     }
+
+    public static ApiExceptionBuilder ErrUnauthorized(){
+        return new ApiExceptionBuilder().code(CodeResponse.UNAUTHORIZED);
+    }
 }

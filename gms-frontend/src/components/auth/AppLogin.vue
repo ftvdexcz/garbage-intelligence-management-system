@@ -33,30 +33,35 @@
       >
         <template #title> Đăng nhập </template>
         <v-card-text>
-          <v-form>
+          <v-form v-model="valid">
             <v-container>
               <v-row>
                 <v-col cols="12" class="mb-3">
                   <v-text-field
-                    v-model="firstname"
-                    :counter="10"
+                    input
+                    type="email"
+                    :rules="emailRules"
+                    v-model="email"
                     label="Email"
-                    required
-                    hide-details
                   ></v-text-field>
                 </v-col>
-
                 <v-col cols="12" class="mb-3">
                   <v-text-field
-                    v-model="lastname"
-                    :counter="10"
+                    input
+                    v-model="password"
+                    :rules="passwordRules"
                     label="Mật khẩu"
-                    hide-details
-                    required
+                    type="password"
                   ></v-text-field>
                 </v-col>
               </v-row>
-              <v-btn width="100%" size="large" color="primary" class="mt-4">
+              <v-btn
+                @click.self="login"
+                width="100%"
+                size="large"
+                color="primary"
+                class="mt-4"
+              >
                 Đăng nhập
               </v-btn>
             </v-container>
@@ -71,10 +76,36 @@
 import { ref } from 'vue';
 
 import { LMap, LTileLayer } from '@vue-leaflet/vue-leaflet';
-
 const valid = ref<boolean>(false);
-const firstname = ref<string>('');
-const lastname = ref<string>('');
+const email = ref<string>('');
+const password = ref<string>('');
+
+const emailRules = [
+  (value: string) => {
+    if (value) return true;
+
+    return 'Vui lòng nhập email!';
+  },
+  (value: string) => {
+    if (/.+@.+\..+/.test(value)) return true;
+
+    return 'Email không hợp lệ!';
+  },
+];
+
+const passwordRules = [
+  (value: string) => {
+    if (value.length > 0) return true;
+
+    return 'Vui lòng nhập mật khẩu!';
+  },
+];
+
+const login = () => {
+  if (valid.value) {
+    //
+  }
+};
 </script>
 
 <style scoped>

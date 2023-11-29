@@ -2,6 +2,7 @@ package ptit.gms.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -27,7 +28,6 @@ public class CreateUserReqDto {
     @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "email không hợp lệ")
     private String email;
 
-    @JsonProperty("role")
-    @NotBlank(message = "role không được để trống")
-    private String role;
+    @JsonProperty("role_type")
+    private Integer roleType;
 }

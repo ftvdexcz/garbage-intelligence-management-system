@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.WebRequest;
 import ptit.gms.config.Config;
 import ptit.gms.exception.ApiException;
+import ptit.gms.store.redis.repository.RedisRepository;
+import ptit.gms.utils.JsonUtils;
 import ptit.gms.utils.TimeUtils;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
@@ -18,6 +20,9 @@ public class JwtTokenProvider {
     @Autowired
     Config config;
 
+    @Autowired
+    RedisRepository redisRepository;
+
     public String signToken(String userId) {
         Date expiryDate = new Date(TimeUtils.getCurrentTimestampMs() + config.getJwtExpirationMs());
 
@@ -27,6 +32,9 @@ public class JwtTokenProvider {
                 .setExpiration(expiryDate)
                 .signWith(new SecretKeySpec(config.getJwtSecretKey().getBytes(), SignatureAlgorithm.HS256.getJcaName()), SignatureAlgorithm.HS256)
                 .compact();
+
+        // cache to redis
+        redisRepository.setKeyValueExpire(accessToken, userId, config.getJwtExpirationMs());
 
         return accessToken;
     }

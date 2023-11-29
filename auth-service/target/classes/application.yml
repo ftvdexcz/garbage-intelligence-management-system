@@ -61,5 +61,12 @@ mysql:
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:123456}
 
+redis.host: 127.0.0.1
+redis.port: 6379
+redis.socket-timeout: 10
+redis.command-timeout: 30
+
 jwt.expiration: 3600000
 jwt.secret-key: b1d782d0983b3043d4fb16420af6dcc6aa9bf1747b99568eb4ef50c8cdc55b41aa8c53aebc736c09a53ce21b28ce00ca4a560c56aa94d7a30d94fdad5c2d6202c8a40decd7377faf6553e82ff843283c
+
+api.secret-key: lJHqePHhgVPHOiwSvsDSxGTgHJSOfksqHQNZLzHFDHlVyhlWmBEbQdynAsiMSWLbNlOBifjOrbqSvrAcKmxfBUAyJZZcJjMrlGRABfndveWnYcuRsnxTcCRANQNyhoQA

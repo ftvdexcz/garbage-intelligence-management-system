@@ -18,8 +18,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RoleEntity {
     @Id
-    @Column(name = "code")
-    private String code;
+    @Column(name = "role_type")
+    private int roleType;
 
     @Column(name = "role_name")
     private String roleName;

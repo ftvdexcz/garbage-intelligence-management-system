@@ -17,7 +17,7 @@ import ptit.gms.utils.ResponseUtils;
 import java.util.List;
 
 @Slf4j
-@RestController("/users")
+@RestController
 @RequestMapping("/users")
 public class UserController {
     @Autowired

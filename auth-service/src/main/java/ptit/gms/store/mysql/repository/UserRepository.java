@@ -16,14 +16,16 @@ public interface UserRepository extends JpaRepository<UserEntity, String> {
 
     UserEntity findByEmailAndStatus(String email, int status);
 
-    @Query("SELECT NEW ptit.gms.dto.response.UserResDto(u.id, u.username, u.phone, u.email, r.code, r.roleName, u.createdDate, u.updatedDate)" +
+    UserEntity findByIdAndStatus(String email, int status);
+
+    @Query("SELECT NEW ptit.gms.dto.response.UserResDto(u.id, u.username, u.phone, u.email, r.roleName, r.roleType, u.createdDate, u.updatedDate)" +
             " FROM UserEntity u INNER JOIN RoleEntity r ON " +
-            "u.roleCode = r.code WHERE u.status = 1 AND u.username LIKE CONCAT('%', :username, '%') " +
+            "u.roleType = r.roleType WHERE u.status = 1 AND u.username LIKE CONCAT('%', :username, '%') " +
             "AND u.email LIKE CONCAT('%', :email, '%')")
     Page<UserResDto> paginationUsers(String username, String email, Pageable pageable);
 
-    @Query("SELECT NEW ptit.gms.dto.response.UserResDto(u.id, u.username, u.phone, u.email, r.code, r.roleName, u.createdDate, u.updatedDate) " +
+    @Query("SELECT NEW ptit.gms.dto.response.UserResDto(u.id, u.username, u.phone, u.email, r.roleName, r.roleType, u.createdDate, u.updatedDate) " +
             "FROM UserEntity u INNER JOIN RoleEntity r ON " +
-            "u.roleCode = r.code WHERE u.status = 1 AND u.id = :user_id")
+            "u.roleType = r.roleType WHERE u.status = 1 AND u.id = :user_id")
     UserResDto getByUserId(@Param("user_id") String userId);
 }

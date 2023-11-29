@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @Slf4j
-@RestController()
+@RestController
 @RequestMapping("roles")
 public class RoleController {
     @Autowired

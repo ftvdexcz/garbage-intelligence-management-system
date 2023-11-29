@@ -18,6 +18,7 @@ import ptit.gms.service.RoleService;
 import ptit.gms.service.UserService;
 import ptit.gms.store.mysql.entity.UserEntity;
 import ptit.gms.store.mysql.repository.UserRepository;
+import ptit.gms.store.redis.repository.RedisRepository;
 import ptit.gms.utils.GenerateUtils;
 import ptit.gms.utils.auth.PasswordUtils;
 
@@ -36,18 +37,27 @@ public class UserServiceImpl implements UserService {
     @Autowired
     PasswordUtils passwordUtils;
 
+    @Autowired
+    RedisRepository redisRepository;
+
     @Override
     public CreateUserResDto createUser(CreateUserReqDto createUserReqDto) {
         log.info("[UserServiceImpl - createUser] createUserReqDto: {}", createUserReqDto);
+        if(!Constant.X_USER_ROLE.equals(Constant.ADMIN_ROLE_TYPE) && !Constant.X_USER_ROLE.equals(Constant.USER_ROLE_TYPE)){
+            throw ApiException.ErrUnauthorized().build();
+        }
 
         boolean existedEmail = userRepository.existsByEmailAndStatus(createUserReqDto.getEmail(), Constant.STATUS_USER_ACTIVE);
         if (existedEmail){
             throw ApiException.ErrExisted().message("Email đã tồn tại").build();
         }
 
-        RoleResDto role = roleService.getRoleByCode(createUserReqDto.getRole());
+        if(Constant.X_USER_ROLE.equals(Constant.USER_ROLE_TYPE))
+            createUserReqDto.setRoleType(Integer.valueOf(Constant.USER_ROLE_TYPE));
+
+        RoleResDto role = roleService.getRoleByType(createUserReqDto.getRoleType());
         if (role == null){
-            throw ApiException.ErrInvalidArgument().message("role (mã role) không hợp lệ").build();
+            throw ApiException.ErrInvalidArgument().message("role_type không hợp lệ").build();
         }
 
         String id = GenerateUtils.generateRandomUUID();
@@ -58,7 +68,7 @@ public class UserServiceImpl implements UserService {
                 phone(createUserReqDto.getPhone()).
                 email(createUserReqDto.getEmail()).
                 status(Constant.STATUS_USER_ACTIVE).
-                roleCode(createUserReqDto.getRole()).
+                roleType(createUserReqDto.getRoleType()).
                 build();
 
         userRepository.save(userEntity);
@@ -75,6 +85,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public PaginationResDto<UserResDto> listUsers(int page, int size, String username, String email){
         log.info("[UserServiceImpl - listUsers] page: {}, size: {}, username: {}, email: {}", page, size, username, email);
+        if(!Constant.X_USER_ROLE.equals(Constant.ADMIN_ROLE_TYPE)){
+            throw ApiException.ErrUnauthorized().build();
+        }
+
         Pageable paginationOption = PageRequest.of(page, size, Sort.by(List.of(
                 new Sort.Order(Sort.Direction.DESC, "createdDate")
         )));
@@ -91,13 +105,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(String id) {
         log.info("[UserServiceImpl - deleteUser] id: {}", id);
-        Optional<UserEntity> user = userRepository.findById(id);
-        if(user.isEmpty()){
+        if(!Constant.X_USER_ROLE.equals(Constant.ADMIN_ROLE_TYPE)){
+            if(!Constant.X_USER_ID.equals(id)){
+                throw ApiException.ErrUnauthorized().build();
+            }
+        }
+
+        UserEntity user = userRepository.findByIdAndStatus(id, Constant.STATUS_USER_ACTIVE);
+        if(user == null){
             throw ApiException.ErrNotFound().message(String.format("user id %s không tồn tại", id)).build();
         }
 
-        UserEntity userEntity = user.get();
-        userEntity.setStatus(Constant.STATUS_USER_INACTIVE);
-        userRepository.save(userEntity);
+        user.setStatus(Constant.STATUS_USER_INACTIVE);
+        userRepository.save(user);
+
+        // sync redis
+        redisRepository.deleteKey(user.getId());
     }
 }

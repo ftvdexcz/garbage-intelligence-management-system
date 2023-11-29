@@ -10,5 +10,5 @@ public interface RoleService {
 
     List<RoleResDto> listRoles();
 
-    RoleResDto getRoleByCode(String roleCode);
+    RoleResDto getRoleByType(int roleType);
 }

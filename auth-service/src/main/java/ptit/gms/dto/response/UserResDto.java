@@ -8,13 +8,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResDto {
+public class UserResDto implements Serializable {
     @JsonProperty("id")
     private String id;
 
@@ -38,7 +39,7 @@ public class UserResDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Ho_Chi_Minh")
     private Date updatedDate;
 
-    public UserResDto(String id, String username, String phone, String email, String roleCode, String roleName,
+    public UserResDto(String id, String username, String phone, String email, String roleName, int roleType,
                       Date createdDate, Date updatedDate){
         this.id = id;
         this.username = username;
@@ -46,6 +47,6 @@ public class UserResDto {
         this.email = email;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
-        this.role = RoleResDto.builder().code(roleCode).roleName(roleName).build();
+        this.role = RoleResDto.builder().roleName(roleName).roleType(roleType).build();
     }
 }

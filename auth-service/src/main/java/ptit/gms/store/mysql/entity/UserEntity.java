@@ -33,8 +33,8 @@ public class UserEntity {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "role_code")
-    private String roleCode;
+    @Column(name = "role_type")
+    private int roleType;
 
     @Column(name = "status")
     private int status;

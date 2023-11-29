@@ -10,9 +10,11 @@ import java.util.List;
 
 @Repository
 public interface RoleRepository extends JpaRepository<RoleEntity, String> {
-    @Query("SELECT NEW ptit.gms.dto.response.RoleResDto(r.code, r.roleName) FROM RoleEntity r")
+
+    boolean existsByRoleType(int roleType);
+    @Query("SELECT NEW ptit.gms.dto.response.RoleResDto(r.roleName, r.roleType) FROM RoleEntity r")
     List<RoleResDto> listRoles();
 
-    @Query("SELECT NEW ptit.gms.dto.response.RoleResDto(r.code, r.roleName) FROM RoleEntity r where r.code = :code")
-    RoleResDto findByCode(@Param("code") String code);
+    @Query("SELECT NEW ptit.gms.dto.response.RoleResDto(r.roleName, r.roleType) FROM RoleEntity r where r.roleType = :type")
+    RoleResDto findByType(@Param("type") int roleType);
 }

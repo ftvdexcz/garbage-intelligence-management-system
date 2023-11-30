@@ -1,17 +1,21 @@
-import { createInstance } from '@/services/index';
+import { BaseResponse, createInstance } from '@/services/index';
 import axios from 'axios';
 
-interface authResponse {
+interface AuthResponse {
   acccessToken: string;
   user_id: string;
 }
 
+interface AuthRequest {
+  email: string;
+  password: string;
+}
+
 export const login = async (
-  email: string,
-  password: string
-): Promise<authResponse> => {
+  authRequest: AuthRequest
+): Promise<BaseResponse<AuthResponse>> => {
   try {
-    return await createInstance().get('/auth');
+    return await createInstance().post('/auth', authRequest);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw error;

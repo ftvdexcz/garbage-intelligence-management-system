@@ -102,8 +102,15 @@ const passwordRules = [
   },
 ];
 
-const loginBtn = () => {
-  login('', '');
+const loginBtn = async () => {
+  if (valid.value) {
+    const response = await login({
+      email: email.value,
+      password: password.value,
+    });
+
+    console.log(response.data);
+  }
 };
 </script>
 

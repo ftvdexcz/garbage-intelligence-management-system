@@ -24,6 +24,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 // css
 import '@/assets/styles/global.css';
 import 'leaflet/dist/leaflet.css';
+import { createPinia } from 'pinia';
 
 loadFonts();
 
@@ -62,6 +63,7 @@ const app = createApp(App);
 app.component('font-awesome-icon', FontAwesomeIcon);
 library.add(fas);
 library.add(far);
+app.use(createPinia());
 app.use(router);
 app.use(vuetify);
 app.mount('#app');

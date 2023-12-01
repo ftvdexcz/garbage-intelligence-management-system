@@ -10,6 +10,6 @@ public class AuthResDto {
     @JsonProperty("access_token")
     private String token;
 
-    @JsonProperty("user_id")
-    private String userId;
+    @JsonProperty("user")
+    private UserResDto user;
 }

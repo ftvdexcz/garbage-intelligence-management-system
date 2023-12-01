@@ -20,6 +20,8 @@ import ptit.gms.utils.TimeUtils;
 import ptit.gms.utils.auth.JwtTokenProvider;
 import ptit.gms.utils.auth.PasswordUtils;
 
+import java.util.Date;
+
 @Slf4j
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -50,11 +52,15 @@ public class AuthServiceImpl implements AuthService {
             throw ApiException.ErrBadCredentials().build();
         }
 
-        String accessToken = jwtTokenProvider.signToken(userEntity.getId());
+        String userId = userEntity.getId();
+        String accessToken = jwtTokenProvider.signToken(userId);
+
+        UserResDto user = userRepository.getByUserId(userId);
+        redisRepository.setKeyValueExpire(userId, user, Constant.REDIS_TTL_USER);
 
         return AuthResDto.builder().
                 token(accessToken).
-                userId(userEntity.getId()).
+                user(user).
                 build();
     }
 

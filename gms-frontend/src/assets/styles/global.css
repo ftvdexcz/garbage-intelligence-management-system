@@ -7,3 +7,22 @@ html {
   background-color: #212121;
   /* max-height: 100vh; */
 }
+
+.v-application {
+  position: relative;
+}
+
+#alert-message {
+  position: absolute;
+  z-index: 100000;
+  right: 56px;
+  bottom: 64px;
+}
+
+#app-progressive {
+  position: absolute;
+  z-index: 100000;
+  width: 100vw;
+  left: 0;
+  top: 0;
+}

@@ -26,17 +26,13 @@
         z-index: 1000;
       "
     >
-      <v-card
-        variant="outlined"
-        width="500px"
-        style="background-color: #212121"
-      >
+      <v-card width="500px" style="background-color: #212121">
         <template #title> Đăng nhập </template>
         <v-card-text>
-          <v-form v-model="valid">
+          <v-form v-model="valid" @submit.prevent="submitLoginForm">
             <v-container>
               <v-row>
-                <v-col cols="12" class="mb-3">
+                <v-col cols="12">
                   <v-text-field
                     input
                     type="email"
@@ -45,7 +41,7 @@
                     label="Email"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" class="mb-3">
+                <v-col cols="12">
                   <v-text-field
                     input
                     v-model="password"
@@ -56,7 +52,7 @@
                 </v-col>
               </v-row>
               <v-btn
-                @click.self="loginBtn"
+                type="submit"
                 width="100%"
                 size="large"
                 color="primary"
@@ -77,9 +73,14 @@ import { ref } from 'vue';
 
 import { LMap, LTileLayer } from '@vue-leaflet/vue-leaflet';
 import { login } from '@/services/auth.service';
+import { useAuthStore } from '@/stores/auth';
+import { useRouter } from 'vue-router';
+
 const valid = ref<boolean>(false);
 const email = ref<string>('');
 const password = ref<string>('');
+const authStore = useAuthStore();
+const router = useRouter();
 
 const emailRules = [
   (value: string) => {
@@ -102,14 +103,18 @@ const passwordRules = [
   },
 ];
 
-const loginBtn = async () => {
+const submitLoginForm = async () => {
+  console.log(valid.value);
   if (valid.value) {
     const response = await login({
       email: email.value,
       password: password.value,
     });
-
-    console.log(response.data);
+    if (response.code == 200) {
+      authStore.setUserAuth(response.data);
+      localStorage.setItem('access_token', authStore.accessToken);
+      router.push('/');
+    }
   }
 };
 </script>

@@ -1,10 +1,6 @@
+import { User } from '@/models/user';
 import { BaseResponse, createInstance } from '@/services/index';
-import axios from 'axios';
-
-interface AuthResponse {
-  acccessToken: string;
-  user_id: string;
-}
+import { UserAuth } from '@/stores/auth';
 
 interface AuthRequest {
   email: string;
@@ -13,14 +9,10 @@ interface AuthRequest {
 
 export const login = async (
   authRequest: AuthRequest
-): Promise<BaseResponse<AuthResponse>> => {
-  try {
-    return await createInstance().post('/auth', authRequest);
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      throw error;
-    } else {
-      throw new Error('different error than axios');
-    }
-  }
+): Promise<BaseResponse<UserAuth>> => {
+  return await createInstance().post('/auth', authRequest);
+};
+
+export const getMe = async (): Promise<BaseResponse<User>> => {
+  return await createInstance().get('/me');
 };

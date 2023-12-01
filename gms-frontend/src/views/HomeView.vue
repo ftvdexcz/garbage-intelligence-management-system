@@ -25,12 +25,13 @@
           </template>
 
           <v-list>
-            <v-list-item
-              v-for="(item, i) in [{ title: 'Hồ sơ' }, { title: 'Đăng xuất' }]"
-              :key="i"
-              :value="i"
-            >
-              <v-list-item-action>{{ item.title }}</v-list-item-action>
+            <v-list-item value="">
+              <v-list-item-action>{{ 'Hồ sơ' }}</v-list-item-action>
+            </v-list-item>
+            <v-list-item value="">
+              <v-list-item-action @click.self="logout">{{
+                'Đăng xuất'
+              }}</v-list-item-action>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -62,7 +63,19 @@
 </template>
 
 <script lang="ts" setup>
+import { useAuthStore } from '@/stores/auth';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+const authStore = useAuthStore();
+const router = useRouter();
+
+const logout = () => {
+  localStorage.removeItem('access_token');
+  authStore.removeUserAuth();
+  window.setTimeout(() => {
+    router.push('/login');
+  }, 1500);
+};
 
 const drawer = ref<boolean>(true);
 

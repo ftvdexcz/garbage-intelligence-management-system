@@ -22,15 +22,17 @@
               <v-list>
                 <v-list-item prepend-icon="far fa-building">
                   <template #default> Doanh nghiệp </template>
-                  <template #append> PTIT </template>
+                  <template #append> {{ bin?.company }} </template>
                 </v-list-item>
                 <v-list-item prepend-icon="fas fa-scale-balanced">
                   <template #default> Khối lượng </template>
-                  <template #append> 300.000 kg </template>
+                  <template #append>
+                    {{ bin?.weight.totalWeight }} (gram)
+                  </template>
                 </v-list-item>
                 <v-list-item prepend-icon="fas fa-location-dot">
                   <template #default> Vị trí </template>
-                  <template #append> 20.981612, 105.786347 </template>
+                  <template #append> {{ bin?.lat }}, {{ bin?.lon }} </template>
                 </v-list-item>
               </v-list>
             </v-card>
@@ -41,26 +43,22 @@
               <v-list>
                 <v-list-item prepend-icon="far fa-id-card">
                   <template #default> Mã doanh nghiệp </template>
-                  <template #append> 5 </template>
+                  <template #append> {{ bin?.id }} </template>
                 </v-list-item>
                 <v-list-item prepend-icon="fas fa-user">
                   <template #default> Chủ sở hữu </template>
-                  <template #append> Đặng Quốc Long </template>
+                  <template #append> {{ bin?.owner.name }} </template>
                 </v-list-item>
                 <v-list-item prepend-icon="fas fa-house">
                   <template #default> Địa chỉ </template>
-                  <template #append> Km10 Nguyễn Trãi </template>
+                  <template #append> {{ bin?.address }} </template>
                 </v-list-item>
               </v-list>
             </v-card>
           </v-col>
 
           <v-col offset-lg="1" cols="12" lg="2" md="5" sm="12">
-            <v-img
-              :height="200"
-              cover
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuj1UDbNWg4W06IuBlsPkaRav1oZyPq6Y1bCVNFayJHyATsG25m4DZV7QspnxA9XVXMEQ&usqp=CAU"
-            ></v-img>
+            <v-img :height="200" cover :src="bin?.imageUrl"></v-img>
           </v-col>
         </v-row>
       </v-window-item>
@@ -79,13 +77,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue';
+import { Bin } from '@/models/bin';
+import { ref, defineEmits, defineProps } from 'vue';
 
 const tab = ref<string>('');
 
 defineEmits({
   close: null,
 });
+
+defineProps<{
+  bin: Bin;
+}>();
 </script>
 
 <style scoped>

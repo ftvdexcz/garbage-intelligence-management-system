@@ -17,7 +17,9 @@
           <v-icon icon="fas fa-bell"></v-icon>
         </v-badge>
         <v-icon icon="fas fa-gear" class="mx-2"></v-icon>
-        <div class="text-subtitle-1 ml-2">Xin chào, Đặng Quốc Long</div>
+        <div class="text-subtitle-1 ml-2">
+          {{ authStore.user.username }} - {{ authStore.user.role.roleName }}
+        </div>
 
         <v-menu>
           <template v-slot:activator="{ props }">

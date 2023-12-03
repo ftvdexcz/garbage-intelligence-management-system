@@ -72,7 +72,7 @@
 import { ref } from 'vue';
 
 import { LMap, LTileLayer } from '@vue-leaflet/vue-leaflet';
-import { login } from '@/services/auth.service';
+import * as authService from '@/services/auth.service';
 import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router';
 
@@ -106,7 +106,7 @@ const passwordRules = [
 const submitLoginForm = async () => {
   console.log(valid.value);
   if (valid.value) {
-    const response = await login({
+    const response = await authService.login({
       email: email.value,
       password: password.value,
     });

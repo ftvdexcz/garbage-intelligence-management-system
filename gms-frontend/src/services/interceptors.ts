@@ -79,7 +79,6 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
   const { status } = response;
   console.log(`🚀 [API] ${method?.toUpperCase()} ${url} | Response ${status}`);
   response.data = camelizeKeys(response.data);
-  console.log(`🚀 ${response.data}`);
   onLoading('end');
   return response.data;
 };
@@ -107,7 +106,7 @@ const onResponseError = (error: AxiosError | Error): ResponseError => {
     console.log(errorData);
 
     if (status != 403) {
-      _alert(errorData.message, AlertType.Error);
+      if (errorData) _alert(errorData.message, AlertType.Error);
     }
     switch (status) {
       case 400: {

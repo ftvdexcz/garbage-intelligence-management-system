@@ -1,9 +1,9 @@
 <template>
   <v-data-table-server
-    v-model:items-per-page="itemsPerPage"
+    v-model:items-per-page="size"
     :items-length="totalItems"
-    :items="serverItems"
-    :loading="loading"
+    :items="bins"
+    :loading="commonStore.loading"
     item-value="name"
     :headers="headers"
     @update:options="loadItems"
@@ -64,24 +64,10 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
-
-const data = [
-  {
-    id: 'ptit',
-    company: 'Điểm thu IEC',
-    lat: 20.980075,
-    lon: 105.794389,
-    owner: 'Đặng Quốc Long',
-  },
-  {
-    id: 'ptit-2',
-    company: 'Điểm thu IEC 2',
-    lat: 20.980075,
-    lon: 105.794389,
-    owner: 'Đặng Quốc Long 2',
-  },
-];
+import { Bin } from '@/models/bin';
+import { useCommonStore } from '@/stores/common';
+import { ref } from 'vue';
+import * as binService from '@/services/bin.service';
 
 const headers: any = [
   { title: 'Mã doanh nghiệp', key: 'id', align: 'start', sortable: false },
@@ -91,71 +77,30 @@ const headers: any = [
   { title: 'Chủ sở hữu', key: 'owner', align: 'start' },
   { title: 'Actions', key: 'actions', sortable: false, align: 'center' },
 ];
-
-const FakeAPI = {
-  async fetch({ page, itemsPerPage, sortBy }: any): Promise<{
-    items: {
-      id: string;
-      name: string;
-      lat: number;
-      lon: number;
-      owner: string;
-    }[];
-    total: number;
-  }> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const start = (page - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const items = data.slice();
-
-        if (sortBy?.length) {
-          const sortKey: string = sortBy[0].key;
-          const sortOrder: string = sortBy[0].order;
-          items.sort((a: any, b: any) => {
-            const aValue = a[sortKey];
-            const bValue = b[sortKey];
-            return sortOrder === 'desc' ? bValue - aValue : aValue - bValue;
-          });
-        }
-
-        const paginated = items.slice(start, end);
-
-        resolve({ items: paginated, total: items.length });
-      }, 500);
-    });
-  },
-};
-
-const itemsPerPage = ref<number>(5);
-
-const serverItems = ref<
-  {
-    id: string;
-    name: string;
-    lat: number;
-    lon: number;
-    owner: string;
-  }[]
->();
-
-const editedIndex = ref<number>(-1);
-const editedItem = reactive({
-  name: '',
-  calories: 0,
-  fat: 0,
-  carbs: 0,
-  protein: 0,
-});
-const loading = ref<boolean>(true);
+const size = ref<number>(10);
+const bins = ref<Bin[]>(new Array<Bin>());
 const totalItems = ref<number>(0);
 
-const loadItems = ({ page, itemsPerPage, sortBy }: any) => {
-  loading.value = true;
-  FakeAPI.fetch({ page, itemsPerPage, sortBy }).then(({ items, total }) => {
-    serverItems.value = items;
-    totalItems.value = total;
-    loading.value = false;
-  });
+const commonStore = useCommonStore();
+
+const loadItems = async ({ page, size, sortBy }: any) => {
+  console.log(sortBy);
+  // if (sortBy?.length) {
+  //         const sortKey: string = sortBy[0].key;
+  //         const sortOrder: string = sortBy[0].order;
+  //         items.sort((a: any, b: any) => {
+  //           const aValue = a[sortKey];
+  //           const bValue = b[sortKey];
+  //           return sortOrder === 'desc' ? bValue - aValue : aValue - bValue;
+  //         });
+  //       }
+  const response = await binService.listBinsPagination({ page, size, sortBy });
+  console.log(response);
+  if (response.code === 200) {
+    console.log(response);
+    const data = response.data;
+    bins.value = data.results;
+    totalItems.value = data.totals;
+  }
 };
 </script>

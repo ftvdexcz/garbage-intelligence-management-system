@@ -22,17 +22,17 @@
               <v-list>
                 <v-list-item prepend-icon="far fa-building">
                   <template #default> Doanh nghiệp </template>
-                  <template #append> {{ bin?.company }} </template>
+                  <template #append> {{ bin.company }} </template>
                 </v-list-item>
                 <v-list-item prepend-icon="fas fa-scale-balanced">
                   <template #default> Khối lượng </template>
                   <template #append>
-                    {{ bin?.weight.totalWeight }} (gram)
+                    {{ bin.weight.totalWeight }} (gram)
                   </template>
                 </v-list-item>
                 <v-list-item prepend-icon="fas fa-location-dot">
                   <template #default> Vị trí </template>
-                  <template #append> {{ bin?.lat }}, {{ bin?.lon }} </template>
+                  <template #append> {{ bin.lat }}, {{ bin.lon }} </template>
                 </v-list-item>
               </v-list>
             </v-card>
@@ -43,22 +43,22 @@
               <v-list>
                 <v-list-item prepend-icon="far fa-id-card">
                   <template #default> Mã doanh nghiệp </template>
-                  <template #append> {{ bin?.id }} </template>
+                  <template #append> {{ bin.id }} </template>
                 </v-list-item>
                 <v-list-item prepend-icon="fas fa-user">
                   <template #default> Chủ sở hữu </template>
-                  <template #append> {{ bin?.owner.name }} </template>
+                  <template #append> {{ bin.owner.name }} </template>
                 </v-list-item>
                 <v-list-item prepend-icon="fas fa-house">
                   <template #default> Địa chỉ </template>
-                  <template #append> {{ bin?.address }} </template>
+                  <template #append> {{ bin.address }} </template>
                 </v-list-item>
               </v-list>
             </v-card>
           </v-col>
 
           <v-col offset-lg="1" cols="12" lg="2" md="5" sm="12">
-            <v-img :height="200" cover :src="bin?.imageUrl"></v-img>
+            <v-img :height="200" cover :src="bin.imageUrl"></v-img>
           </v-col>
         </v-row>
       </v-window-item>

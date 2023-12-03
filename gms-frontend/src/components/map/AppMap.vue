@@ -17,7 +17,7 @@ import * as binService from '@/services/bin.service';
 import InfoMap from './InfoMap.vue';
 import L from 'leaflet';
 import { Ref, onMounted, ref } from 'vue';
-import { Bin } from '@/models/bin';
+import { Bin, newBin } from '@/models/bin';
 import * as utils from '@/helpers/utils';
 
 const binIcons = [
@@ -27,7 +27,7 @@ const binIcons = [
 ];
 
 const infoMapVisible = ref<boolean>(false);
-const activeBin = ref<Bin>();
+let activeBin = ref<Bin>(newBin());
 const bins = ref<Bin[]>(new Array<Bin>());
 
 const closeInfoMap = () => {

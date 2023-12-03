@@ -10,3 +10,18 @@ export interface User {
   createdDate: string;
   updatedDate: string;
 }
+
+export const newUser = (): User => {
+  return {
+    id: '',
+    username: '',
+    phone: '',
+    email: '',
+    role: {
+      roleName: '',
+      roleType: 0,
+    },
+    createdDate: '',
+    updatedDate: '',
+  };
+};

@@ -1,4 +1,4 @@
-import { User } from '@/models/user';
+import { User, newUser } from '@/models/user';
 import { defineStore } from 'pinia';
 
 export interface UserAuth {
@@ -10,18 +10,7 @@ export const useAuthStore = defineStore('auth', {
   state: (): UserAuth => {
     return {
       accessToken: '',
-      user: {
-        id: '',
-        username: '',
-        phone: '',
-        email: '',
-        role: {
-          roleName: '',
-          roleType: 0,
-        },
-        createdDate: '',
-        updatedDate: '',
-      },
+      user: newUser(),
     };
   },
 
@@ -35,18 +24,7 @@ export const useAuthStore = defineStore('auth', {
     },
     removeUserAuth() {
       this.accessToken = '';
-      this.user = {
-        id: '',
-        username: '',
-        phone: '',
-        email: '',
-        role: {
-          roleName: '',
-          roleType: 0,
-        },
-        createdDate: '',
-        updatedDate: '',
-      };
+      this.user = newUser();
     },
   },
 });

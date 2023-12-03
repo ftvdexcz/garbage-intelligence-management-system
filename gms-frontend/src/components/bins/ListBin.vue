@@ -74,7 +74,12 @@ const headers: any = [
   { title: 'Tên doanh nghiệp', key: 'company', align: 'start' },
   { title: 'Vĩ độ (Lat)', key: 'lat', align: 'start', sortable: false },
   { title: 'Kinh độ (Lon)', key: 'lon', align: 'start', sortable: false },
-  { title: 'Chủ sở hữu', key: 'owner', align: 'start' },
+  {
+    title: 'Chủ sở hữu',
+    key: 'owner.name',
+    align: 'start',
+    sortable: false,
+  },
   { title: 'Actions', key: 'actions', sortable: false, align: 'center' },
 ];
 const size = ref<number>(10);
@@ -83,21 +88,18 @@ const totalItems = ref<number>(0);
 
 const commonStore = useCommonStore();
 
-const loadItems = async ({ page, size, sortBy }: any) => {
-  console.log(sortBy);
-  // if (sortBy?.length) {
-  //         const sortKey: string = sortBy[0].key;
-  //         const sortOrder: string = sortBy[0].order;
-  //         items.sort((a: any, b: any) => {
-  //           const aValue = a[sortKey];
-  //           const bValue = b[sortKey];
-  //           return sortOrder === 'desc' ? bValue - aValue : aValue - bValue;
-  //         });
-  //       }
-  const response = await binService.listBinsPagination({ page, size, sortBy });
-  console.log(response);
+const loadItems = async ({ page, itemsPerPage, sortBy }: any) => {
+  let sortOptions = '';
+  if (sortBy?.length) {
+    sortOptions = sortBy[0].key + '-' + sortBy[0].order;
+  }
+  console.log(sortOptions);
+  const response = await binService.listBinsPagination({
+    page,
+    size: itemsPerPage,
+    sortOptions,
+  });
   if (response.code === 200) {
-    console.log(response);
     const data = response.data;
     bins.value = data.results;
     totalItems.value = data.totals;

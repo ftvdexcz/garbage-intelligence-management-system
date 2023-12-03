@@ -6,13 +6,12 @@ import HomeView from '@/views/HomeView.vue';
 import CreateBin from '@/components/bins/CreateBin.vue';
 import ListBin from '@/components/bins/ListBin.vue';
 import EditBin from '@/components/bins/EditBin.vue';
+import DetailBin from '@/components/bins/DetailBin.vue';
 import CreateTruck from '@/components/truck/CreateTruck.vue';
 import ListTruck from '@/components/truck/ListTruck.vue';
 import EditTruck from '@/components/truck/EditTruck.vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import AppLogin from '@/components/auth/AppLogin.vue';
-
-
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -43,6 +42,11 @@ const routes: Array<RouteRecordRaw> = [
           {
             path: 'edit/:id',
             component: EditBin,
+            props: true,
+          },
+          {
+            path: 'detail/:id',
+            component: DetailBin,
             props: true,
           },
         ],

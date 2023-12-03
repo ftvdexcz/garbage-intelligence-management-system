@@ -9,13 +9,17 @@ export const listBins = async (): Promise<BaseResponse<Bin[]>> => {
 export const listBinsPagination = async ({
   page,
   size,
-  sortBy,
+  sortOptions,
 }: any): Promise<BaseResponse<Pagination<Bin>>> => {
   return await createInstance().get('/garbage-service/bins/listPagination', {
     params: {
       page,
       size,
-      sortBy,
+      sort: sortOptions,
     },
   });
+};
+
+export const getBinById = async (id: string): Promise<BaseResponse<Bin>> => {
+  return await createInstance().get(`/garbage-service/bins/${id}`);
 };

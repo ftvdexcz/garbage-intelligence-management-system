@@ -1,6 +1,6 @@
 <template>
   <v-toolbar flat color="primary" class="d-flex align-center">
-    <v-toolbar-title>Sửa thông tin</v-toolbar-title>
+    <v-toolbar-title>Chi tiết điểm thu</v-toolbar-title>
   </v-toolbar>
   <v-container class="mx-auto mt-8" style="width: 70%">
     <v-row align="start" style="height: 150px">
@@ -8,7 +8,7 @@
         <v-card variant="outlined">
           <template #title> Thông tin điểm thu </template>
           <v-card-text>
-            <v-form v-model="valid">
+            <v-form>
               <v-container>
                 <v-row>
                   <v-col cols="12" class="mb-3">
@@ -17,7 +17,6 @@
                       label="Mã doanh nghiệp"
                       hide-details
                       readonly
-                      disabled
                     ></v-text-field>
                   </v-col>
 
@@ -26,7 +25,7 @@
                       v-model="bin.company"
                       label="Tên doanh nghiệp"
                       hide-details
-                      required
+                      readonly
                     ></v-text-field>
                   </v-col>
 
@@ -35,7 +34,7 @@
                       v-model="bin.owner.name"
                       label="Chủ sở hữu"
                       hide-details
-                      required
+                      readonly
                     ></v-text-field>
                   </v-col>
 
@@ -44,17 +43,16 @@
                       v-model="bin.owner.phone"
                       label="SĐT"
                       hide-details
-                      required
+                      readonly
                     ></v-text-field>
                   </v-col>
 
                   <v-col cols="12" class="mb-3">
                     <v-text-field
                       v-model="bin.owner.email"
-                      :rules="emailRules"
                       label="Email"
                       hide-details
-                      required
+                      readonly
                     ></v-text-field>
                   </v-col>
 
@@ -63,7 +61,7 @@
                       v-model="bin.address"
                       label="Địa chỉ"
                       hide-details
-                      required
+                      readonly
                     ></v-text-field>
                   </v-col>
 
@@ -72,7 +70,7 @@
                       v-model="bin.capacity"
                       label="Khối lượng tối đa"
                       hide-details
-                      required
+                      readonly
                     ></v-text-field>
                   </v-col>
 
@@ -80,7 +78,7 @@
                     <v-text-field
                       label="Camera"
                       hide-details
-                      required
+                      readonly
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -95,14 +93,14 @@
           <div class="v-card-title">Vị trí</div>
 
           <v-card-text>
-            <v-form v-model="valid">
+            <v-form>
               <v-container>
                 <v-row>
                   <v-col cols="12" class="mb-3">
                     <v-text-field
                       v-model="bin.lat"
                       label="Vĩ độ"
-                      required
+                      readonly
                       hide-details
                     ></v-text-field>
                   </v-col>
@@ -111,7 +109,7 @@
                     <v-text-field
                       v-model="bin.lon"
                       label="Kinh độ"
-                      required
+                      readonly
                       hide-details
                     ></v-text-field>
                   </v-col>
@@ -124,30 +122,7 @@
           <v-card-text>
             <v-img :height="200" cover :src="bin.imageUrl"></v-img>
           </v-card-text>
-
-          <v-card-text>
-            <v-btn color="primary" append-icon="fas fa-paperclip">
-              Tải lên
-            </v-btn>
-          </v-card-text>
         </v-card>
-        <v-container>
-          <v-row justify="space-between">
-            <v-col cols="6">
-              <v-btn width="100%" color="grey-lighten-5"> Hủy </v-btn>
-            </v-col>
-
-            <v-col cols="6">
-              <v-btn
-                width="100%"
-                color="primary"
-                append-icon="fas fa-floppy-disk"
-              >
-                Lưu
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
       </v-col>
     </v-row>
   </v-container>
@@ -158,38 +133,11 @@ import { onBeforeMount, ref, defineProps } from 'vue';
 import * as binService from '@/services/bin.service';
 import { Bin, newBin } from '@/models/bin';
 
-const valid = ref<boolean>(false);
 const bin = ref<Bin>(newBin());
 
 const props = defineProps<{
   id: string;
 }>();
-
-const nameRules = [
-  (value: string) => {
-    if (value) return true;
-
-    return 'Name is required.';
-  },
-  (value: string) => {
-    if (value?.length <= 10) return true;
-
-    return 'Name must be less than 10 characters.';
-  },
-];
-
-const emailRules = [
-  (value: string) => {
-    if (value) return true;
-
-    return 'E-mail is requred.';
-  },
-  (value: string) => {
-    if (/.+@.+\..+/.test(value)) return true;
-
-    return 'E-mail must be valid.';
-  },
-];
 
 onBeforeMount(async () => {
   const response = await binService.getBinById(props.id);

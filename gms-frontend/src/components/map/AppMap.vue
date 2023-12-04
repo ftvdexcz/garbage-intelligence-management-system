@@ -34,7 +34,7 @@ const closeInfoMap = () => {
   infoMapVisible.value = false;
 };
 
-const showInfoMap = (bin: Bin, event: L.LeafletMouseEvent) => {
+const showInfoMap = (bin: Bin) => {
   activeBin.value = bin;
   infoMapVisible.value = true;
 };

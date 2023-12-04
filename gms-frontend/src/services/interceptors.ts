@@ -11,6 +11,7 @@ import { AlertType } from '@/models/alert';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 import router from '@/router/index';
 import { useAuthStore } from '@/stores/auth';
+import { isObjKey } from '@/helpers/utils';
 
 interface ResponseError {
   code: number;
@@ -57,13 +58,16 @@ const onRequest = (
     config.headers.Authorization = 'Bearer ' + accessToken;
   }
 
-  if (config.params) {
-    config.params = decamelizeKeys(config.params);
+  if (config.headers['Content-Type'] !== 'multipart/form-data') {
+    if (config.params) {
+      config.params = decamelizeKeys(config.params);
+    }
+
+    if (config.data) {
+      config.data = decamelizeKeys(config.data);
+    }
   }
 
-  if (config.data) {
-    config.data = decamelizeKeys(config.data);
-  }
   return config;
 };
 
@@ -86,11 +90,6 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 const onResponseError = (error: AxiosError | Error): ResponseError => {
   const commonStore = useCommonStore();
   const { _alert } = commonStore;
-  let errorData: ResponseError = {
-    code: 500,
-    message: 'Lỗi không xác định',
-    status: 'UnknownError',
-  };
 
   if (axios.isAxiosError(error)) {
     const { message } = error;
@@ -100,14 +99,42 @@ const onResponseError = (error: AxiosError | Error): ResponseError => {
     console.log(
       `🚨 [API] ${method?.toUpperCase()} ${url} | Error ${status} ${message}`
     );
+    console.log(error);
 
-    errorData = error.response?.data as ResponseError;
+    let errorData: ResponseError = {
+      code: error.status || 500,
+      message: error.message || 'Lỗi không xác định',
+      status: error.code || 'UnknownError',
+    };
+    if (error.response?.data) {
+      const responseErr: { [key: string]: any } = error.response.data as {
+        [key: string]: any;
+      };
+      errorData = responseErr as ResponseError;
 
-    console.log(errorData);
+      if (!errorData.code) {
+        errorData.code = isObjKey('status', responseErr)
+          ? responseErr['status']
+          : 500;
+      }
+      if (!errorData.message) {
+        errorData.message = isObjKey('detail', responseErr)
+          ? responseErr['detail']
+          : 'Lỗi không xác định';
+      }
+
+      if (!errorData.status) {
+        errorData.status = isObjKey('title', responseErr)
+          ? responseErr['title']
+          : 'UnknownError';
+      }
+    }
 
     if (status != 403) {
       if (errorData) _alert(errorData.message, AlertType.Error);
     }
+    console.log(errorData);
+
     switch (status) {
       case 400: {
         // "Bad request"
@@ -135,14 +162,22 @@ const onResponseError = (error: AxiosError | Error): ResponseError => {
         break;
       }
     }
+    onLoading('end');
+
+    return errorData;
   } else {
+    const errorData: ResponseError = {
+      code: 500,
+      message: 'Lỗi không xác định',
+      status: 'UnknownError',
+    };
     console.log(`🚨 [API] | Error ${error.message}`);
     errorData.message = error.message;
     console.log(`🚨 [API] | Error statck: ${error.stack}`);
-  }
-  onLoading('end');
+    onLoading('end');
 
-  return errorData;
+    return errorData;
+  }
 };
 
 export const setupInterceptors = (

@@ -41,6 +41,18 @@ export interface Bin {
   owner: Owner;
 }
 
+export interface CreateBinRes {
+  id: string;
+  company: string;
+  address: string;
+  lat: number;
+  lon: number;
+  capacity: number;
+  createdUser: string;
+  imageUrl: string;
+  owner: Owner;
+}
+
 export const newBin = (): Bin => {
   return {
     id: '',
@@ -55,5 +67,29 @@ export const newBin = (): Bin => {
     imageUrl: '',
     weight: newWeight(),
     owner: newOwner(),
+  };
+};
+
+export interface CreateBin {
+  company: string;
+  lat: number;
+  lon: number;
+  capacity: number;
+  address: string;
+  ownerName: string;
+  ownerPhone: string;
+  ownerEmail: string;
+}
+
+export const newCreateBin = () => {
+  return {
+    company: '',
+    lat: 0,
+    lon: 0,
+    capacity: 0,
+    address: '',
+    ownerName: '',
+    ownerPhone: '',
+    ownerEmail: '',
   };
 };

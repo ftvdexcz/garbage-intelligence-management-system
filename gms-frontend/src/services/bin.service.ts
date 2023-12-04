@@ -1,4 +1,4 @@
-import { Bin } from '@/models/bin';
+import { Bin, CreateBinRes } from '@/models/bin';
 import { Pagination } from '@/models/pagination';
 import { BaseResponse, createInstance } from '@/services/index';
 
@@ -22,4 +22,14 @@ export const listBinsPagination = async ({
 
 export const getBinById = async (id: string): Promise<BaseResponse<Bin>> => {
   return await createInstance().get(`/garbage-service/bins/${id}`);
+};
+
+export const createBin = async (
+  data: FormData
+): Promise<BaseResponse<CreateBinRes>> => {
+  return await createInstance().post(`/garbage-service/bins`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };

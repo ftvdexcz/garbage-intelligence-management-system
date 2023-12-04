@@ -7,3 +7,10 @@ export const capacityPercent = (weight: number, capacity: number) => {
   }
   return 0;
 };
+
+export const isObjKey = <T extends object>(
+  key: PropertyKey,
+  obj: T
+): key is keyof T => {
+  return key in obj;
+};

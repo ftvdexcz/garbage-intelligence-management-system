@@ -56,7 +56,28 @@
             size="small"
             variant="text"
             v-bind="props"
-          />
+            @click.prevent="deleteBin(item.id)"
+          >
+          </v-btn>
+          <v-dialog
+            v-model="delDialog"
+            activator="parent"
+            width="400"
+            :transition="false"
+          >
+            <v-card color="white">
+              <v-card-text>
+                Bạn có chắc muốn xóa điểm thu rác với mã: {{ selectedId }} ?
+              </v-card-text>
+              <v-card-actions class="pt-3">
+                <v-spacer></v-spacer>
+                <v-btn @click="delDialog = false" color="grey">Hủy</v-btn>
+                <v-btn @click="confirmDelete" color="primary" variant="outlined"
+                  >Xóa</v-btn
+                >
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </template>
       </v-tooltip>
     </template>
@@ -68,6 +89,7 @@ import { Bin } from '@/models/bin';
 import { useCommonStore } from '@/stores/common';
 import { ref } from 'vue';
 import * as binService from '@/services/bin.service';
+import { AlertType } from '@/models/alert';
 
 const headers: any = [
   { title: 'Mã doanh nghiệp', key: 'id', align: 'start', sortable: false },
@@ -85,6 +107,8 @@ const headers: any = [
 const size = ref<number>(10);
 const bins = ref<Bin[]>(new Array<Bin>());
 const totalItems = ref<number>(0);
+const delDialog = ref<boolean>(false);
+const selectedId = ref<string>('');
 
 const commonStore = useCommonStore();
 
@@ -104,5 +128,20 @@ const loadItems = async ({ page, itemsPerPage, sortBy }: any) => {
     bins.value = data.results;
     totalItems.value = data.totals;
   }
+};
+
+const deleteBin = (id: string) => {
+  selectedId.value = id;
+};
+
+const confirmDelete = async () => {
+  const commonStore = useCommonStore();
+  const { _alert } = commonStore;
+  const response = await binService.deleteBin(selectedId.value);
+  if (response.code === 200) {
+    _alert(response.message, AlertType.Success);
+    bins.value = bins.value.filter((bin) => bin.id !== selectedId.value);
+  }
+  delDialog.value = false;
 };
 </script>

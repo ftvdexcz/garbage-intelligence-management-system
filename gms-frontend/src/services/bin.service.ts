@@ -33,3 +33,22 @@ export const createBin = async (
     },
   });
 };
+
+export const deleteBin = async (id: string): Promise<BaseResponse<null>> => {
+  return await createInstance().delete(`/garbage-service/bins/${id}`);
+};
+
+export const updateBin = async (
+  data: FormData,
+  id: string
+): Promise<BaseResponse<CreateBinRes>> => {
+  return await createInstance().post(
+    `/garbage-service/bins/updateBin/${id}`,
+    data,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
+};

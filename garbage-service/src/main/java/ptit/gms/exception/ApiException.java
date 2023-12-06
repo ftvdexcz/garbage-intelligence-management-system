@@ -27,4 +27,13 @@ public class ApiException extends RuntimeException{
     public static ApiExceptionBuilder ErrUnauthorized(){
         return new ApiExceptionBuilder().code(CodeResponse.UNAUTHORIZED);
     }
+
+    public static ApiExceptionBuilder ErrInvalidArgument(){
+        return new ApiExceptionBuilder().code(CodeResponse.INVALID_ARGUMENT);
+    }
+
+    public static ApiExceptionBuilder ErrExisted(){
+        return new ApiExceptionBuilder().code(CodeResponse.EXISTED);
+    }
+
 }

@@ -5,6 +5,7 @@ import ptit.gms.dto.request.CreateBinReqDto;
 import ptit.gms.dto.request.UpdateBinReqDto;
 import ptit.gms.dto.response.CreateBinResDto;
 import ptit.gms.dto.response.GetBinResDto;
+import ptit.gms.dto.response.PaginationResDto;
 import ptit.gms.dto.response.UpdateBinResDto;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public interface BinService {
     GetBinResDto getBin(String id);
 
     List<GetBinResDto> listBins();
+
+    PaginationResDto<GetBinResDto> listBinsPagination(int page, int size, String sortBy);
 
     void deleteBin(String id);
 

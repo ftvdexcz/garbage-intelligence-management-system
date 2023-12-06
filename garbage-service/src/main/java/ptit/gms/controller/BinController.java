@@ -12,6 +12,7 @@ import ptit.gms.dto.request.CreateBinReqDto;
 import ptit.gms.dto.request.UpdateBinReqDto;
 import ptit.gms.dto.response.CreateBinResDto;
 import ptit.gms.dto.response.GetBinResDto;
+import ptit.gms.dto.response.PaginationResDto;
 import ptit.gms.dto.response.UpdateBinResDto;
 import ptit.gms.service.BinService;
 import ptit.gms.utils.ResponseUtils;
@@ -44,6 +45,17 @@ public class BinController {
     @GetMapping("")
     public ResponseEntity<ResponseObject> listBins(){
         List<GetBinResDto> listBins = binService.listBins();
+
+        return ResponseUtils.responseWithCode(CodeResponse.OK, listBins);
+    }
+
+    @GetMapping("listPagination")
+    public ResponseEntity<ResponseObject> listBinsPagination(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "company-asc") String sort
+    ){
+        PaginationResDto<GetBinResDto> listBins = binService.listBinsPagination(page - 1, size, sort);
 
         return ResponseUtils.responseWithCode(CodeResponse.OK, listBins);
     }

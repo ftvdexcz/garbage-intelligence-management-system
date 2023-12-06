@@ -1,0 +1,117 @@
+package ptit.gms.service.impl;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ptit.gms.constant.Constant;
+import ptit.gms.dto.request.CreateTruckReqDto;
+import ptit.gms.dto.response.GetBinResDto;
+import ptit.gms.dto.response.PaginationResDto;
+import ptit.gms.dto.response.TruckResDto;
+import ptit.gms.exception.ApiException;
+import ptit.gms.service.TruckService;
+import ptit.gms.store.mysql.entity.BinEntity;
+import ptit.gms.store.mysql.entity.GarbageTruckEntity;
+import ptit.gms.store.mysql.repository.GarbageTruckRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
+@Service
+public class TruckServiceImpl implements TruckService {
+    @Autowired
+    GarbageTruckRepository garbageTruckRepository;
+
+    @Override
+    public TruckResDto getTruck(String plate) {
+        log.info("[TruckServiceImpl - getTruck] plate: {}", plate);
+
+        TruckResDto truck = garbageTruckRepository.getTruckByPlate(plate);
+        if(!Constant.X_USER_ROLE.equals(Constant.ADMIN_ROLE_TYPE)){
+            throw ApiException.ErrUnauthorized().build();
+        }
+
+        if(truck == null){
+            throw ApiException.ErrNotFound().message(String.format("plate %s (biển số) không tồn tại", plate)).build();
+        }
+
+        return truck;
+    }
+    @Override
+    public TruckResDto createTruck(CreateTruckReqDto createTruckReqDto) {
+        log.info("[TruckServiceImpl - createTruck] createTruckReqDto: {}", createTruckReqDto);
+
+        if(!Constant.X_USER_ROLE.equals(Constant.ADMIN_ROLE_TYPE))
+            throw ApiException.ErrUnauthorized().build();
+
+        TruckResDto truckResDto = garbageTruckRepository.getTruckByPlate(createTruckReqDto.getPlate());
+        if(truckResDto != null)
+            throw ApiException.ErrExisted().message("Biển số đã tồn tại").build();
+
+        GarbageTruckEntity garbageTruckEntity = GarbageTruckEntity.builder().
+                plate(createTruckReqDto.getPlate()).
+                company(createTruckReqDto.getCompany()).
+                capacity(createTruckReqDto.getCapacity()).
+                build();
+
+        garbageTruckRepository.save(garbageTruckEntity);
+        return TruckResDto.builder().
+                plate(createTruckReqDto.getPlate()).
+                company(createTruckReqDto.getCompany()).
+                capacity(createTruckReqDto.getCapacity()).
+                build();
+    }
+
+    @Override
+    public PaginationResDto<TruckResDto> listBinsPagination(int page, int size, String sortBy) {
+        log.info("[TruckServiceImpl - listBinsPagination]");
+        List<Sort.Order> orderList = new ArrayList<>();
+        try {
+            String[] sortMap = sortBy.split(",");
+            for(String sortOption: sortMap) {
+                var tmp = sortOption.split("-");
+                String key = tmp[0];
+                String sortDirection = tmp[1];
+                Sort.Direction direction;
+                if(sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())) {
+                    direction = Sort.Direction.ASC;
+                }else if(sortDirection.equalsIgnoreCase(Sort.Direction.DESC.name())) {
+                    direction = Sort.Direction.DESC;
+                }else {
+                    throw ApiException.ErrInvalidArgument().build();
+                }
+                orderList.add(new Sort.Order(direction, key));
+            }
+        }catch(Exception ex) {
+            throw ApiException.ErrInvalidArgument().build();
+        }
+        Pageable paginationOption = PageRequest.of(page, size, Sort.by(orderList));
+        if (Constant.X_USER_ROLE.equals(Constant.ADMIN_ROLE_TYPE)){
+            Page<TruckResDto> pageTrucks = garbageTruckRepository.listBinsPagination(paginationOption);
+            return PaginationResDto.<TruckResDto>builder().totals(pageTrucks.getTotalElements()).
+                    pages(pageTrucks.getTotalPages()).
+                    page(page + 1).
+                    size(size).
+                    results(pageTrucks.getContent()).
+                    build();
+        } else {
+            throw ApiException.ErrUnauthorized().build();
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteTruck(String plate){
+        log.info("[TruckServiceImpl - deleteTruck] plate: {}", plate);
+        int deleted = garbageTruckRepository.deleteByPlate(plate);
+        if (deleted == 0){
+            throw ApiException.ErrNotFound().message(String.format("plate %s (biển số) không tồn tại", plate)).build();
+        }
+    }
+}

@@ -30,6 +30,7 @@ public class S3UploadUtils {
         AwsCredentialsProvider provider = StaticCredentialsProvider.create(credentials);
 
         File file = convertMultiPartToFile(multipartFile);
+
         String fileName = generateFileName(multipartFile);
         String key = endpoint + '/' + fileName;
 

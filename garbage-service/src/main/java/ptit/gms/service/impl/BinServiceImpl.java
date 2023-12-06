@@ -3,16 +3,17 @@ package ptit.gms.service.impl;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ptit.gms.constant.Constant;
 import ptit.gms.dto.request.CreateBinReqDto;
 import ptit.gms.dto.request.UpdateBinReqDto;
-import ptit.gms.dto.response.CompanyOwnerResDto;
-import ptit.gms.dto.response.CreateBinResDto;
-import ptit.gms.dto.response.GetBinResDto;
-import ptit.gms.dto.response.UpdateBinResDto;
+import ptit.gms.dto.response.*;
 import ptit.gms.exception.ApiException;
 import ptit.gms.service.BinService;
 import ptit.gms.store.mysql.entity.BinEntity;
@@ -147,6 +148,51 @@ public class BinServiceImpl implements BinService {
             throw ApiException.ErrUnauthorized().build();
         }
         return bins;
+    }
+
+    @Override
+    public PaginationResDto<GetBinResDto> listBinsPagination(int page, int size, String sortBy) {
+        log.info("[BinServiceImpl - listBinsPagination]");
+        List<Sort.Order> orderList = new ArrayList<>();
+        try {
+            String[] sortMap = sortBy.split(",");
+            for(String sortOption: sortMap) {
+                var tmp = sortOption.split("-");
+                String key = tmp[0];
+                String sortDirection = tmp[1];
+                Sort.Direction direction;
+                if(sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())) {
+                    direction = Sort.Direction.ASC;
+                }else if(sortDirection.equalsIgnoreCase(Sort.Direction.DESC.name())) {
+                    direction = Sort.Direction.DESC;
+                }else {
+                    throw ApiException.ErrInvalidArgument().build();
+                }
+                orderList.add(new Sort.Order(direction, key));
+            }
+        }catch(Exception ex) {
+            throw ApiException.ErrInvalidArgument().build();
+        }
+        Pageable paginationOption = PageRequest.of(page, size, Sort.by(orderList));
+        if (Constant.X_USER_ROLE.equals(Constant.ADMIN_ROLE_TYPE)){
+            Page<GetBinResDto> pageBins = binRepository.listBinsPagination(paginationOption);
+            return PaginationResDto.<GetBinResDto>builder().totals(pageBins.getTotalElements()).
+                    pages(pageBins.getTotalPages()).
+                    page(page + 1).
+                    size(size).
+                    results(pageBins.getContent()).
+                    build();
+        }else if(Constant.X_USER_ROLE.equals(Constant.USER_ROLE_TYPE)){
+            Page<GetBinResDto> pageBins = binRepository.listBinsByCreatedUserPagination(Constant.X_USER_ID, paginationOption);
+            return PaginationResDto.<GetBinResDto>builder().totals(pageBins.getTotalElements()).
+                    pages(pageBins.getTotalPages()).
+                    page(page + 1).
+                    size(size).
+                    results(pageBins.getContent()).
+                    build();
+        } else {
+            throw ApiException.ErrUnauthorized().build();
+        }
     }
 
     @Override

@@ -9,7 +9,7 @@ public enum CodeResponse {
     OK(HttpURLConnection.HTTP_OK, "OK", "Thành công"),
     CREATED(HttpURLConnection.HTTP_CREATED, "Created", "Tạo mới thành công"),
     DELETED(HttpURLConnection.HTTP_NO_CONTENT, "Deleted", "Xóa thành công"),
-
+    EXISTED(HttpURLConnection.HTTP_BAD_REQUEST, "Existed", "Đã tồn tại"),
     NOT_FOUND(HttpURLConnection.HTTP_NOT_FOUND, "NotFound", "Không tìm thấy thông tin yêu cầu"),
     INVALID_ARGUMENT(HttpURLConnection.HTTP_BAD_REQUEST, "InvalidArgument", "Tham số không hợp lệ"),
     INTERNAL(HttpURLConnection.HTTP_INTERNAL_ERROR, "InternalServerError", "Có lỗi xảy ra"),

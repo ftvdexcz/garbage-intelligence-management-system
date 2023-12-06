@@ -1,5 +1,7 @@
 package ptit.gms.store.mysql.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -73,4 +75,45 @@ public interface BinRepository extends JpaRepository<BinEntity, String> {
             "ON b.ownerId = o.id INNER JOIN TotalCellEntity c ON c.binCode = b.id " +
             "WHERE b.createdUser = :created_user AND b.status = 1")
     List<GetBinResDto> listBinsByCreatedUser(@Param("created_user") String createdUser);
+
+    @Query("SELECT new ptit.gms.dto.response.GetBinResDto(b.id," +
+            " b.company," +
+            " b.address," +
+            " b.lat," +
+            " b.lon," +
+            " c.weight," +
+            " c.updatedTimestamp," +
+            " b.capacity," +
+            " b.createdDate," +
+            " b.updatedDate," +
+            " b.createdUser," +
+            " b.imageUrl," +
+            " o.id," +
+            " o.name," +
+            " o.phone," +
+            " o.email) " +
+            "FROM BinEntity b INNER JOIN CompanyOwnerEntity o " +
+            "ON b.ownerId = o.id INNER JOIN TotalCellEntity c ON c.binCode = b.id " +
+            "WHERE b.createdUser = :created_user AND b.status = 1")
+    Page<GetBinResDto> listBinsByCreatedUserPagination(@Param("created_user") String createdUser, Pageable pageable);
+
+    @Query("SELECT new ptit.gms.dto.response.GetBinResDto(b.id," +
+            " b.company," +
+            " b.address," +
+            " b.lat," +
+            " b.lon," +
+            " c.weight," +
+            " c.updatedTimestamp," +
+            " b.capacity," +
+            " b.createdDate," +
+            " b.updatedDate," +
+            " b.createdUser," +
+            " b.imageUrl," +
+            " o.id," +
+            " o.name," +
+            " o.phone," +
+            " o.email) " +
+            "FROM BinEntity b INNER JOIN CompanyOwnerEntity o " +
+            "ON b.ownerId = o.id INNER JOIN TotalCellEntity c ON c.binCode = b.id AND b.status = 1")
+    Page<GetBinResDto> listBinsPagination(Pageable pageable);
 }

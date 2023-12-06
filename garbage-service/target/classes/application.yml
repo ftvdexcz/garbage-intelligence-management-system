@@ -67,3 +67,7 @@ amazon.s3.bucket: garbage-system
 amazon.s3.region: ap-southeast-2
 amazon.s3.access-key: AKIARA4HHNICUVJVYW4E
 amazon.s3.secret-key: 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
+
+# https://stackoverflow:com/questions/54958189/spring-boot-multipart-file-maximum-upload-size-exception
+spring.servlet.multipart.max-file-size: 52428800
+spring.servlet.multipart.max-request-size: 52428800

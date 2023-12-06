@@ -9,7 +9,7 @@ import EditBin from '@/components/bins/EditBin.vue';
 import DetailBin from '@/components/bins/DetailBin.vue';
 import CreateTruck from '@/components/truck/CreateTruck.vue';
 import ListTruck from '@/components/truck/ListTruck.vue';
-import EditTruck from '@/components/truck/EditTruck.vue';
+import DetailTruck from '@/components/truck/DetailTruck.vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import AppLogin from '@/components/auth/AppLogin.vue';
 
@@ -64,8 +64,8 @@ const routes: Array<RouteRecordRaw> = [
             component: CreateTruck,
           },
           {
-            path: 'edit/:id',
-            component: EditTruck,
+            path: 'detail/:plate',
+            component: DetailTruck,
             props: true,
           },
         ],

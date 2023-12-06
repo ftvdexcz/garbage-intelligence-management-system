@@ -57,8 +57,8 @@
             variant="text"
             v-bind="props"
             @click.prevent="deleteBin(item.id)"
-          >
-          </v-btn>
+          />
+
           <v-dialog
             v-model="delDialog"
             activator="parent"

@@ -11,32 +11,31 @@
             <v-row>
               <v-col cols="12" class="mb-3">
                 <v-text-field
-                  v-model="firstname"
-                  :rules="nameRules"
-                  :counter="10"
+                  input
+                  type="text"
+                  v-model="plate"
+                  :rules="blankRule"
                   label="Biển số xe"
                   required
-                  hide-details
                 ></v-text-field>
               </v-col>
-
               <v-col cols="12" class="mb-3">
                 <v-text-field
+                  input
+                  type="text"
                   v-model="company"
-                  :rules="nameRules"
-                  :counter="10"
+                  :rules="blankRule"
                   label="Đơn vị thu gom"
-                  hide-details
                   required
                 ></v-text-field>
               </v-col>
-
               <v-col cols="12" class="mb-3">
                 <v-text-field
-                  v-model="email"
-                  :rules="emailRules"
+                  input
+                  type="number"
+                  :rules="numberRule"
+                  v-model="capacity"
                   label="Khối lượng tối đa (kg)"
-                  hide-details
                   required
                 ></v-text-field>
               </v-col>
@@ -47,43 +46,70 @@
     </v-card>
 
     <v-container>
-      <v-btn color="grey-lighten-5" class="mr-4"> Hủy </v-btn>
-      <v-btn color="primary" append-icon="fas fa-floppy-disk"> Lưu </v-btn>
+      <v-btn @click.prevent="cancelSubmit" color="grey-lighten-5" class="mr-4">
+        Hủy
+      </v-btn>
+      <v-btn
+        @click.prevent="submit"
+        color="primary"
+        append-icon="fas fa-floppy-disk"
+      >
+        Lưu
+      </v-btn>
     </v-container>
   </v-container>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import * as truckService from '@/services/truck.service';
+import { useCommonStore } from '@/stores/common';
+import { AlertType } from '@/models/alert';
+const commonStore = useCommonStore();
+const { _alert } = commonStore;
 
 const valid = ref<boolean>(false);
-const firstname = ref<string>('');
-const lastname = ref<string>('');
-const email = ref<string>('');
+const plate = ref<string>('');
+const company = ref<string>('');
+const capacity = ref<number>(0);
 
-const nameRules = [
+const router = useRouter();
+
+const blankRule = [
   (value: string) => {
-    if (value) return true;
+    if (value.trim().length > 0) return true;
 
-    return 'Name is required.';
-  },
-  (value: string) => {
-    if (value?.length <= 10) return true;
-
-    return 'Name must be less than 10 characters.';
+    return 'Không được để trống';
   },
 ];
 
-const emailRules = [
-  (value: string) => {
-    if (value) return true;
+const numberRule = [
+  (value: number) => {
+    if (value >= 0) return true;
 
-    return 'E-mail is requred.';
-  },
-  (value: string) => {
-    if (/.+@.+\..+/.test(value)) return true;
-
-    return 'E-mail must be valid.';
+    return 'Khối lượng tối đa không được âm';
   },
 ];
+
+const cancelSubmit = () => {
+  router.push('/trucks');
+};
+
+const submit = async () => {
+  if (valid.value) {
+    const response = await truckService.createTruck({
+      plate: plate.value,
+      company: company.value,
+      capacity: capacity.value,
+    });
+    console.log(response);
+    if (response.code === 201) {
+      _alert(response.message, AlertType.Success);
+      window.setTimeout(() => {
+        router.push('/trucks');
+      }, 1000);
+    }
+  }
+};
 </script>

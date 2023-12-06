@@ -1,4 +1,4 @@
-package ptit.gms.Controller;
+package ptit.gms.controller;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +13,6 @@ import ptit.gms.dto.response.PaginationResDto;
 import ptit.gms.dto.response.UserResDto;
 import ptit.gms.service.UserService;
 import ptit.gms.utils.ResponseUtils;
-
-import java.util.List;
 
 @Slf4j
 @RestController

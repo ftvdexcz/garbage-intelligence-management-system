@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
         )));
         Page<UserResDto> userResDtoPage = userRepository.paginationUsers(username, email, paginationOption);
 
-        return PaginationResDto.<UserResDto>builder().totals(userResDtoPage.getTotalPages()).
+        return PaginationResDto.<UserResDto>builder().totals(userResDtoPage.getTotalElements()).
                 pages(userResDtoPage.getTotalPages()).
                 page(page + 1).
                 size(size).

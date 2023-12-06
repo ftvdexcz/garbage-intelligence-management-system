@@ -1,4 +1,4 @@
-package ptit.gms.Controller;
+package ptit.gms.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import ptit.gms.dto.ResponseObject;
 import ptit.gms.dto.request.AuthReqDto;
 import ptit.gms.dto.response.AuthResDto;
 import ptit.gms.dto.response.UserResDto;
-import ptit.gms.exception.ApiException;
 import ptit.gms.service.AuthService;
 import ptit.gms.utils.ResponseUtils;
 

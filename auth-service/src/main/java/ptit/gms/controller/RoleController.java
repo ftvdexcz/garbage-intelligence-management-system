@@ -1,4 +1,4 @@
-package ptit.gms.Controller;
+package ptit.gms.controller;
 
 
 import jakarta.validation.Valid;

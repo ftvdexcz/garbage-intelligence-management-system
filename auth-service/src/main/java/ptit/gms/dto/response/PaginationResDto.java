@@ -10,7 +10,7 @@ import java.util.List;
 @Builder
 public class PaginationResDto<T> {
     @JsonProperty("totals")
-    private int totals;
+    private long totals;
 
     @JsonProperty("pages")
     private int pages;

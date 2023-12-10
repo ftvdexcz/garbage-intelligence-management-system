@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -14,7 +13,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import ptit.gms.config.Config;
+import ptit.gms.config.ConfigValue;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -26,7 +25,7 @@ import java.util.Properties;
         transactionManagerRef = "transactionManager")
 public class MysqlConfig {
     @Autowired
-    Config config;
+    ConfigValue configValue;
 
     @Autowired
     private Environment env;
@@ -35,10 +34,10 @@ public class MysqlConfig {
     @Primary
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(config.getMysqlClassName());
-        dataSource.setUrl(config.getMysqlUrl());
-        dataSource.setUsername(config.getMysqlUsername());
-        dataSource.setPassword(config.getMysqlPassword());
+        dataSource.setDriverClassName(configValue.getMysqlClassName());
+        dataSource.setUrl(configValue.getMysqlUrl());
+        dataSource.setUsername(configValue.getMysqlUsername());
+        dataSource.setPassword(configValue.getMysqlPassword());
         return dataSource;
     }
 

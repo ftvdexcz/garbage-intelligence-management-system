@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ptit.gms.constant.Constant;
+import ptit.gms.dto.event.KafkaEventLoadCell;
 import ptit.gms.dto.request.LoadCellReqDto;
 import ptit.gms.dto.response.LoadCellResDto;
 import ptit.gms.exception.ApiException;
 import ptit.gms.service.CellService;
+import ptit.gms.store.kafka.KafkaProducerService;
 import ptit.gms.store.mysql.entity.BinEntity;
 import ptit.gms.store.mysql.entity.CellEntity;
 import ptit.gms.store.mysql.entity.TotalCellEntity;
@@ -29,6 +31,9 @@ public class CellServiceImpl implements CellService {
 
     @Autowired
     TotalCellRepository totalCellRepository;
+
+    @Autowired
+    KafkaProducerService kafkaProducerService;
 
     @Override
     @Transactional
@@ -55,9 +60,22 @@ public class CellServiceImpl implements CellService {
         cellRepository.save(cell);
 
         TotalCellEntity totalCell =  totalCellRepository.findByBinCode(binCode);
-        totalCell.setWeight(totalCell.getWeight() + loadCellReqDto.getWeight());
+        int totalWeight = totalCell.getWeight() + loadCellReqDto.getWeight();
+        totalCell.setWeight(totalWeight);
         totalCell.setUpdatedTimestamp(curTimestamp);
         totalCellRepository.save(totalCell);
+
+        // fire event kafka: noti on telegram
+        KafkaEventLoadCell kafkaEventLoadCell = KafkaEventLoadCell.builder().
+                binId(bin.getId()).
+                company(bin.getCompany()).
+                lat(bin.getLat()).
+                lon(bin.getLon()).
+                totalWeight(totalWeight).
+                weight(loadCellReqDto.getWeight()).
+                timestamp(curTimestamp).
+                build();
+        kafkaProducerService.publishEventLoadCell(kafkaEventLoadCell);
 
         return LoadCellResDto.builder().
                 binCode(binCode).

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-public class Config {
+public class ConfigValue {
     @Value("${env}")
     private String env;
 
@@ -36,4 +36,19 @@ public class Config {
 
     @Value("${amazon.s3.secret-key}")
     private String s3SecretKey;
+
+    @Value(value = "${spring.kafka.bootstrap-address}")
+    private String bootstrapAddress;
+
+    @Value(value = "${spring.kafka.properties.sasl.jaas.config}")
+    private String kafkaSaslJaasConfig;
+
+    @Value(value = "${spring.kafka.properties.sasl.mechanism}")
+    private String kafkaSaslMechanism;
+
+    @Value(value = "${spring.kafka.properties.security.protocol}")
+    private String kafkaSecurityProtocol;
+
+    @Value(value = "${kafka.topic.publish.event.load-cell}")
+    private String topicPublishEventLoadCell;
 }

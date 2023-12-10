@@ -62,6 +62,11 @@ mysql:
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:123456}
 
+spring.kafka.bootstrap-address: ${KAFKA_BOOTSTRAP_ADDRESS:localhost:29092}
+spring.kafka.properties.sasl.jaas.config: ${KAFKA_SASL_JAAS_CONFIG:org.apache.kafka.common.security.scram.ScramLoginModule required username="admin" password="admin-secret";}
+spring.kafka.properties.security.protocol: ${KAFKA_SECURITY_PROTOCOL:SASL_PLAINTEXT}
+spring.kafka.properties.sasl.mechanism: ${KAFKA_SASL_MECHANISM:PLAIN}
+
 amazon.s3.url: https://garbage-system.s3.ap-southeast-2.amazonaws.com
 amazon.s3.bucket: garbage-system
 amazon.s3.region: ap-southeast-2
@@ -71,3 +76,5 @@ amazon.s3.secret-key: sVt5Y4I93/AHWbfFm7ZZ5aNbYseWC/alOtmmIwKz
 # https://stackoverflow:com/questions/54958189/spring-boot-multipart-file-maximum-upload-size-exception
 spring.servlet.multipart.max-file-size: 52428800
 spring.servlet.multipart.max-request-size: 52428800
+
+kafka.topic.publish.event.load-cell: ${KAFKA_LOAD_CELL_TOPIC:event-send-load-cell}

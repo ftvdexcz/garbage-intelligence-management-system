@@ -1,10 +1,9 @@
 package ptit.gms.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ptit.gms.config.Config;
+import ptit.gms.config.ConfigValue;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
@@ -23,10 +22,10 @@ import java.util.Date;
 @Service
 public class S3UploadUtils {
     @Autowired
-    Config config;
+    ConfigValue configValue;
 
     public String uploadImageFile(String endpoint, MultipartFile multipartFile) throws IOException {
-        AwsCredentials credentials = AwsBasicCredentials.create(config.getS3AccessKey(), config.getS3SecretKey());
+        AwsCredentials credentials = AwsBasicCredentials.create(configValue.getS3AccessKey(), configValue.getS3SecretKey());
         AwsCredentialsProvider provider = StaticCredentialsProvider.create(credentials);
 
         File file = convertMultiPartToFile(multipartFile);
@@ -35,18 +34,18 @@ public class S3UploadUtils {
         String key = endpoint + '/' + fileName;
 
         S3Client client = S3Client.builder().
-                region(Region.of(config.getS3Region())).
+                region(Region.of(configValue.getS3Region())).
                 credentialsProvider(provider).
                 build();
 
         PutObjectRequest request = PutObjectRequest.builder().
-                bucket(config.getS3Bucket()).
+                bucket(configValue.getS3Bucket()).
                 key(key).
                 acl(ObjectCannedACL.PUBLIC_READ).
                 build();
 
         client.putObject(request, RequestBody.fromFile(file));
-        return config.getS3Url() + '/' + key;
+        return configValue.getS3Url() + '/' + key;
     }
 
     private File convertMultiPartToFile(MultipartFile file) throws IOException {

@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import ptit.gms.config.Config;
+import ptit.gms.config.ConfigValue;
 import ptit.gms.constant.CodeResponse;
 
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @Autowired
-    Config config;
+    ConfigValue configValue;
 
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<ErrorResponse> handleApiException(ApiException err, WebRequest request) {
@@ -32,7 +32,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             errorResponse.setMessage(err.getMessage());
         }
 
-        if(config.getEnv().equals("dev") && ExceptionUtils.isTraceOn(request)){
+        if(configValue.getEnv().equals("dev") && ExceptionUtils.isTraceOn(request)){
             errorResponse.setStackTrace(ExceptionUtils.getStackTrace(err));
         }
         return ResponseEntity.status(err.getCode().code).body(errorResponse);
@@ -47,7 +47,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 code.message
         );
 
-        if(config.getEnv().equals("dev")){
+        if(configValue.getEnv().equals("dev")){
             errorResponse.setDevMessage(ex.getMessage());
             if(ExceptionUtils.isTraceOn(request))
                 errorResponse.setStackTrace(ExceptionUtils.getStackTrace(ex));
@@ -70,7 +70,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 code.message
         );
 
-        if(config.getEnv().equals("dev")){
+        if(configValue.getEnv().equals("dev")){
             errorResponse.setDevMessage(err.getMessage());
             if(ExceptionUtils.isTraceOn(request))
                 errorResponse.setStackTrace(ExceptionUtils.getStackTrace(err));

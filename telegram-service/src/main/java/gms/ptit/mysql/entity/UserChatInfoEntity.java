@@ -21,9 +21,6 @@ public class UserChatInfoEntity {
     @Column(name = "chat_id")
     private String chatId;
 
-    @Column(name = "username")
-    private String username;
-
     @Column(name = "type")
     private int type;
 

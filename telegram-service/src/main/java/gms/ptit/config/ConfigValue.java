@@ -37,6 +37,6 @@ public class ConfigValue {
     @Value(value = "${telegram.bot.token}")
     private String telegramBotToken;
 
-    @Value(value = "${kafka.topic.publish.event.load-cell}")
-    private String topicPublishEventLoadCell;
+    @Value(value = "${kafka.topic.subscribe.event.load-cell}")
+    private String topicSubscribeEventLoadCell;
 }

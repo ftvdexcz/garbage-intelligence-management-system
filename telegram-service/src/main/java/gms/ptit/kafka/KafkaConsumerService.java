@@ -35,6 +35,9 @@ public class KafkaConsumerService {
     @Autowired
     UserChatInfoService userChatInfoService;
 
+    @Autowired
+    GenerateTemplateUtils generateTemplateUtils;
+
     @KafkaListener(topics = "${kafka.topic.subscribe.event.load-cell}", groupId = "${kafka.group.id.subscribe.event.load-cell}",
             properties = {
                     ConsumerConfig.AUTO_OFFSET_RESET_CONFIG + "=earliest",
@@ -46,7 +49,7 @@ public class KafkaConsumerService {
             List<UserChatInfoEntity> users = userChatInfoService.findAllByTypeIn(List.of(EventType.EVENT_TYPE_LOAD_CELL.code,
                                                         EventType.EVENT_TYPE_ALL.code));
 
-            String html = GenerateTemplateUtils.generateLoadCellEventTemplate(loadCellEvent);
+            String html = generateTemplateUtils.generateLoadCellEventTemplate(loadCellEvent);
             SendMessage message = new SendMessage();
             message.setText(html);
             message.setParseMode(ParseMode.HTML);

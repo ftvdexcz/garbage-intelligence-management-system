@@ -35,7 +35,7 @@ public class KafkaConsumerConfig {
         props.put(ConsumerConfig.ALLOW_AUTO_CREATE_TOPICS_CONFIG, true);
         props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 1);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "telegram-service");
-        props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
+
         return props;
     }
 

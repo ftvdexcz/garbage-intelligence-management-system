@@ -9,10 +9,9 @@ import org.thymeleaf.context.Context;
 @Service
 public class GenerateTemplateUtils {
     @Autowired
-    static
     TemplateEngine templateEngine;
 
-    public static String generateLoadCellEventTemplate(KafkaEventLoadCell kafkaEventLoadCell){
+    public String generateLoadCellEventTemplate(KafkaEventLoadCell kafkaEventLoadCell){
         Context context = new Context();
         context.setVariable("bin_id", kafkaEventLoadCell.getBinId());
         context.setVariable("company", kafkaEventLoadCell.getCompany());

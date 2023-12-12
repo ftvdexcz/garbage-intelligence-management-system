@@ -76,7 +76,8 @@
 
                   <v-col cols="12" class="mb-3">
                     <v-text-field
-                      label="Camera"
+                      label="Camera url"
+                      v-model="bin.cameraUrl"
                       hide-details
                       readonly
                     ></v-text-field>

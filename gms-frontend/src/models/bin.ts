@@ -39,6 +39,7 @@ export interface Bin {
   imageUrl: string;
   weight: Weight;
   owner: Owner;
+  cameraUrl: string;
 }
 
 export interface CreateBinRes {
@@ -51,6 +52,7 @@ export interface CreateBinRes {
   createdUser: string;
   imageUrl: string;
   owner: Owner;
+  cameraUrl: string;
 }
 
 export const newBin = (): Bin => {
@@ -67,6 +69,7 @@ export const newBin = (): Bin => {
     imageUrl: '',
     weight: newWeight(),
     owner: newOwner(),
+    cameraUrl: '',
   };
 };
 
@@ -79,6 +82,7 @@ export interface CreateBin {
   ownerName: string;
   ownerPhone: string;
   ownerEmail: string;
+  cameraUrl: string;
 }
 
 export const newCreateBin = () => {
@@ -91,5 +95,6 @@ export const newCreateBin = () => {
     ownerName: '',
     ownerPhone: '',
     ownerEmail: '',
+    cameraUrl: '',
   };
 };

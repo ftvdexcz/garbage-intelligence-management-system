@@ -3,11 +3,7 @@
     <div id="leaflet-map" ref="mapElement"></div>
 
     <v-slide-y-reverse-transition>
-      <info-map
-        v-show="infoMapVisible"
-        @close="closeInfoMap"
-        :bin="activeBin!"
-      />
+      <info-map v-if="infoMapVisible" @close="closeInfoMap" :bin="activeBin!" />
     </v-slide-y-reverse-transition>
   </div>
 </template>

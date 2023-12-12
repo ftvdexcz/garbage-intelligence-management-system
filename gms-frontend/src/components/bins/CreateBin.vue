@@ -26,6 +26,8 @@
 
                   <v-col cols="12">
                     <v-text-field
+                      input
+                      type="text"
                       v-model="bin.ownerName"
                       label="Chủ sở hữu"
                       :rules="blankRule"
@@ -35,6 +37,8 @@
 
                   <v-col cols="12">
                     <v-text-field
+                      input
+                      type="text"
                       v-model="bin.ownerEmail"
                       :rules="emailRules"
                       label="Email"
@@ -44,6 +48,8 @@
 
                   <v-col cols="12">
                     <v-text-field
+                      input
+                      type="text"
                       v-model="bin.ownerPhone"
                       :rules="phoneRules"
                       label="SĐT"
@@ -53,6 +59,8 @@
 
                   <v-col cols="12">
                     <v-text-field
+                      input
+                      type="text"
                       v-model="bin.address"
                       label="Địa chỉ"
                     ></v-text-field>
@@ -65,6 +73,15 @@
                       v-model="bin.capacity"
                       label="Khối lượng tối đa"
                       required
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12">
+                    <v-text-field
+                      input
+                      type="text"
+                      v-model="bin.cameraUrl"
+                      label="Camera url"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -240,7 +257,6 @@ const submit = async () => {
     });
     formData.append('data', data, 'data');
 
-    console.log(formData.get('data'));
     const response = await binService.createBin(formData);
     console.log(response);
     if (response.code === 201) {

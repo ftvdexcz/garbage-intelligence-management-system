@@ -74,6 +74,15 @@
                       required
                     ></v-text-field>
                   </v-col>
+
+                  <v-col cols="12" class="mb-3">
+                    <v-text-field
+                      input
+                      type="text"
+                      v-model="bin.cameraUrl"
+                      label="Camera url"
+                    ></v-text-field>
+                  </v-col>
                 </v-row>
               </v-container>
             </v-form>
@@ -261,6 +270,7 @@ const submit = async () => {
             ownerName: bin.value.owner.name,
             ownerPhone: bin.value.owner.phone,
             ownerEmail: bin.value.owner.email,
+            cameraUrl: bin.value.cameraUrl,
           })
         ),
       ],

@@ -64,12 +64,25 @@
       </v-window-item>
       <v-window-item value="camera">
         <v-card height="calc(100vh - 64px - 48px)">
-          <video controls style="width: 100%; height: 100%">
+          <!-- <video
+            ref="videoPlayer"
+            style="width: 100%; height: 100%"
+            class="video-js"
+          >
             <source
               src="ptitsure.tk:8888/index-80/index.m3u8"
               type="application/x-mpegURL"
             />
-          </video>
+          </video> -->
+
+          <video-player
+            ref="videoPlayer"
+            style="width: 100%; height: 100%"
+            poster="https://awlights.com/wp-content/uploads/sites/31/2017/05/video-placeholder.png"
+            :loop="true"
+            :src="bin.cameraUrl"
+            controls
+          />
         </v-card>
       </v-window-item>
     </v-window>
@@ -79,6 +92,8 @@
 <script setup lang="ts">
 import { Bin } from '@/models/bin';
 import { ref, defineEmits, defineProps } from 'vue';
+import { VideoPlayer } from '@videojs-player/vue';
+import 'video.js/dist/video-js.css';
 
 const tab = ref<string>('');
 

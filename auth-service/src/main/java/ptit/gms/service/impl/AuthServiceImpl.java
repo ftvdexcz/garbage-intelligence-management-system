@@ -8,6 +8,7 @@ import org.springframework.web.context.request.WebRequest;
 import ptit.gms.config.Config;
 import ptit.gms.constant.Constant;
 import ptit.gms.dto.request.AuthReqDto;
+import ptit.gms.dto.request.CctvAuthReqDto;
 import ptit.gms.dto.response.AuthResDto;
 import ptit.gms.dto.response.UserResDto;
 import ptit.gms.exception.ApiException;
@@ -108,5 +109,10 @@ public class AuthServiceImpl implements AuthService {
         response.addHeader(Constant.X_USER_ROLE_HEADER, String.valueOf(user.getRole().getRoleType()));
 
         return user;
+    }
+
+    @Override
+    public void cctvAuth(CctvAuthReqDto cctvAuthReqDto) {
+        log.info("[AuthServiceImpl - cctvAuth] cctvAuthReqDto: {}", cctvAuthReqDto);
     }
 }

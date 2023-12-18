@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import ptit.gms.constant.CodeResponse;
 import ptit.gms.dto.ResponseObject;
 import ptit.gms.dto.request.AuthReqDto;
+import ptit.gms.dto.request.CctvAuthReqDto;
 import ptit.gms.dto.response.AuthResDto;
 import ptit.gms.dto.response.UserResDto;
 import ptit.gms.service.AuthService;
@@ -33,5 +34,12 @@ public class AuthController {
         UserResDto user = authService.getCurrentUserInfo(request, response);
 
         return ResponseUtils.responseWithCode(CodeResponse.OK, user);
+    }
+
+    @PostMapping("/cctv-auth")
+    public ResponseEntity<ResponseObject> cctvAuth(@RequestBody CctvAuthReqDto cctvAuthReqDto){
+        authService.cctvAuth(cctvAuthReqDto);
+
+        return ResponseUtils.responseWithCode(CodeResponse.OK, null);
     }
 }

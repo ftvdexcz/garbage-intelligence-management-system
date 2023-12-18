@@ -37,4 +37,7 @@ public class UpdateBinResDto {
 
     @JsonProperty("owner")
     private CompanyOwnerResDto owner;
+
+    @JsonProperty("camera_url")
+    private String cameraUrl;
 }

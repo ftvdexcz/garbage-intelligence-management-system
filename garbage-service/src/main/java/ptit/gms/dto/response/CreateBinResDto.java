@@ -36,4 +36,7 @@ public class CreateBinResDto {
 
     @JsonProperty("owner")
     private CompanyOwnerResDto owner;
+
+    @JsonProperty("camera_url")
+    private String cameraUrl;
 }

@@ -84,6 +84,7 @@ public class BinServiceImpl implements BinService {
                 address(createBinReqDto.getAddress()).
                 imageUrl(imageUrl).
                 status(Constant.STATUS_BIN_ACTIVE).
+                cameraUrl(createBinReqDto.getCameraUrl()).
                 build();
 
         binRepository.save(binEntity);
@@ -111,6 +112,7 @@ public class BinServiceImpl implements BinService {
                         email(ownerEntity.getEmail()).
                         build()).
                 createdUser(binEntity.getCreatedUser()).
+                cameraUrl(binEntity.getCameraUrl()).
                 build();
 
         return createBinResDto;
@@ -253,6 +255,8 @@ public class BinServiceImpl implements BinService {
         if(updateBinReqDto.getAddress() != null)
             bin.setAddress(updateBinReqDto.getAddress());
 
+        bin.setCameraUrl(updateBinReqDto.getCameraUrl());
+
         binRepository.save(bin);
 
         Optional<CompanyOwnerEntity> owner = companyOwnerRepository.findById(bin.getOwnerId());
@@ -286,6 +290,7 @@ public class BinServiceImpl implements BinService {
                         phone(ownerEntity.getPhone()).
                         email(ownerEntity.getEmail()).
                         build()).
+                cameraUrl(bin.getCameraUrl()).
                 build();
 
         return updateBinResDto;

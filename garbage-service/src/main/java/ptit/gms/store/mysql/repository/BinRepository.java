@@ -29,7 +29,8 @@ public interface BinRepository extends JpaRepository<BinEntity, String> {
             " o.id," +
             " o.name," +
             " o.phone," +
-            " o.email) " +
+            " o.email," +
+            " b.cameraUrl) "+
             "FROM BinEntity b INNER JOIN CompanyOwnerEntity o " +
             "ON b.ownerId = o.id INNER JOIN TotalCellEntity c ON c.binCode = b.id " +
             "WHERE b.id = :id AND b.status = 1")
@@ -50,7 +51,8 @@ public interface BinRepository extends JpaRepository<BinEntity, String> {
             " o.id," +
             " o.name," +
             " o.phone," +
-            " o.email) " +
+            " o.email," +
+            " b.cameraUrl) "+
             "FROM BinEntity b INNER JOIN CompanyOwnerEntity o " +
             "ON b.ownerId = o.id INNER JOIN TotalCellEntity c ON c.binCode = b.id WHERE b.status = 1")
     List<GetBinResDto> listBins();
@@ -70,7 +72,8 @@ public interface BinRepository extends JpaRepository<BinEntity, String> {
             " o.id," +
             " o.name," +
             " o.phone," +
-            " o.email) " +
+            " o.email, " +
+            " b.cameraUrl) "+
             "FROM BinEntity b INNER JOIN CompanyOwnerEntity o " +
             "ON b.ownerId = o.id INNER JOIN TotalCellEntity c ON c.binCode = b.id " +
             "WHERE b.createdUser = :created_user AND b.status = 1")
@@ -91,7 +94,8 @@ public interface BinRepository extends JpaRepository<BinEntity, String> {
             " o.id," +
             " o.name," +
             " o.phone," +
-            " o.email) " +
+            " o.email, " +
+            " b.cameraUrl) "+
             "FROM BinEntity b INNER JOIN CompanyOwnerEntity o " +
             "ON b.ownerId = o.id INNER JOIN TotalCellEntity c ON c.binCode = b.id " +
             "WHERE b.createdUser = :created_user AND b.status = 1")
@@ -112,7 +116,8 @@ public interface BinRepository extends JpaRepository<BinEntity, String> {
             " o.id," +
             " o.name," +
             " o.phone," +
-            " o.email) " +
+            " o.email, " +
+            " b.cameraUrl) "+
             "FROM BinEntity b INNER JOIN CompanyOwnerEntity o " +
             "ON b.ownerId = o.id INNER JOIN TotalCellEntity c ON c.binCode = b.id AND b.status = 1")
     Page<GetBinResDto> listBinsPagination(Pageable pageable);

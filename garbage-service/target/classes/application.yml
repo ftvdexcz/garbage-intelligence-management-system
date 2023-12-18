@@ -63,7 +63,7 @@ mysql:
     password: ${MYSQL_PASSWORD:123456}
 
 spring.kafka.bootstrap-address: ${KAFKA_BOOTSTRAP_ADDRESS:localhost:29092}
-spring.kafka.properties.sasl.jaas.config: ${KAFKA_SASL_JAAS_CONFIG:org.apache.kafka.common.security.scram.ScramLoginModule required username="admin" password="admin-secret";}
+spring.kafka.properties.sasl.jaas.config: ${KAFKA_SASL_JAAS_CONFIG:org.apache.kafka.common.security.plain.PlainLoginModule required username="admin" password="admin-secret";}
 spring.kafka.properties.security.protocol: ${KAFKA_SECURITY_PROTOCOL:SASL_PLAINTEXT}
 spring.kafka.properties.sasl.mechanism: ${KAFKA_SASL_MECHANISM:PLAIN}
 

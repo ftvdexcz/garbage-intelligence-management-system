@@ -51,9 +51,12 @@ public class GetBinResDto {
     @JsonProperty("owner")
     private CompanyOwnerResDto owner;
 
+    @JsonProperty("camera_url")
+    private String cameraUrl;
+
     public GetBinResDto(String id, String company, String address, BigDecimal lat, BigDecimal lon,
                         int totalWeight, long updatedTimestamp, int capacity, Date createdDate, Date updatedDate,
-                        String createdUser, String imageUrl, String ownerId, String ownerName, String ownerPhone, String ownerEmail){
+                        String createdUser, String imageUrl, String ownerId, String ownerName, String ownerPhone, String ownerEmail, String cameraUrl){
         this.id = id;
         this.company = company;
         this.address = address;
@@ -76,5 +79,6 @@ public class GetBinResDto {
                 email(ownerEmail).
                 build();
         this.owner = owner;
+        this.cameraUrl = cameraUrl;
     }
 }

@@ -42,4 +42,7 @@ public class CreateBinReqDto {
     @JsonProperty("owner_email")
     @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "owner_email (email người đại diện) không hợp lệ")
     private String ownerEmail;
+
+    @JsonProperty("camera_url")
+    private String cameraUrl;
 }

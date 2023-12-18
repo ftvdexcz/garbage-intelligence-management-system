@@ -55,7 +55,9 @@ public class BinEntity {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
-
     @Column(name = "status")
     private int status;
+
+    @Column(name = "camera_url")
+    private String cameraUrl;
 }

@@ -1,7 +1,6 @@
 import base64
 import os
 import time
-
 import numpy as np
 from utils import EventMsg, logger
 from dotenv import load_dotenv

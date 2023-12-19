@@ -1,5 +1,7 @@
 package ptit.gms.service;
 
+import org.springframework.web.multipart.MultipartFile;
+import ptit.gms.dto.request.CheckPlateReqDto;
 import ptit.gms.dto.request.CreateTruckReqDto;
 import ptit.gms.dto.response.GetBinResDto;
 import ptit.gms.dto.response.PaginationResDto;
@@ -13,4 +15,6 @@ public interface TruckService {
     TruckResDto getTruck(String plate);
 
     void deleteTruck(String plate);
+
+    void checkPlate(CheckPlateReqDto checkPlateReqDto, MultipartFile file);
 }

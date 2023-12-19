@@ -30,6 +30,7 @@ public class KafkaProducerConfig {
         props.put(SaslConfigs.SASL_MECHANISM, configValue.getKafkaSaslMechanism());
         props.put(SaslConfigs.SASL_JAAS_CONFIG, configValue.getKafkaSaslJaasConfig());
         props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, configValue.getKafkaSecurityProtocol());
+        props.put("max.request.size", 2000000);
         return new DefaultKafkaProducerFactory<>(props);
     }
 

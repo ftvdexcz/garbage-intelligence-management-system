@@ -19,6 +19,7 @@ public class CellController {
     @Autowired
     CellService cellService;
 
+    // internal
     @PostMapping()
     public ResponseEntity<ResponseObject> loadCell(@Valid @RequestBody LoadCellReqDto loadCellReqDto){
         LoadCellResDto loadCellResDto = cellService.loadCell(loadCellReqDto);

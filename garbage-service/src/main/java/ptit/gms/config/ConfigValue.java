@@ -51,4 +51,7 @@ public class ConfigValue {
 
     @Value(value = "${kafka.topic.publish.event.load-cell}")
     private String topicPublishEventLoadCell;
+
+    @Value(value = "${kafka.topic.publish.event.check-plate}")
+    private String topicPublishEventCheckPlate;
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import ptit.gms.config.ConfigValue;
+import ptit.gms.dto.event.KafkaEventCheckPlate;
 import ptit.gms.dto.event.KafkaEventLoadCell;
 import ptit.gms.utils.JsonUtils;
 
@@ -22,5 +23,11 @@ public class KafkaProducerService {
         log.info("[KafkaProducerService - publishEventLoadCell] event: {}", kafkaEventLoadCell);
 
         kafkaTemplate.send(configValue.getTopicPublishEventLoadCell(), JsonUtils.marshalJsonAsPrettyString(kafkaEventLoadCell));
+    }
+
+    public void publishEventCheckPlate(KafkaEventCheckPlate kafkaEventCheckPlate){
+        log.info("[KafkaProducerService - publishEventCheckPlate] fire event");
+
+        kafkaTemplate.send(configValue.getTopicPublishEventCheckPlate(), JsonUtils.marshalJsonAsPrettyString(kafkaEventCheckPlate));
     }
 }

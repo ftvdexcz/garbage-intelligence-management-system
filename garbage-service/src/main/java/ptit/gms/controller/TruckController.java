@@ -8,12 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ptit.gms.constant.CodeResponse;
 import ptit.gms.dto.ResponseObject;
+import ptit.gms.dto.request.CheckPlateReqDto;
 import ptit.gms.dto.request.CreateBinReqDto;
 import ptit.gms.dto.request.CreateTruckReqDto;
-import ptit.gms.dto.response.CreateBinResDto;
-import ptit.gms.dto.response.GetBinResDto;
-import ptit.gms.dto.response.PaginationResDto;
-import ptit.gms.dto.response.TruckResDto;
+import ptit.gms.dto.request.LoadCellReqDto;
+import ptit.gms.dto.response.*;
 import ptit.gms.service.TruckService;
 import ptit.gms.utils.ResponseUtils;
 
@@ -56,5 +55,15 @@ public class TruckController {
         truckService.deleteTruck(plate);
 
         return ResponseUtils.responseWithCodeAndMsg(CodeResponse.OK, "Xóa thành công", null);
+    }
+
+    // internal
+    @PostMapping("/checkPlate")
+    public ResponseEntity<ResponseObject> checkPlate(
+            @Valid @RequestPart("data") CheckPlateReqDto checkPlateReqDto,
+            @RequestPart(value = "image", required = true) MultipartFile file){
+        truckService.checkPlate(checkPlateReqDto, file);
+
+        return ResponseUtils.responseWithCode(CodeResponse.OK, null);
     }
 }

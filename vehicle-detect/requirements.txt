@@ -1,5 +1,14 @@
-pika==1.3.2
-python-dotenv==1.0.0
-opencv-python
+pika
+python-dotenv
+opencv-python-headless
 numpy
 requests
+matplotlib
+Pillow
+torch
+torchvision
+tqdm
+pyyaml
+pandas
+seaborn
+scipy

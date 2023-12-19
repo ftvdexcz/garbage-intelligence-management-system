@@ -4,8 +4,8 @@ import logging
 logging.basicConfig(
     level=logging.INFO,  # (DEBUG, INFO, WARNING, ERROR, CRITICAL)
     format="%(asctime)s - %(levelname)s - %(message)s",
-    filename="app.log",
-    filemode="w",
+    # filename="app.log",
+    # filemode="w",
 )
 
 logger = logging.getLogger("logger")

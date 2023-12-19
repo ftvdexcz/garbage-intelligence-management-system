@@ -1,0 +1,7 @@
+Sự kiện: cảnh báo xe
+Mã điểm cân: <a th:text="${bin_id}"></a>
+Công ty: <a th:text="${company}"></a>
+Tọa độ: <a th:text="${lat}"></a>,<a th:text="${lon}"></a>
+<a th:each="entry : ${checks.entrySet()}">- Biển số: <b th:text="${entry.key}"></b> - <b th:if="${entry.value}">Hợp lệ</b><b th:else>Không hợp lệ</b>
+</a>
+<i>Cập nhật lúc:</i> <i th:text="${timestamp}"></i>

@@ -56,9 +56,9 @@ spring:
 mysql:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/telegram_service?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Ho_Chi_Minh&useLegacyDatetimeCode=false}
+    url: ${MYSQL_URL:jdbc:mysql://127.0.0.1:3307/telegram_service?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Ho_Chi_Minh&useLegacyDatetimeCode=false}
     username: ${MYSQL_USER:root}
-    password: ${MYSQL_PASSWORD:123456}
+    password: ${MYSQL_PASSWORD:admin123456}
 
 spring.kafka.bootstrap-address: ${KAFKA_BOOTSTRAP_ADDRESS:localhost:29092}
 spring.kafka.properties.sasl.jaas.config: ${KAFKA_SASL_JAAS_CONFIG:org.apache.kafka.common.security.scram.ScramLoginModule required username="admin" password="admin-secret";}
@@ -71,4 +71,9 @@ spring.kafka.properties.sasl.mechanism: ${KAFKA_SASL_MECHANISM:PLAIN}
 telegram.bot.token: ${TELEGRAM_BOT_TOKEN:6308791384:AAHtMo2XTSHGDhOeBzpI0WxOmKUA31ihBX4}
 
 
-kafka.topic.publish.event.load-cell: ${KAFKA_LOAD_CELL_TOPIC:event-send-load-cell}
+kafka.topic.subscribe.event.load-cell: ${KAFKA_LOAD_CELL_TOPIC:event-send-load-cell}
+kafka.group.id.subscribe.event.load-cell: ${KAFKA_LOAD_CELL_GROUP:group-id-send-load-cell}
+kafka.topic.subscribe.event.check-plate: ${KAFKA_CHECK_PLATE_TOPIC:event-send-check-plate}
+kafka.group.id.subscribe.event.check-plate: ${KAFKA_CHECK_PLATE_GROUP:group-id-send-check-plate}
+
+

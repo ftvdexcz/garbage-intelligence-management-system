@@ -2,8 +2,10 @@ package gms.ptit.kafka;
 
 import gms.ptit.config.ConfigValue;
 import gms.ptit.constant.EventType;
+import gms.ptit.dto.event.KafkaEventCheckPlate;
 import gms.ptit.dto.event.KafkaEventLoadCell;
 import gms.ptit.mysql.entity.UserChatInfoEntity;
+import gms.ptit.service.TelegramService;
 import gms.ptit.service.UserChatInfoService;
 import gms.ptit.service.bot.BotPolling;
 import gms.ptit.utils.GenerateTemplateUtils;
@@ -21,6 +23,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import org.telegram.telegrambots.meta.updateshandlers.SentCallback;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -30,13 +33,13 @@ public class KafkaConsumerService {
     ConfigValue configValue;
 
     @Autowired
-    BotPolling botPolling;
-
-    @Autowired
     UserChatInfoService userChatInfoService;
 
     @Autowired
     GenerateTemplateUtils generateTemplateUtils;
+
+    @Autowired
+    TelegramService telegramService;
 
     @KafkaListener(topics = "${kafka.topic.subscribe.event.load-cell}", groupId = "${kafka.group.id.subscribe.event.load-cell}",
             properties = {
@@ -50,29 +53,26 @@ public class KafkaConsumerService {
                                                         EventType.EVENT_TYPE_ALL.code));
 
             String html = generateTemplateUtils.generateLoadCellEventTemplate(loadCellEvent);
-            SendMessage message = new SendMessage();
-            message.setText(html);
-            message.setParseMode(ParseMode.HTML);
-            message.disableWebPagePreview();
-
             for(UserChatInfoEntity u: users){
-                message.setChatId(u.getChatId());
-                botPolling.executeAsync(message, new SentCallback<Message>() {
-                    @Override
-                    public void onResult(BotApiMethod<Message> botApiMethod, Message message) {
-                        log.info("[KafkaConsumerService - onResult] send message success");
-                    }
+                telegramService.sendMessageHTMLAsync(html, Long.parseLong(u.getChatId()));
+            }
+        }
+    }
 
-                    @Override
-                    public void onError(BotApiMethod<Message> botApiMethod, TelegramApiRequestException e) {
-                        log.info("[KafkaConsumerService - onResult] send message error: {}", e.getMessage());
-                    }
+    @KafkaListener(topics = "${kafka.topic.subscribe.event.check-plate}", groupId = "${kafka.group.id.subscribe.event.check-plate}",
+            properties = {
+                    ConsumerConfig.AUTO_OFFSET_RESET_CONFIG + "=earliest",
+            })
+    public void listenCheckPlateEvent(String event) throws TelegramApiException, IOException {
+        log.info("[KafkaConsumerService - listenCheckPlateEvent] Received event");
+        KafkaEventCheckPlate checkPlateEvent = JsonUtils.unJson(event, KafkaEventCheckPlate.class);
+        if(checkPlateEvent != null){
+            List<UserChatInfoEntity> users = userChatInfoService.findAllByTypeIn(List.of(EventType.EVENT_TYPE_INVALID_PLATE_DETECT.code,
+                    EventType.EVENT_TYPE_ALL.code));
 
-                    @Override
-                    public void onException(BotApiMethod<Message> botApiMethod, Exception e) {
-                        log.info("[KafkaConsumerService - onResult] send message exception: {}", e.getMessage());
-                    }
-                });
+            String html = generateTemplateUtils.generateCheckPlateEventTemplate(checkPlateEvent);
+            for(UserChatInfoEntity u: users){
+                telegramService.sendPhotoAsync(html, Long.parseLong(u.getChatId()), checkPlateEvent.getImage());
             }
         }
     }

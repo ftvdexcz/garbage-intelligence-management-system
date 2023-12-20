@@ -1,0 +1,74 @@
+version: '3'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.9-management
+    container_name: rabbitmq-gms
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin123
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+  redis:
+    image: redis:latest
+    container_name: redis-gms
+    restart: always
+    ports:
+      - '6379:6379'
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper-gms
+    restart: always
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    tmpfs: /datalog
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka-gms
+    depends_on:
+      - zookeeper
+    restart: always
+    ports:
+      - 29092:29092
+      - 29093:29093
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      ZOOKEEPER_SASL_ENABLED: 'false'
+      KAFKA_LISTENERS: SASL_PLAINTEXT://:29092,OUTSIDE://:29093
+      KAFKA_ADVERTISED_LISTENERS: SASL_PLAINTEXT://localhost:29092,OUTSIDE://192.168.1.80:29093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: SASL_PLAINTEXT:SASL_PLAINTEXT,OUTSIDE:SASL_PLAINTEXT
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+      KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
+      KAFKA_INTER_BROKER_LISTENER_NAME: SASL_PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/configs/kafka_server_jaas.conf
+    volumes:
+      - ./configs:/etc/kafka/configs
+  mysql:
+    image: mysql:8.0.13
+    container_name: gms-garbage-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123456
+      MYSQL_DATABASE: garbage_service
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin123456
+    ports:
+      - '3307:3306'
+    volumes:
+      - /data/gms/mysql:/var/lib/mysql
+  nginx:
+    image: nginx:latest
+    container_name: gms-garbage-nginx
+    restart: always
+    ports:
+      - '443:443'
+      - '8081:8081'
+    volumes:
+      - ./nginx/conf:/etc/nginx
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'

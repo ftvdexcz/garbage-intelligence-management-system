@@ -1,0 +1,671 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    backup.velero.io/backup-volumes: datadir-0
+    prometheus.io/port: '5556'
+    prometheus.io/scrape: 'true'
+  creationTimestamp: '2023-12-10T20:44:08Z'
+  generateName: kafka-dev-cp-kafka-
+  labels:
+    app: cp-kafka
+    controller-revision-hash: kafka-dev-cp-kafka-6fcf658df6
+    release: kafka-dev
+    statefulset.kubernetes.io/pod-name: kafka-dev-cp-kafka-0
+  managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:backup.velero.io/backup-volumes: {}
+            f:prometheus.io/port: {}
+            f:prometheus.io/scrape: {}
+          f:generateName: {}
+          f:labels:
+            .: {}
+            f:app: {}
+            f:controller-revision-hash: {}
+            f:release: {}
+            f:statefulset.kubernetes.io/pod-name: {}
+          f:ownerReferences:
+            .: {}
+            k:{"uid":"1573b0e8-25bd-4b1e-bb31-3f6c702435ec"}: {}
+        f:spec:
+          f:affinity:
+            .: {}
+            f:podAntiAffinity:
+              .: {}
+              f:preferredDuringSchedulingIgnoredDuringExecution: {}
+          f:containers:
+            k:{"name":"cp-kafka-broker"}:
+              .: {}
+              f:command: {}
+              f:env:
+                .: {}
+                k:{"name":"HOST_IP"}:
+                  .: {}
+                  f:name: {}
+                  f:valueFrom:
+                    .: {}
+                    f:fieldRef: {}
+                k:{"name":"KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_AUTHORIZER_CLASS_NAME"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_AUTO_CREATE_TOPICS_ENABLE"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_DEFAULT_REPLICATION_FACTOR"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_DELETE_RETENTION_MS"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_HEAP_OPTS"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_JMX_PORT"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_LISTENERS"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_LOG_DIRS"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_LOG_RETENTION_HOURS"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_LOG_SEGMENT_BYTES"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_LOG4J_LOGGERS"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_LOG4J_ROOT_LOGLEVEL"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_MIN_INSYNC_REPLICAS"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_NUM_PARTITIONS"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_OPTS"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_RETENTION_MS"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_SASL_ENABLED_MECHANISMS"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_SECURITY_INTER_BROKER_PROTOCOL"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_TOOLS_LOG4J_LOGLEVEL"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"KAFKA_ZOOKEEPER_CONNECT"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"POD_IP"}:
+                  .: {}
+                  f:name: {}
+                  f:valueFrom:
+                    .: {}
+                    f:fieldRef: {}
+                k:{"name":"POD_NAME"}:
+                  .: {}
+                  f:name: {}
+                  f:valueFrom:
+                    .: {}
+                    f:fieldRef: {}
+                k:{"name":"POD_NAMESPACE"}:
+                  .: {}
+                  f:name: {}
+                  f:valueFrom:
+                    .: {}
+                    f:fieldRef: {}
+              f:image: {}
+              f:imagePullPolicy: {}
+              f:name: {}
+              f:ports:
+                .: {}
+                k:{"containerPort":5555,"protocol":"TCP"}:
+                  .: {}
+                  f:containerPort: {}
+                  f:name: {}
+                  f:protocol: {}
+                k:{"containerPort":9092,"protocol":"TCP"}:
+                  .: {}
+                  f:containerPort: {}
+                  f:name: {}
+                  f:protocol: {}
+                k:{"containerPort":9094,"protocol":"TCP"}:
+                  .: {}
+                  f:containerPort: {}
+                  f:name: {}
+                  f:protocol: {}
+              f:resources:
+                .: {}
+                f:limits:
+                  .: {}
+                  f:cpu: {}
+                  f:memory: {}
+                f:requests:
+                  .: {}
+                  f:cpu: {}
+                  f:memory: {}
+              f:securityContext:
+                .: {}
+                f:runAsGroup: {}
+                f:runAsUser: {}
+              f:terminationMessagePath: {}
+              f:terminationMessagePolicy: {}
+              f:volumeMounts:
+                .: {}
+                k:{"mountPath":"/etc/kafka/config"}:
+                  .: {}
+                  f:mountPath: {}
+                  f:name: {}
+                k:{"mountPath":"/opt/kafka/data-0"}:
+                  .: {}
+                  f:mountPath: {}
+                  f:name: {}
+                k:{"mountPath":"/shared"}:
+                  .: {}
+                  f:mountPath: {}
+                  f:name: {}
+            k:{"name":"prometheus-jmx-exporter"}:
+              .: {}
+              f:command: {}
+              f:image: {}
+              f:imagePullPolicy: {}
+              f:name: {}
+              f:ports:
+                .: {}
+                k:{"containerPort":5556,"protocol":"TCP"}:
+                  .: {}
+                  f:containerPort: {}
+                  f:name: {}
+                  f:protocol: {}
+              f:resources: {}
+              f:terminationMessagePath: {}
+              f:terminationMessagePolicy: {}
+              f:volumeMounts:
+                .: {}
+                k:{"mountPath":"/etc/jmx-kafka"}:
+                  .: {}
+                  f:mountPath: {}
+                  f:name: {}
+          f:dnsPolicy: {}
+          f:enableServiceLinks: {}
+          f:hostname: {}
+          f:initContainers:
+            .: {}
+            k:{"name":"getport"}:
+              .: {}
+              f:command: {}
+              f:env:
+                .: {}
+                k:{"name":"POD_NAMESPACE"}:
+                  .: {}
+                  f:name: {}
+                  f:valueFrom:
+                    .: {}
+                    f:fieldRef: {}
+              f:image: {}
+              f:imagePullPolicy: {}
+              f:name: {}
+              f:resources: {}
+              f:terminationMessagePath: {}
+              f:terminationMessagePolicy: {}
+              f:volumeMounts:
+                .: {}
+                k:{"mountPath":"/shared"}:
+                  .: {}
+                  f:mountPath: {}
+                  f:name: {}
+          f:restartPolicy: {}
+          f:schedulerName: {}
+          f:securityContext: {}
+          f:serviceAccount: {}
+          f:serviceAccountName: {}
+          f:subdomain: {}
+          f:terminationGracePeriodSeconds: {}
+          f:volumes:
+            .: {}
+            k:{"name":"datadir-0"}:
+              .: {}
+              f:name: {}
+              f:persistentVolumeClaim:
+                .: {}
+                f:claimName: {}
+            k:{"name":"jaas-config"}:
+              .: {}
+              f:configMap:
+                .: {}
+                f:defaultMode: {}
+                f:name: {}
+              f:name: {}
+            k:{"name":"jmx-config"}:
+              .: {}
+              f:configMap:
+                .: {}
+                f:defaultMode: {}
+                f:name: {}
+              f:name: {}
+            k:{"name":"shared"}:
+              .: {}
+              f:emptyDir: {}
+              f:name: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: '2023-12-10T20:44:08Z'
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:conditions:
+            k:{"type":"ContainersReady"}:
+              .: {}
+              f:lastProbeTime: {}
+              f:lastTransitionTime: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Initialized"}:
+              .: {}
+              f:lastProbeTime: {}
+              f:lastTransitionTime: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Ready"}:
+              .: {}
+              f:lastProbeTime: {}
+              f:lastTransitionTime: {}
+              f:status: {}
+              f:type: {}
+          f:containerStatuses: {}
+          f:hostIP: {}
+          f:initContainerStatuses: {}
+          f:phase: {}
+          f:podIP: {}
+          f:podIPs:
+            .: {}
+            k:{"ip":"10.42.4.140"}:
+              .: {}
+              f:ip: {}
+          f:startTime: {}
+      manager: kubelet
+      operation: Update
+      subresource: status
+      time: '2023-12-10T20:44:20Z'
+  name: kafka-dev-cp-kafka-0
+  namespace: kafka-dev
+  ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: StatefulSet
+      name: kafka-dev-cp-kafka
+      uid: 1573b0e8-25bd-4b1e-bb31-3f6c702435ec
+  resourceVersion: '362586402'
+  uid: 75753bef-2bee-4419-8775-49f13b6c4d9f
+spec:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app: cp-kafka
+                release: kafka-dev
+            namespaces:
+              - kafka-dev
+            topologyKey: kubernetes.io/hostname
+          weight: 1
+  containers:
+    - command:
+        - java
+        - '-XX:+UnlockExperimentalVMOptions'
+        - '-XX:+UseCGroupMemoryLimitForHeap'
+        - '-XX:MaxRAMFraction=1'
+        - '-XshowSettings:vm'
+        - '-Dlog4j2.formatMsgNoLookups=true'
+        - '-jar'
+        - jmx_prometheus_httpserver.jar
+        - '5556'
+        - /etc/jmx-kafka/jmx-kafka-prometheus.yml
+      image: >-
+        idg-repository-prod.vnpt.vn/hub/solsson/kafka-prometheus-jmx-exporter@sha256:6f82e2b0464f50da8104acd7363fb9b995001ddff77d248379f8788e78946143
+      imagePullPolicy: IfNotPresent
+      name: prometheus-jmx-exporter
+      ports:
+        - containerPort: 5556
+          name: metrics-kafka
+          protocol: TCP
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /etc/jmx-kafka
+          name: jmx-config
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lgn5p
+          readOnly: true
+    - command:
+        - sh
+        - '-exc'
+        - >
+          source /shared/kafka.env && \
+
+          export KAFKA_BROKER_ID=${HOSTNAME##*-} && \
+
+          export
+          KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://${POD_NAME}.kafka-dev-cp-kafka-headless.${POD_NAMESPACE}:9092,SASL_PLAINTEXT://${HOST_IP}:${NODE_PORT}
+          && \
+
+          exec /etc/confluent/docker/run
+      env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.podIP
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: KAFKA_LISTENERS
+          value: PLAINTEXT://:9092,SASL_PLAINTEXT://:9094
+        - name: KAFKA_HEAP_OPTS
+          value: '-Xms1024M -Xmx2048M'
+        - name: KAFKA_LOG4J_ROOT_LOGLEVEL
+          value: WARN
+        - name: KAFKA_TOOLS_LOG4J_LOGLEVEL
+          value: WARN
+        - name: KAFKA_LOG4J_LOGGERS
+          value: >-
+            kafka=WARN,kafka.producer.async.DefaultEventHandler=WARN,kafka.request.logger=WARN,kafka.controller=WARN,kafka.log.LogCleaner=WARN,state.change.logger=WARN,kafka.authorizer.logger=WARN
+        - name: KAFKA_ZOOKEEPER_CONNECT
+          value: kafka-dev-cp-zookeeper:2181
+        - name: KAFKA_LOG_RETENTION_HOURS
+          value: '2'
+        - name: KAFKA_LOG_DIRS
+          value: /opt/kafka/data-0/logs
+        - name: KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND
+          value: 'true'
+        - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
+          value: 'false'
+        - name: KAFKA_DELETE_RETENTION_MS
+          value: '7200000'
+        - name: KAFKA_RETENTION_MS
+          value: '7200000'
+        - name: KAFKA_AUTHORIZER_CLASS_NAME
+          value: kafka.security.auth.SimpleAclAuthorizer
+        - name: KAFKA_DEFAULT_REPLICATION_FACTOR
+          value: '3'
+        - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+          value: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT
+        - name: KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS
+          value: '300000'
+        - name: KAFKA_LOG_SEGMENT_BYTES
+          value: '1073741824'
+        - name: KAFKA_MIN_INSYNC_REPLICAS
+          value: '2'
+        - name: KAFKA_NUM_PARTITIONS
+          value: '6'
+        - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+          value: '3'
+        - name: KAFKA_SASL_ENABLED_MECHANISMS
+          value: PLAIN
+        - name: KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL
+          value: PLAIN
+        - name: KAFKA_SECURITY_INTER_BROKER_PROTOCOL
+          value: SASL_PLAINTEXT
+        - name: KAFKA_OPTS
+          value: >-
+            -Djava.security.auth.login.config=/etc/kafka/config/kafka_server_jaas.conf
+            -Dlog4j2.formatMsgNoLookups=true
+        - name: KAFKA_JMX_PORT
+          value: '5555'
+      image: idg-repository-prod.vnpt.vn/hub/confluentinc/cp-enterprise-kafka:6.1.1
+      imagePullPolicy: IfNotPresent
+      name: cp-kafka-broker
+      ports:
+        - containerPort: 9092
+          name: kafka
+          protocol: TCP
+        - containerPort: 5555
+          name: jmx
+          protocol: TCP
+        - containerPort: 9094
+          name: kafka-external
+          protocol: TCP
+      resources:
+        limits:
+          cpu: '2'
+          memory: 4Gi
+        requests:
+          cpu: 20m
+          memory: 1Gi
+      securityContext:
+        runAsGroup: 0
+        runAsUser: 0
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /shared
+          name: shared
+        - mountPath: /etc/kafka/config
+          name: jaas-config
+        - mountPath: /opt/kafka/data-0
+          name: datadir-0
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lgn5p
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  hostname: kafka-dev-cp-kafka-0
+  initContainers:
+    - command:
+        - sh
+        - '-exc'
+        - >
+          export HOSTNAME_ID=${HOSTNAME##*-} && \
+
+          echo NODE_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}"
+          services ${POD_NAMESPACE}-cp-kafka-${HOSTNAME_ID}-nodeport) >
+          /shared/kafka.env
+      env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+      image: idg-repository-prod.vnpt.vn/hub/bitnami/kubectl:1.19.3
+      imagePullPolicy: IfNotPresent
+      name: getport
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /shared
+          name: shared
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lgn5p
+          readOnly: true
+  nodeName: worker-02
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: kafka-svc
+  serviceAccountName: kafka-svc
+  subdomain: kafka-dev-cp-kafka-headless
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: datadir-0
+      persistentVolumeClaim:
+        claimName: datadir-0-kafka-dev-cp-kafka-0
+    - emptyDir: {}
+      name: shared
+    - configMap:
+        defaultMode: 420
+        name: kafka-dev-cp-kafka-jaas-configmap
+      name: jaas-config
+    - configMap:
+        defaultMode: 420
+        name: kafka-dev-cp-kafka-jmx-configmap
+      name: jmx-config
+    - name: kube-api-access-lgn5p
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: '2023-12-10T20:44:19Z'
+      status: 'True'
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: '2023-12-10T20:44:20Z'
+      status: 'True'
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: '2023-12-10T20:44:20Z'
+      status: 'True'
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: '2023-12-10T20:44:08Z'
+      status: 'True'
+      type: PodScheduled
+  containerStatuses:
+    - containerID: >-
+        containerd://863d3c4b85b1f25c802da851b31c072f75ef763e41321c9c3cfed25fa1925626
+      image: idg-repository-prod.vnpt.vn/hub/confluentinc/cp-enterprise-kafka:6.1.1
+      imageID: >-
+        idg-repository-prod.vnpt.vn/hub/confluentinc/cp-enterprise-kafka@sha256:e8b9ac53aae9ec9ff24c21de65c23f729c636817c7f658f75c1a5485e2149173
+      lastState: {}
+      name: cp-kafka-broker
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: '2023-12-10T20:44:19Z'
+    - containerID: >-
+        containerd://0298017945a3fb828940599dcdb8c55039f3cfe98abdff132ad66733c7acb9ab
+      image: sha256:36f9e9d8127bdcbea99d3bd9c4cce589d840ddbcc3128f7d23059980490c04e8
+      imageID: >-
+        idg-repository-prod.vnpt.vn/hub/solsson/kafka-prometheus-jmx-exporter@sha256:6f82e2b0464f50da8104acd7363fb9b995001ddff77d248379f8788e78946143
+      lastState: {}
+      name: prometheus-jmx-exporter
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: '2023-12-10T20:44:19Z'
+  hostIP: 10.168.10.16
+  initContainerStatuses:
+    - containerID: >-
+        containerd://1bb1afeb301fbda5b3c31ada5b57dcb0309bf96f43ca60dbe93c79f53cba40a2
+      image: docker.io/bitnami/kubectl:1.19.3
+      imageID: >-
+        docker.io/bitnami/kubectl@sha256:9d68d423be15e8b888315ca269ad0b87d304607399ec499f863b3b4d7ae96216
+      lastState: {}
+      name: getport
+      ready: true
+      restartCount: 0
+      state:
+        terminated:
+          containerID: >-
+            containerd://1bb1afeb301fbda5b3c31ada5b57dcb0309bf96f43ca60dbe93c79f53cba40a2
+          exitCode: 0
+          finishedAt: '2023-12-10T20:44:18Z'
+          reason: Completed
+          startedAt: '2023-12-10T20:44:09Z'
+  phase: Running
+  podIP: 10.42.4.140
+  podIPs:
+    - ip: 10.42.4.140
+  qosClass: Burstable
+  startTime: '2023-12-10T20:44:08Z'

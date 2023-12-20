@@ -1,0 +1,751 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    checksum/jaas-configmap: ee1fd724f50be5fd91e6fb4d90620385571458a5c4b7b8a49d2b5954a0e9835b
+    checksum/jmx-configmap: a9d60754e3eb60805ae7b05466ff7ed30c05a1336f6d168b90e11e58ebe93877
+    meta.helm.sh/release-name: kafka-cp
+    meta.helm.sh/release-namespace: kafka-cp
+  creationTimestamp: '2023-11-09T09:19:32Z'
+  generation: 1
+  labels:
+    app: idg-kafka
+    app.kubernetes.io/managed-by: Helm
+    chart: idg-kafka-2.0.0
+    heritage: Helm
+    release: kafka-cp
+  managedFields:
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:checksum/jaas-configmap: {}
+            f:checksum/jmx-configmap: {}
+            f:meta.helm.sh/release-name: {}
+            f:meta.helm.sh/release-namespace: {}
+          f:labels:
+            .: {}
+            f:app: {}
+            f:app.kubernetes.io/managed-by: {}
+            f:chart: {}
+            f:heritage: {}
+            f:release: {}
+        f:spec:
+          f:persistentVolumeClaimRetentionPolicy:
+            .: {}
+            f:whenDeleted: {}
+            f:whenScaled: {}
+          f:podManagementPolicy: {}
+          f:replicas: {}
+          f:revisionHistoryLimit: {}
+          f:selector: {}
+          f:serviceName: {}
+          f:template:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:backup.velero.io/backup-volumes: {}
+                f:prometheus.io/port: {}
+                f:prometheus.io/scrape: {}
+              f:labels:
+                .: {}
+                f:app: {}
+                f:release: {}
+            f:spec:
+              f:affinity:
+                .: {}
+                f:podAntiAffinity:
+                  .: {}
+                  f:requiredDuringSchedulingIgnoredDuringExecution: {}
+              f:containers:
+                k:{"name":"idg-kafka-broker"}:
+                  .: {}
+                  f:command: {}
+                  f:env:
+                    .: {}
+                    k:{"name":"CLUSTER_ID"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"COMBINED_MODE"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"HOST_IP"}:
+                      .: {}
+                      f:name: {}
+                      f:valueFrom:
+                        .: {}
+                        f:fieldRef: {}
+                    k:{"name":"KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_AUTHORIZER_CLASS_NAME"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_AUTO_CREATE_TOPICS_ENABLE"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_CONFLUENT_CLUSTER_LINK_ENABLE"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_CONFLUENT_REPORTERS_TELEMETRY_AUTO_ENABLE"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_CONFLUENT_TELEMETRY_ENABLED"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_CONTROLLER_LISTENER_NAMES"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_DEFAULT_REPLICATION_FACTOR"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_HEAP_OPTS"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_INTER_BROKER_LISTENER_NAME"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_JMX_PORT"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_LISTENER_NAME_BROKER_SASL_ENABLED_MECHANISMS"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_LISTENER_NAME_CONTROLLER_SASL_ENABLED_MECHANISMS"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_LISTENERS"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_LOG_DIRS"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_LOG_RETENTION_BYTES"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_LOG_RETENTION_HOURS"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_LOG_SEGMENT_BYTES"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_LOG4J_LOGGERS"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_LOG4J_ROOT_LOGLEVEL"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_MIN_INSYNC_REPLICAS"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_NUM_PARTITIONS"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_OPTS"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_PROCESS_ROLES"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_SASL_ENABLED_MECHANISMS"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_SASL_MECHANISM_CONTROLLER_PROTOCOL"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_SUPER_USERS"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"KAFKA_TOOLS_LOG4J_LOGLEVEL"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"POD_IP"}:
+                      .: {}
+                      f:name: {}
+                      f:valueFrom:
+                        .: {}
+                        f:fieldRef: {}
+                    k:{"name":"POD_NAME"}:
+                      .: {}
+                      f:name: {}
+                      f:valueFrom:
+                        .: {}
+                        f:fieldRef: {}
+                    k:{"name":"POD_NAMESPACE"}:
+                      .: {}
+                      f:name: {}
+                      f:valueFrom:
+                        .: {}
+                        f:fieldRef: {}
+                    k:{"name":"SCRAM_PASS"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"SCRAM_USER"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                  f:image: {}
+                  f:imagePullPolicy: {}
+                  f:name: {}
+                  f:ports:
+                    .: {}
+                    k:{"containerPort":5555,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:name: {}
+                      f:protocol: {}
+                    k:{"containerPort":9092,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:name: {}
+                      f:protocol: {}
+                    k:{"containerPort":9093,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:name: {}
+                      f:protocol: {}
+                    k:{"containerPort":9094,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:name: {}
+                      f:protocol: {}
+                  f:resources:
+                    .: {}
+                    f:limits:
+                      .: {}
+                      f:cpu: {}
+                      f:memory: {}
+                    f:requests:
+                      .: {}
+                      f:cpu: {}
+                      f:memory: {}
+                  f:securityContext:
+                    .: {}
+                    f:runAsGroup: {}
+                    f:runAsUser: {}
+                  f:terminationMessagePath: {}
+                  f:terminationMessagePolicy: {}
+                  f:volumeMounts:
+                    .: {}
+                    k:{"mountPath":"/etc/kafka/config"}:
+                      .: {}
+                      f:mountPath: {}
+                      f:name: {}
+                    k:{"mountPath":"/opt/kafka/data-0"}:
+                      .: {}
+                      f:mountPath: {}
+                      f:name: {}
+                    k:{"mountPath":"/shared"}:
+                      .: {}
+                      f:mountPath: {}
+                      f:name: {}
+                k:{"name":"prometheus-jmx-exporter"}:
+                  .: {}
+                  f:command: {}
+                  f:image: {}
+                  f:imagePullPolicy: {}
+                  f:name: {}
+                  f:ports:
+                    .: {}
+                    k:{"containerPort":5556,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:name: {}
+                      f:protocol: {}
+                  f:resources:
+                    .: {}
+                    f:limits:
+                      .: {}
+                      f:cpu: {}
+                      f:memory: {}
+                    f:requests:
+                      .: {}
+                      f:cpu: {}
+                      f:memory: {}
+                  f:terminationMessagePath: {}
+                  f:terminationMessagePolicy: {}
+                  f:volumeMounts:
+                    .: {}
+                    k:{"mountPath":"/etc/jmx-kafka"}:
+                      .: {}
+                      f:mountPath: {}
+                      f:name: {}
+              f:dnsPolicy: {}
+              f:initContainers:
+                .: {}
+                k:{"name":"getport"}:
+                  .: {}
+                  f:command: {}
+                  f:env:
+                    .: {}
+                    k:{"name":"HOST_IP"}:
+                      .: {}
+                      f:name: {}
+                      f:valueFrom:
+                        .: {}
+                        f:fieldRef: {}
+                    k:{"name":"LOADBALANCER_ENABLE"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"POD_NAMESPACE"}:
+                      .: {}
+                      f:name: {}
+                      f:valueFrom:
+                        .: {}
+                        f:fieldRef: {}
+                  f:image: {}
+                  f:imagePullPolicy: {}
+                  f:name: {}
+                  f:resources:
+                    .: {}
+                    f:limits:
+                      .: {}
+                      f:cpu: {}
+                      f:memory: {}
+                    f:requests:
+                      .: {}
+                      f:cpu: {}
+                      f:memory: {}
+                  f:terminationMessagePath: {}
+                  f:terminationMessagePolicy: {}
+                  f:volumeMounts:
+                    .: {}
+                    k:{"mountPath":"/shared"}:
+                      .: {}
+                      f:mountPath: {}
+                      f:name: {}
+              f:restartPolicy: {}
+              f:schedulerName: {}
+              f:securityContext: {}
+              f:serviceAccount: {}
+              f:serviceAccountName: {}
+              f:terminationGracePeriodSeconds: {}
+              f:volumes:
+                .: {}
+                k:{"name":"jaas-config"}:
+                  .: {}
+                  f:configMap:
+                    .: {}
+                    f:defaultMode: {}
+                    f:name: {}
+                  f:name: {}
+                k:{"name":"jmx-config"}:
+                  .: {}
+                  f:configMap:
+                    .: {}
+                    f:defaultMode: {}
+                    f:name: {}
+                  f:name: {}
+                k:{"name":"shared"}:
+                  .: {}
+                  f:emptyDir: {}
+                  f:name: {}
+          f:updateStrategy:
+            f:type: {}
+          f:volumeClaimTemplates: {}
+      manager: helm
+      operation: Update
+      time: '2023-11-09T09:19:32Z'
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:availableReplicas: {}
+          f:collisionCount: {}
+          f:currentReplicas: {}
+          f:currentRevision: {}
+          f:observedGeneration: {}
+          f:readyReplicas: {}
+          f:replicas: {}
+          f:updateRevision: {}
+          f:updatedReplicas: {}
+      manager: kube-controller-manager
+      operation: Update
+      subresource: status
+      time: '2023-12-11T04:35:41Z'
+  name: kafka-cp-idg-kafka
+  namespace: kafka-cp
+  resourceVersion: '363451912'
+  uid: 3e37f249-ddb0-4001-9fc1-88cfd77f3390
+spec:
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
+  podManagementPolicy: OrderedReady
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: idg-kafka
+      release: kafka-cp
+  serviceName: kafka-cp-idg-kafka-headless
+  template:
+    metadata:
+      annotations:
+        backup.velero.io/backup-volumes: datadir-0
+        prometheus.io/port: '5556'
+        prometheus.io/scrape: 'true'
+      creationTimestamp: null
+      labels:
+        app: idg-kafka
+        release: kafka-cp
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - idg-kafka
+                  - key: release
+                    operator: In
+                    values:
+                      - kafka-cp
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - command:
+            - java
+            - '-XX:MaxRAMPercentage=100'
+            - '-XshowSettings:vm'
+            - '-Dlog4j2.formatMsgNoLookups=true'
+            - '-jar'
+            - jmx_prometheus_httpserver.jar
+            - '5556'
+            - /etc/jmx-kafka/jmx-kafka-prometheus.yml
+          image: >-
+            idg-repository-prod.vnpt.vn/hub/bitnami/jmx-exporter:0.17.2-debian-11-r41
+          imagePullPolicy: IfNotPresent
+          name: prometheus-jmx-exporter
+          ports:
+            - containerPort: 5556
+              name: metrics-kafka
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 400m
+              memory: 400Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /etc/jmx-kafka
+              name: jmx-config
+        - command:
+            - sh
+            - '-exc'
+            - >
+              if [ $COMBINED_MODE = "true" ]; then 
+                source /shared/kafka.env && \
+                KAFKA_CONTROLLER_QUORUM_VOTERS=""
+                for i in $( seq 0 3 ); do
+                  if [[ $i != 3 ]]; then
+                    KAFKA_CONTROLLER_QUORUM_VOTERS="$KAFKA_CONTROLLER_QUORUM_VOTERS$i@kafka-cp-idg-kafka-$i.kafka-cp-idg-kafka-headless.${POD_NAMESPACE}:9093,"
+                  else
+                    KAFKA_CONTROLLER_QUORUM_VOTERS=${KAFKA_CONTROLLER_QUORUM_VOTERS::-1}
+                  fi
+                done
+                export KAFKA_CONTROLLER_QUORUM_VOTERS=$KAFKA_CONTROLLER_QUORUM_VOTERS
+                export KAFKA_BROKER_ID=${HOSTNAME##*-} 
+              else
+                source /shared/kafka.env && \
+                KAFKA_CONTROLLER_QUORUM_VOTERS=""
+                for i in $( seq 0 3 ); do
+                  if [[ $i != 3 ]]; then
+                    KAFKA_CONTROLLER_QUORUM_VOTERS="$KAFKA_CONTROLLER_QUORUM_VOTERS$i@kafka-cp-controller-$i.kafka-cp-controller-headless.${POD_NAMESPACE}:9093,"
+                  else
+                    KAFKA_CONTROLLER_QUORUM_VOTERS=${KAFKA_CONTROLLER_QUORUM_VOTERS::-1}
+                  fi
+                done
+                export KAFKA_CONTROLLER_QUORUM_VOTERS=$KAFKA_CONTROLLER_QUORUM_VOTERS
+                export KAFKA_BROKER_ID=$((${HOSTNAME##*-} + 3))
+              fi
+
+              export
+              KAFKA_ADVERTISED_LISTENERS=BROKER://${POD_NAME}.kafka-cp-idg-kafka-headless.${POD_NAMESPACE}:9092,SASL_PLAINTEXT://${ADVERTISE_IP}:${ADVERTISE_PORT}
+              && \
+
+              sed -i '/KAFKA_ZOOKEEPER_CONNECT/d'
+              /etc/confluent/docker/configure && \
+
+              sed -i 's/cub zk-ready/echo ignore zk-ready/'
+              /etc/confluent/docker/ensure && \
+
+              sed -i "s/kafka.properties/& -S
+              'SCRAM-SHA-256=[name=${SCRAM_USER},password=${SCRAM_PASS}]'
+              --ignore-formatted/" /etc/confluent/docker/ensure && \
+
+              exec /etc/confluent/docker/run
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.podIP
+            - name: HOST_IP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.hostIP
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+            - name: COMBINED_MODE
+              value: 'false'
+            - name: KAFKA_HEAP_OPTS
+              value: '-Xmx2048M'
+            - name: KAFKA_LOG4J_ROOT_LOGLEVEL
+              value: WARN
+            - name: KAFKA_TOOLS_LOG4J_LOGLEVEL
+              value: WARN
+            - name: KAFKA_LOG4J_LOGGERS
+              value: >-
+                kafka=WARN,kafka.producer.async.DefaultEventHandler=WARN,kafka.request.logger=WARN,kafka.controller=WARN,kafka.log.LogCleaner=WARN,state.change.logger=WARN,kafka.authorizer.logger=WARN
+            - name: KAFKA_LOG_RETENTION_HOURS
+              value: '24'
+            - name: KAFKA_LOG_RETENTION_BYTES
+              value: '-1'
+            - name: KAFKA_LOG_DIRS
+              value: /opt/kafka/data-0/logs
+            - name: SCRAM_USER
+              value: admin
+            - name: SCRAM_PASS
+              value: Aa@12345
+            - name: CLUSTER_ID
+              value: NFJIeTJzdU9TRkc1QlpCeD
+            - name: KAFKA_PROCESS_ROLES
+              value: broker
+            - name: KAFKA_LISTENERS
+              value: BROKER://:9092,SASL_PLAINTEXT://:9094
+            - name: KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND
+              value: 'false'
+            - name: KAFKA_AUTHORIZER_CLASS_NAME
+              value: org.apache.kafka.metadata.authorizer.StandardAuthorizer
+            - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
+              value: 'false'
+            - name: KAFKA_CONFLUENT_CLUSTER_LINK_ENABLE
+              value: 'false'
+            - name: KAFKA_CONFLUENT_REPORTERS_TELEMETRY_AUTO_ENABLE
+              value: 'false'
+            - name: KAFKA_CONFLUENT_TELEMETRY_ENABLED
+              value: 'false'
+            - name: KAFKA_CONTROLLER_LISTENER_NAMES
+              value: CONTROLLER
+            - name: KAFKA_DEFAULT_REPLICATION_FACTOR
+              value: '3'
+            - name: KAFKA_INTER_BROKER_LISTENER_NAME
+              value: BROKER
+            - name: KAFKA_LISTENER_NAME_BROKER_SASL_ENABLED_MECHANISMS
+              value: PLAIN
+            - name: KAFKA_LISTENER_NAME_CONTROLLER_SASL_ENABLED_MECHANISMS
+              value: PLAIN
+            - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+              value: >-
+                BROKER:SASL_PLAINTEXT,CONTROLLER:SASL_PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT
+            - name: KAFKA_LOG_SEGMENT_BYTES
+              value: '1073741824'
+            - name: KAFKA_MIN_INSYNC_REPLICAS
+              value: '2'
+            - name: KAFKA_NUM_PARTITIONS
+              value: '3'
+            - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+              value: '2'
+            - name: KAFKA_SASL_ENABLED_MECHANISMS
+              value: SCRAM-SHA-256,PLAIN
+            - name: KAFKA_SASL_MECHANISM_CONTROLLER_PROTOCOL
+              value: PLAIN
+            - name: KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL
+              value: PLAIN
+            - name: KAFKA_SUPER_USERS
+              value: User:admin
+            - name: KAFKA_OPTS
+              value: >-
+                -Djava.security.auth.login.config=/etc/kafka/config/kafka_server_jaas.conf
+                -Dlog4j2.formatMsgNoLookups=true
+            - name: KAFKA_JMX_PORT
+              value: '5555'
+          image: idg-repository-prod.vnpt.vn/hub/confluentinc/cp-kafka:7.5.0
+          imagePullPolicy: IfNotPresent
+          name: idg-kafka-broker
+          ports:
+            - containerPort: 9092
+              name: kafka
+              protocol: TCP
+            - containerPort: 5555
+              name: jmx
+              protocol: TCP
+            - containerPort: 9094
+              name: kafka-external
+              protocol: TCP
+            - containerPort: 9093
+              name: controller
+              protocol: TCP
+          resources:
+            limits:
+              cpu: '2'
+              memory: 2Gi
+            requests:
+              cpu: 500m
+              memory: 512Mi
+          securityContext:
+            runAsGroup: 0
+            runAsUser: 0
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /shared
+              name: shared
+            - mountPath: /etc/kafka/config
+              name: jaas-config
+            - mountPath: /opt/kafka/data-0
+              name: datadir-0
+      dnsPolicy: ClusterFirst
+      initContainers:
+        - command:
+            - sh
+            - '-exc'
+            - |
+              export HOSTNAME_ID=${HOSTNAME##*-}
+              if [ $LOADBALANCER_ENABLE = "true" ]; then
+                external_ip=""
+                while [ -z $external_ip ]; do
+                  echo "Waiting for end point..." 
+                  external_ip=$(kubectl get svc kafka-cp-idg-kafka-lb-${HOSTNAME_ID} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+                  [ -z "$external_ip" ] && sleep 10
+                done
+                echo ADVERTISE_IP=$external_ip > /shared/kafka.env
+                echo ADVERTISE_PORT=80 >> /shared/kafka.env
+              else 
+                echo ADVERTISE_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services kafka-cp-idg-kafka-${HOSTNAME_ID}-nodeport) > /shared/kafka.env
+                echo ADVERTISE_IP=${HOST_IP} >> /shared/kafka.env 
+              fi
+              cat /shared/kafka.env
+          env:
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+            - name: HOST_IP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.hostIP
+            - name: LOADBALANCER_ENABLE
+              value: 'false'
+          image: idg-repository-prod.vnpt.vn/hub/bitnami/kubectl:1.19.3
+          imagePullPolicy: IfNotPresent
+          name: getport
+          resources:
+            limits:
+              cpu: 150m
+              memory: 150Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /shared
+              name: shared
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: kafka-svc
+      serviceAccountName: kafka-svc
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - emptyDir: {}
+          name: shared
+        - configMap:
+            defaultMode: 420
+            name: kafka-cp-idg-kafka-jaas-configmap
+          name: jaas-config
+        - configMap:
+            defaultMode: 420
+            name: kafka-cp-idg-kafka-jmx-configmap
+          name: jmx-config
+  updateStrategy:
+    type: RollingUpdate
+  volumeClaimTemplates:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        creationTimestamp: null
+        name: datadir-0
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: lvm-thick
+        volumeMode: Filesystem
+      status:
+        phase: Pending
+status:
+  availableReplicas: 3
+  collisionCount: 0
+  currentReplicas: 3
+  currentRevision: kafka-cp-idg-kafka-fd866bc64
+  observedGeneration: 1
+  readyReplicas: 3
+  replicas: 3
+  updateRevision: kafka-cp-idg-kafka-fd866bc64
+  updatedReplicas: 3

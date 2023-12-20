@@ -1,0 +1,139 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    batch.kubernetes.io/job-tracking: ''
+  creationTimestamp: '2023-12-18T00:00:00Z'
+  generation: 1
+  labels:
+    app: neuvector-updater-pod
+    batch.kubernetes.io/controller-uid: ece71e98-8674-4b6d-aaf3-18c13b32779c
+    batch.kubernetes.io/job-name: neuvector-updater-pod-28380960
+    controller-uid: ece71e98-8674-4b6d-aaf3-18c13b32779c
+    job-name: neuvector-updater-pod-28380960
+    release: neuvector
+  managedFields:
+    - apiVersion: batch/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:release: {}
+          f:ownerReferences:
+            .: {}
+            k:{"uid":"e0112314-6757-4a50-a8fd-de853fa5c645"}: {}
+        f:spec:
+          f:backoffLimit: {}
+          f:completionMode: {}
+          f:completions: {}
+          f:parallelism: {}
+          f:suspend: {}
+          f:template:
+            f:metadata:
+              f:labels:
+                .: {}
+                f:app: {}
+                f:release: {}
+            f:spec:
+              f:containers:
+                k:{"name":"neuvector-updater-pod"}:
+                  .: {}
+                  f:command: {}
+                  f:image: {}
+                  f:imagePullPolicy: {}
+                  f:name: {}
+                  f:resources: {}
+                  f:terminationMessagePath: {}
+                  f:terminationMessagePolicy: {}
+              f:dnsPolicy: {}
+              f:restartPolicy: {}
+              f:schedulerName: {}
+              f:securityContext: {}
+              f:serviceAccount: {}
+              f:serviceAccountName: {}
+              f:terminationGracePeriodSeconds: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: '2023-12-18T00:00:00Z'
+    - apiVersion: batch/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:completionTime: {}
+          f:conditions: {}
+          f:ready: {}
+          f:startTime: {}
+          f:succeeded: {}
+          f:uncountedTerminatedPods: {}
+      manager: kube-controller-manager
+      operation: Update
+      subresource: status
+      time: '2023-12-18T00:00:08Z'
+  name: neuvector-updater-pod-28380960
+  namespace: neuvector
+  ownerReferences:
+    - apiVersion: batch/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: CronJob
+      name: neuvector-updater-pod
+      uid: e0112314-6757-4a50-a8fd-de853fa5c645
+  resourceVersion: '381604836'
+  uid: ece71e98-8674-4b6d-aaf3-18c13b32779c
+spec:
+  backoffLimit: 6
+  completionMode: NonIndexed
+  completions: 1
+  parallelism: 1
+  selector:
+    matchLabels:
+      batch.kubernetes.io/controller-uid: ece71e98-8674-4b6d-aaf3-18c13b32779c
+  suspend: false
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: neuvector-updater-pod
+        batch.kubernetes.io/controller-uid: ece71e98-8674-4b6d-aaf3-18c13b32779c
+        batch.kubernetes.io/job-name: neuvector-updater-pod-28380960
+        controller-uid: ece71e98-8674-4b6d-aaf3-18c13b32779c
+        job-name: neuvector-updater-pod-28380960
+        release: neuvector
+    spec:
+      containers:
+        - command:
+            - /bin/sh
+            - '-c'
+            - >-
+              /usr/bin/curl -kv -X PATCH -H "Authorization:Bearer $(cat
+              /var/run/secrets/kubernetes.io/serviceaccount/token)" -H
+              "Content-Type:application/strategic-merge-patch+json" -d
+              '{"spec":{"template":{"metadata":{"annotations":{"kubectl.kubernetes.io/restartedAt":"'`date
+              +%Y-%m-%dT%H:%M:%S%z`'"}}}}}'
+              'https://kubernetes.default/apis/apps/v1/namespaces/neuvector/deployments/neuvector-scanner-pod'
+          image: docker.io/neuvector/updater:latest
+          imagePullPolicy: Always
+          name: neuvector-updater-pod
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: default
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 30
+status:
+  completionTime: '2023-12-18T00:00:08Z'
+  conditions:
+    - lastProbeTime: '2023-12-18T00:00:08Z'
+      lastTransitionTime: '2023-12-18T00:00:08Z'
+      status: 'True'
+      type: Complete
+  ready: 0
+  startTime: '2023-12-18T00:00:00Z'
+  succeeded: 1
+  uncountedTerminatedPods: {}

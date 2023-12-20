@@ -1,0 +1,68 @@
+apiVersion: v1
+data:
+  ACTUATOR_PORT: '7799'
+  EUREKA_HOST: discovery-service
+  EUREKA_PORT: '15002'
+  ID_VNPT_REDIRECT_URI: http://console.galaxy.vnpt.vn/sso/id-vnpt/login/callback
+  IDG_ENV: dev-
+  kafka.bootstrapAddress: >-
+    52+cWc7ThOAlk36mpPl0VJ/YPanc5pvnlnIsfA/hyR+t7RtrzZQnPzxb2oP6e0yK/7KHOZGmeDijSwymELqE7g==
+  mysql.datasource.password: fY7KqqBJLpM=
+  mysql.datasource.url: >-
+    tIXy2DkCcB8pN277oY7RKJyrlSsQ4ZsHOVV6hr0DTxIGToXd8EnuuGx0KbALYrXM27DOuV2p6wUaoRTYdqqAbxGRnjNB6atmC3nSBTjnh78Gx8UarMMos2isClJuvfDXStu35Y2OoagO4fEaioQaAP2BFsCuekZ4NLbseRqsB6xx2htoDShucpwFwI8kcq8s
+  mysql.datasource.username: fY7KqqBJLpM=
+  redis.cluster-nodes: >-
+    10.168.10.27:31306,10.168.10.25:30623,10.168.10.23:32440,10.168.10.20:31060,10.168.10.21:31963,10.168.10.24:32089
+  redis.host: ykUkCbPEVSJl/pmlCM/Mww==
+  redis.password: 3gN7a8+IiHsaveu+iOa+mQ==
+  redis.port: tNfy67ser78=
+  redis.username: 3Q4q9O9otI0=
+  spring.kafka.properties.sasl.jaas.config: >-
+    ls9aYc1wIcvgno4r3y814QpENvjyXHbm9g2qUBjEEYFjwXtTktm6Y32EIjQtlYmLUbQkhBoxts0XJJephGXmt4rRLGCa5kWYttM1Iavv4gSvQWCI6tAip70ajbSu6MA3JQ/pQ74kC+aKcw+NlDtw2w==
+  spring.kafka.properties.sasl.mechanism: PLAIN
+  spring.kafka.properties.security.protocol: SASL_PLAINTEXT
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"v1","data":{"ACTUATOR_PORT":"7799","EUREKA_HOST":"discovery-service","EUREKA_PORT":"15002","IDG_ENV":"dev-","ID_VNPT_REDIRECT_URI":"http://console.galaxy.vnpt.vn/sso/id-vnpt/login/callback","kafka.bootstrapAddress":"52+cWc7ThOAlk36mpPl0VJ/YPanc5pvnlnIsfA/hyR+t7RtrzZQnPzxb2oP6e0yK/7KHOZGmeDijSwymELqE7g==","mysql.datasource.password":"fY7KqqBJLpM=","mysql.datasource.url":"tIXy2DkCcB8pN277oY7RKJyrlSsQ4ZsHOVV6hr0DTxIGToXd8EnuuGx0KbALYrXM27DOuV2p6wUaoRTYdqqAbxGRnjNB6atmC3nSBTjnh78Gx8UarMMos2isClJuvfDXStu35Y2OoagO4fEaioQaAP2BFsCuekZ4NLbseRqsB6xx2htoDShucpwFwI8kcq8s","mysql.datasource.username":"fY7KqqBJLpM=","redis.cluster-nodes":"10.168.10.27:31306,10.168.10.25:30623,10.168.10.23:32440,10.168.10.20:31060,10.168.10.21:31963,10.168.10.24:32089","redis.host":"ykUkCbPEVSJl/pmlCM/Mww==","redis.password":"3gN7a8+IiHsaveu+iOa+mQ==","redis.port":"tNfy67ser78=","redis.username":"3Q4q9O9otI0=","spring.kafka.properties.sasl.jaas.config":"ls9aYc1wIcvgno4r3y814QpENvjyXHbm9g2qUBjEEYFjwXtTktm6Y32EIjQtlYmLUbQkhBoxts0XJJephGXmt4rRLGCa5kWYttM1Iavv4gSvQWCI6tAip70ajbSu6MA3JQ/pQ74kC+aKcw+NlDtw2w==","spring.kafka.properties.sasl.mechanism":"PLAIN","spring.kafka.properties.security.protocol":"SASL_PLAINTEXT"},"kind":"ConfigMap","metadata":{"annotations":{},"labels":{"argocd.argoproj.io/instance":"backend-chatops-service"},"name":"chatops-service","namespace":"idg-backend-dev"}}
+  creationTimestamp: '2023-12-14T09:59:45Z'
+  labels:
+    argocd.argoproj.io/instance: backend-chatops-service
+  managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:data:
+          .: {}
+          f:ACTUATOR_PORT: {}
+          f:EUREKA_HOST: {}
+          f:EUREKA_PORT: {}
+          f:ID_VNPT_REDIRECT_URI: {}
+          f:IDG_ENV: {}
+          f:kafka.bootstrapAddress: {}
+          f:mysql.datasource.password: {}
+          f:mysql.datasource.url: {}
+          f:mysql.datasource.username: {}
+          f:redis.cluster-nodes: {}
+          f:redis.host: {}
+          f:redis.password: {}
+          f:redis.port: {}
+          f:redis.username: {}
+          f:spring.kafka.properties.sasl.jaas.config: {}
+          f:spring.kafka.properties.sasl.mechanism: {}
+          f:spring.kafka.properties.security.protocol: {}
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubectl.kubernetes.io/last-applied-configuration: {}
+          f:labels:
+            .: {}
+            f:argocd.argoproj.io/instance: {}
+      manager: argocd-controller
+      operation: Update
+      time: '2023-12-14T09:59:45Z'
+  name: chatops-service
+  namespace: idg-backend-dev
+  resourceVersion: '372206748'
+  uid: 0e74e431-6c85-4b76-a0fa-b07b1bbdf5dc

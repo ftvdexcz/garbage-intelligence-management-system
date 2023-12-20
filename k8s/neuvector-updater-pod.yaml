@@ -1,0 +1,121 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  annotations:
+    meta.helm.sh/release-name: neuvector
+    meta.helm.sh/release-namespace: neuvector
+  creationTimestamp: '2023-11-23T07:22:10Z'
+  generation: 1
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    chart: core-2.6.6
+    heritage: Helm
+    release: neuvector
+  managedFields:
+    - apiVersion: batch/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:meta.helm.sh/release-name: {}
+            f:meta.helm.sh/release-namespace: {}
+          f:labels:
+            .: {}
+            f:app.kubernetes.io/managed-by: {}
+            f:chart: {}
+            f:heritage: {}
+            f:release: {}
+        f:spec:
+          f:concurrencyPolicy: {}
+          f:failedJobsHistoryLimit: {}
+          f:jobTemplate:
+            f:spec:
+              f:template:
+                f:metadata:
+                  f:labels:
+                    .: {}
+                    f:app: {}
+                    f:release: {}
+                f:spec:
+                  f:containers:
+                    k:{"name":"neuvector-updater-pod"}:
+                      .: {}
+                      f:command: {}
+                      f:image: {}
+                      f:imagePullPolicy: {}
+                      f:name: {}
+                      f:resources: {}
+                      f:terminationMessagePath: {}
+                      f:terminationMessagePolicy: {}
+                  f:dnsPolicy: {}
+                  f:restartPolicy: {}
+                  f:schedulerName: {}
+                  f:securityContext: {}
+                  f:serviceAccount: {}
+                  f:serviceAccountName: {}
+                  f:terminationGracePeriodSeconds: {}
+          f:schedule: {}
+          f:successfulJobsHistoryLimit: {}
+          f:suspend: {}
+      manager: helm
+      operation: Update
+      time: '2023-11-23T07:22:10Z'
+    - apiVersion: batch/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:lastScheduleTime: {}
+          f:lastSuccessfulTime: {}
+      manager: kube-controller-manager
+      operation: Update
+      subresource: status
+      time: '2023-12-20T00:00:15Z'
+  name: neuvector-updater-pod
+  namespace: neuvector
+  resourceVersion: '386881579'
+  uid: e0112314-6757-4a50-a8fd-de853fa5c645
+spec:
+  concurrencyPolicy: Allow
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+          labels:
+            app: neuvector-updater-pod
+            release: neuvector
+        spec:
+          containers:
+            - command:
+                - /bin/sh
+                - '-c'
+                - >-
+                  /usr/bin/curl -kv -X PATCH -H "Authorization:Bearer $(cat
+                  /var/run/secrets/kubernetes.io/serviceaccount/token)" -H
+                  "Content-Type:application/strategic-merge-patch+json" -d
+                  '{"spec":{"template":{"metadata":{"annotations":{"kubectl.kubernetes.io/restartedAt":"'`date
+                  +%Y-%m-%dT%H:%M:%S%z`'"}}}}}'
+                  'https://kubernetes.default/apis/apps/v1/namespaces/neuvector/deployments/neuvector-scanner-pod'
+              image: docker.io/neuvector/updater:latest
+              imagePullPolicy: Always
+              name: neuvector-updater-pod
+              resources: {}
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+          dnsPolicy: ClusterFirst
+          restartPolicy: Never
+          schedulerName: default-scheduler
+          securityContext: {}
+          serviceAccount: default
+          serviceAccountName: default
+          terminationGracePeriodSeconds: 30
+  schedule: 0 0 * * *
+  successfulJobsHistoryLimit: 3
+  suspend: false
+status:
+  lastScheduleTime: '2023-12-20T00:00:00Z'
+  lastSuccessfulTime: '2023-12-20T00:00:14Z'

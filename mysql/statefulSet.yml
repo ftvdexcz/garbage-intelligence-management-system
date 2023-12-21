@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gms-mysql
+  labels:
+    app: mysql
+spec:
+  ports:
+    - name: mysql-port
+      port: 3306
+      targetPort: 3306
+      nodePort: 3307
+  selector:
+    app: mysql
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: gms-mysql
+spec:
+  serviceName: gms-mysql
+  replicas: 1
+  selector:
+    app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: gms-garbage-mysql
+          image: mysql:8.0.13
+          ports:
+            - name: http
+              containerPort: 3306
+          envFrom:
+            - configMapRef:
+                name: mysql
+      volumeMounts:
+        - name: data
+          mountPath: /var/lib/mysql
+
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        resources:
+          requests:
+            cpu: 100m
+            storage: 150Mi
+        accessModes:
+          - ReadWriteOnce

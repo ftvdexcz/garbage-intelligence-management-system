@@ -47,8 +47,10 @@ spec:
             initialDelaySeconds: 30
             timeoutSeconds: 5
           env:
-            - RABBITMQ_DEFAULT_USER=admin
-            - RABBITMQ_DEFAULT_PASS=admin123
+            - name: RABBITMQ_DEFAULT_USER
+              value: admin
+            - name: RABBITMQ_DEFAULT_PASS
+              value: admin123
           resources:
             limits:
               cpu: 150m

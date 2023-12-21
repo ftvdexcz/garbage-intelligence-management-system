@@ -22,7 +22,8 @@ spec:
   serviceName: gms-mysql
   replicas: 1
   selector:
-    app: mysql
+    matchLabels:
+      app: mysql
   template:
     metadata:
       labels:

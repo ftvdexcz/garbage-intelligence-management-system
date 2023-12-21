@@ -9,7 +9,7 @@ spec:
   ports:
     - port: 6379
       targetPort: 6379
-      containerPort: 30677
+      nodePort: 30677
   type: NodePort
   selector:
     app: redis

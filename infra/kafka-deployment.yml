@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: gms
+  name: kafka
+  labels:
+    app: kafka
+spec:
+  ports:
+    - port: 29092
+      targetPort: 29092
+      nodePort: 32092
+    - port: 29093
+      targetPort: 29093
+      nodePort: 32093
+  type: NodePort
+  selector:
+    app: kafka
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: gms
+  name: kafka
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kafka
+  template:
+    metadata:
+      labels:
+        app: kafka
+    spec:
+      containers:
+        - name: kafka-gms
+          image: confluentinc/cp-kafka:latest
+          ports:
+            - containerPort: 29092
+            - containerPort: 29093
+          envFrom:
+            - configMapRef:
+                name: kafka
+          resources:
+            limits:
+              cpu: 150m
+              memory: 150Mi

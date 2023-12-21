@@ -1,7 +1,7 @@
 env: ${ENV:dev}
 
 server:
-  port: 15013
+  port: ${PORT:15013}
   servlet:
     context-path: /garbage-service
   # error handle default config
@@ -10,7 +10,6 @@ server:
     include-binding-errors: always
     include-stacktrace: on_param
     include-exception: false
-
 
 # actuator metrics
 management.endpoint.metrics.enabled: true
@@ -77,9 +76,5 @@ amazon.s3.secret-key: sVt5Y4I93/AHWbfFm7ZZ5aNbYseWC/alOtmmIwKz
 spring.servlet.multipart.max-file-size: 52428800
 spring.servlet.multipart.max-request-size: 52428800
 
-
-
 kafka.topic.publish.event.load-cell: ${KAFKA_LOAD_CELL_TOPIC:event-send-load-cell}
 kafka.topic.publish.event.check-plate: ${KAFKA_CHECK_PLATE_TOPIC:event-send-check-plate}
-
-

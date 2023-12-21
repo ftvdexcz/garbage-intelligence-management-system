@@ -9,10 +9,25 @@ spec:
     - name: mysql-port
       port: 3306
       targetPort: 3306
-      nodePort: 3307
+      nodePort: 32307
   selector:
     app: mysql
   type: NodePort
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql
+  labels:
+    name: mysql
+spec:
+  storageClassName: mystorageclass
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce 
+  hostPath: 
+    path: /data/gms/mysql
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -46,6 +61,7 @@ spec:
     - metadata:
         name: data
       spec:
+        storageClassName: mystorageclass
         resources:
           requests:
             cpu: 100m

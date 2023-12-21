@@ -25,25 +25,30 @@ spec:
   capacity:
     storage: 5Gi
   accessModes:
-    - ReadWriteOnce 
-  hostPath: 
+    - ReadWriteOnce
+  hostPath:
     path: /data/gms/mysql
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: gms-mysql
 spec:
-  serviceName: gms-mysql
   replicas: 1
   selector:
     matchLabels:
       app: mysql
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
         app: mysql
     spec:
+      volumes:
+        - name: mysql-pvc
+          persistentVolumeClaim:
+            claimName: mysql
       containers:
         - name: gms-garbage-mysql
           image: mysql:8.0.13
@@ -53,18 +58,9 @@ spec:
           envFrom:
             - configMapRef:
                 name: mysql
-      volumeMounts:
-        - name: data
-          mountPath: /var/lib/mysql
-
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-        storageClassName: mystorageclass
-        resources:
-          requests:
-            cpu: 100m
-            storage: 150Mi
-        accessModes:
-          - ReadWriteOnce
+          volumeMounts:
+            - name: mysql-pvc
+              mountPath: /var/lib/mysql
+          resources:
+            requests:
+              storage: 1Gi

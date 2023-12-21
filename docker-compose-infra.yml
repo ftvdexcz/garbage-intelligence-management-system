@@ -9,14 +9,14 @@ services:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin123
     ports:
-      - 5672:5672
-      - 15672:15672
+      - '5672:5672'
+      - '15672:15672'
   redis:
     image: redis:latest
     container_name: redis-gms
     restart: always
     ports:
-      - 6379:6379
+      - '6379:6379'
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper-gms
@@ -70,45 +70,5 @@ services:
       - '8081:8081'
     volumes:
       - ./nginx/conf:/etc/nginx
-  auth-service:
-    image: ftvdexcz/gms-auth-service:1.0
-    container_name: gms-auth-service
-    restart: always
-    env_file:
-      - ./envfile/auth-service.env
-    ports:
-      - 15014:15014
-    depends_on:
-      - mysql
-      - rabbitmq
-      - redis
-      - kafka
-      - nginx
-  garbage-service:
-    image: ftvdexcz/gms-garbage-service:1.0
-    container_name: gms-garbage-service
-    restart: always
-    env_file:
-      - ./envfile/garbage-service.env
-    ports:
-      - 15013:15013
-    depends_on:
-      - mysql
-      - rabbitmq
-      - redis
-      - kafka
-      - nginx
-  telegram-service:
-    image: ftvdexcz/gms-telegram-service:1.0
-    container_name: gms-telegram-service
-    restart: always
-    env_file:
-      - ./envfile/telegram-service.env
-    ports:
-      - 15015:15015
-    depends_on:
-      - mysql
-      - rabbitmq
-      - redis
-      - kafka
-      - nginx
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'

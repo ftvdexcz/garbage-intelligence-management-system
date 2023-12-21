@@ -1,7 +1,7 @@
 env: ${ENV:dev}
 
 server:
-  port: 15015
+  port: ${PORT:15015}
   servlet:
     context-path: /telegram-service
   # error handle default config
@@ -70,10 +70,7 @@ spring.kafka.properties.sasl.mechanism: ${KAFKA_SASL_MECHANISM:PLAIN}
 
 telegram.bot.token: ${TELEGRAM_BOT_TOKEN:6308791384:AAHtMo2XTSHGDhOeBzpI0WxOmKUA31ihBX4}
 
-
 kafka.topic.subscribe.event.load-cell: ${KAFKA_LOAD_CELL_TOPIC:event-send-load-cell}
 kafka.group.id.subscribe.event.load-cell: ${KAFKA_LOAD_CELL_GROUP:group-id-send-load-cell}
 kafka.topic.subscribe.event.check-plate: ${KAFKA_CHECK_PLATE_TOPIC:event-send-check-plate}
 kafka.group.id.subscribe.event.check-plate: ${KAFKA_CHECK_PLATE_GROUP:group-id-send-check-plate}
-
-

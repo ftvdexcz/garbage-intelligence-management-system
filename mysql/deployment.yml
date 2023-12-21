@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: gms
   name: gms-mysql
   labels:
     app: mysql
@@ -14,24 +15,10 @@ spec:
     app: mysql
   type: NodePort
 ---
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: mysql
-  labels:
-    name: mysql
-spec:
-  storageClassName: mystorageclass
-  capacity:
-    storage: 5Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: /data/gms/mysql
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: gms
   name: gms-mysql
 spec:
   replicas: 1
@@ -62,5 +49,6 @@ spec:
             - name: mysql-pvc
               mountPath: /var/lib/mysql
           resources:
-            requests:
-              storage: 1Gi
+            limits:
+              cpu: 500m
+              memory: 1Gi

@@ -1,28 +1,28 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mysql
+  name: kafka-broker
   namespace: gms
   labels:
-    name: mysql
+    name: kafka-broker
 spec:
   storageClassName: mystorageclass
   capacity:
-    storage: 5Gi
+    storage: 1Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /data/gms/mysql
+    path: /data/gms/kafka/configs
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   namespace: gms
-  name: mysql
+  name: kafka-broker
 spec:
   storageClassName: mystorageclass
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 1Gi

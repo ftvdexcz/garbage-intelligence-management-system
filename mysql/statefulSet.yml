@@ -41,9 +41,9 @@ spec:
           ports:
             - name: http
               containerPort: 3306
-      volumeMounts:
-        - name: data
-          mountPath: /var/lib/mysql
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
   volumeClaimTemplates:
     - metadata:
         namespace: gms

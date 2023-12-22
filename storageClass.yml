@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gms-nfs-share
+provisioner: k8s-sigs.io/nfs-subdir-external-provisioner
+parameters:
+  server: 172.16.10.1
+  path: /share
+  readOnly: "false"
+reclaimPolicy: Delete

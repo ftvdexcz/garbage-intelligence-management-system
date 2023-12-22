@@ -58,19 +58,23 @@ spec:
               value: -Djava.security.auth.login.config=/etc/kafka/configs/kafka_server_jaas.conf
           volumeMounts:
             - mountPath: /etc/kafka/configs
-              name: kafka-broker
+              name: jaas-config
           resources:
             limits:
               cpu: 150m
               memory: 200Mi
-  volumeClaimTemplates:
-    - metadata:
-        namespace: gms
-        name: kafka-broker
-      spec:
-        storageClassName: gms-storage
-        resources:
-          requests:
-            storage: 150Mi
-        accessModes:
-          - ReadWriteOnce
+      volumes:
+        - name: jaas-config
+          configMap:
+            name: kafka-sasl-config
+  # volumeClaimTemplates:
+  #   - metadata:
+  #       namespace: gms
+  #       name: kafka-broker
+  #     spec:
+  #       storageClassName: gms-storage
+  #       resources:
+  #         requests:
+  #           storage: 150Mi
+  #       accessModes:
+  #         - ReadWriteOnce

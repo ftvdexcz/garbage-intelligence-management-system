@@ -41,7 +41,3 @@ spec:
           envFrom:
             - configMapRef:
                 name: kafka
-          resources:
-            limits:
-              cpu: 150m
-              memory: 150Mi

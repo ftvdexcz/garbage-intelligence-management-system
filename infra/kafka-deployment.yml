@@ -7,10 +7,12 @@ metadata:
     app: kafka
 spec:
   ports:
-    - port: 29092
+    - name: inside
+      port: 29092
       targetPort: 29092
       nodePort: 32092
-    - port: 29093
+    - name: outside
+      port: 29093
       targetPort: 29093
       nodePort: 32093
   type: NodePort

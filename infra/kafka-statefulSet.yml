@@ -15,11 +15,12 @@ spec:
     app: kafka-broker
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   namespace: gms
   name: kafka-broker
 spec:
+  serviceName: kafka-broker
   replicas: 2
   selector:
     matchLabels:
@@ -53,8 +54,23 @@ spec:
               value: SASL_PLAINTEXT
             - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
               value: '1'
-
+            - name: KAFKA_OPTS
+              value: -Djava.security.auth.login.config=/etc/kafka/configs/kafka_server_jaas.conf
+          volumeMounts:
+            - mountPath: /etc/kafka/configs
+              name: kafka-broker
           resources:
             limits:
               cpu: 150m
               memory: 200Mi
+  volumeClaimTemplates:
+    - metadata:
+        namespace: gms
+        name: kafka-broker
+      spec:
+        storageClassName: gms-storage
+        resources:
+          requests:
+            storage: 150Mi
+        accessModes:
+          - ReadWriteOnce

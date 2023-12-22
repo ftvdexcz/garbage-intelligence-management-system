@@ -49,6 +49,7 @@ spec:
         namespace: gms
         name: data-mysql
       spec:
+        storageClassName: mysql
         resources:
           requests:
             storage: 150Mi

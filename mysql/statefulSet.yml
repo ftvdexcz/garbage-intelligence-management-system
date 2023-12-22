@@ -31,6 +31,10 @@ spec:
       labels:
         app: mysql
     spec:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: data-mysql
       containers:
         - name: gms-mysql
           image: mysql:8.0.13
@@ -38,10 +42,11 @@ spec:
             - name: http
               containerPort: 3306
       volumeMounts:
-        - name: data-mysql
+        - name: data
           mountPath: /var/lib/mysql
   volumeClaimTemplates:
     - metadata:
+        namespace: gms
         name: data-mysql
       spec:
         resources:

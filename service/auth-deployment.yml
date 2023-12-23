@@ -16,6 +16,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: gms
   name: auth-service
 spec:
   replicas: 2

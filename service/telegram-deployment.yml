@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: gms
+  name: telegram-service
+  labels:
+    app: telegram-service
+spec:
+  ports:
+    - port: 15015
+      targetPort: 15015
+  type: ClusterIP
+  selector:
+    app: telegram-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: gms
+  name: telegram-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: telegram-service
+  template:
+    metadata:
+      labels:
+        app: telegram-service
+    spec:
+      containers:
+        - name: telegram-service
+          image: ftvdexcz/gms-telegram-service:1.0
+          ports:
+            - containerPort: 15015
+          envFrom:
+            - configMapRef:
+                name: telegram-service
+          # resources:
+          #   limits:
+          #     cpu: 250m
+          #     memory: 250Mi

@@ -59,6 +59,7 @@ spec:
           volumeMounts:
             - mountPath: /etc/kafka/configs
               name: jaas-config
+              # subPath: kafka_server_jaas.conf
           # resources:
           #   limits:
           #     cpu: 150m

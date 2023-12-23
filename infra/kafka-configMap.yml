@@ -4,4 +4,10 @@ metadata:
   namespace: gms
   name: kafka-sasl-config
 data:
-  KAFKA_LISTENER_NAME_SASL_PLAIN_SASL_JAAS_CONFIG: org.apache.kafka.common.security.plain.PlainLoginModule required username="admin" password="admin-secret" user_admin="admin-secret"
+  kafka_server_jaas.conf: |
+    KafkaServer {
+    org.apache.kafka.common.security.plain.PlainLoginModule required
+        username="admin"
+        password="admin-secret"
+        user_admin="admin-secret";
+    };

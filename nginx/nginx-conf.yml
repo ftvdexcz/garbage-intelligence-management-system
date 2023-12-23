@@ -12,7 +12,7 @@ data:
         client_max_body_size 100M;
       
         # ssl_certificate /etc/nginx/ssl/nginx.crt;
-            # ssl_certificate_key /etc/nginx/ssl/nginx.key;
+        # ssl_certificate_key /etc/nginx/ssl/nginx.key;
 
         location @ErrInternal {
           default_type application/json;
@@ -74,11 +74,10 @@ data:
             add_header 'Content-Length' 0;
             return 204;
           }
-          # proxy_pass http://host.docker.internal:15014/auth-service/me;
           proxy_pass http://auth-service:15014/auth-service/me;
           proxy_pass_request_body off;
-                proxy_set_header Content-Length "";
-                proxy_set_header X-Original-URI $request_uri;
+          proxy_set_header Content-Length "";
+          proxy_set_header X-Original-URI $request_uri;
           # proxy_set_header Your-Custom-Header $http_api_key;
         }
 
@@ -87,15 +86,15 @@ data:
           auth_request_set $auth_status $upstream_status;
           auth_request_set $userId $upstream_http_x_user_id;     
           auth_request_set $userRole $upstream_http_x_user_role;       
-            proxy_set_header x-user-id $userId;
-            proxy_set_header x-user-role $userRole;
+          proxy_set_header x-user-id $userId;
+          proxy_set_header x-user-role $userRole;
 
           # Handle authentication failure
-            error_page 403 = @ErrForbidden;
+          error_page 403 = @ErrForbidden;
           error_page 401 = @ErrUnauthorized;
           error_page 500 = @ErrInternal;
-                # proxy_pass http://host.docker.internal:15013/garbage-service;
-                proxy_pass http://garbage-service:15013/garbage-service;
+          # proxy_pass http://host.docker.internal:15013/garbage-service;
+          proxy_pass http://garbage-service:15013/garbage-service;
         }
 
         location /users {
@@ -103,14 +102,14 @@ data:
           auth_request_set $auth_status $upstream_status;
           auth_request_set $userId $upstream_http_x_user_id;     
           auth_request_set $userRole $upstream_http_x_user_role;       
-            proxy_set_header x-user-id $userId;
-            proxy_set_header x-user-role $userRole;
+          proxy_set_header x-user-id $userId;
+          proxy_set_header x-user-role $userRole;
           # Handle authentication failure
-            error_page 403 = @ErrForbidden;
+          error_page 403 = @ErrForbidden;
           error_page 401 = @ErrUnauthorized;
           error_page 500 = @ErrInternal;
-                # proxy_pass http://host.docker.internal:15014/auth-service/users;
-                proxy_pass http://auth-service:15014/auth-service/users;
+          # proxy_pass http://host.docker.internal:15014/auth-service/users;
+          proxy_pass http://auth-service:15014/auth-service/users;
         }
 
         location /roles {
@@ -118,14 +117,14 @@ data:
           auth_request_set $auth_status $upstream_status;
           auth_request_set $userId $upstream_http_x_user_id;     
           auth_request_set $userRole $upstream_http_x_user_role;       
-            proxy_set_header x-user-id $userId;
-            proxy_set_header x-user-role $userRole;
+          proxy_set_header x-user-id $userId;
+          proxy_set_header x-user-role $userRole;
           # Handle authentication failure
-            error_page 403 = @ErrForbidden;
+          error_page 403 = @ErrForbidden;
           error_page 401 = @ErrUnauthorized;
           error_page 500 = @ErrInternal;
-                # proxy_pass http://host.docker.internal:15014/auth-service/roles;
-                proxy_pass http://auth-service:15014/auth-service/roles;
+          # proxy_pass http://host.docker.internal:15014/auth-service/roles;
+          proxy_pass http://auth-service:15014/auth-service/roles;
         }
 
         location /auth {

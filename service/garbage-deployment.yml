@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: gms
+  name: garbage-service
+  labels:
+    app: garbage-service
+spec:
+  ports:
+    - port: 15013
+      targetPort: 15013
+  type: ClusterIP
+  selector:
+    app: garbage-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: gms
+  name: garbage-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: garbage-service
+  template:
+    metadata:
+      labels:
+        app: garbage-service
+    spec:
+      containers:
+        - name: garbage-service
+          image: ftvdexcz/gms-garbage-service:1.0
+          ports:
+            - containerPort: 15013
+          envFrom:
+            - configMapRef:
+                name: garbage-service
+          # resources:
+          #   limits:
+          #     cpu: 250m
+          #     memory: 250Mi

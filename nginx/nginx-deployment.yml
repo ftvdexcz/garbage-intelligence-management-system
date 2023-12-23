@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: gms
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080
+      name: http-port
+    - port: 443
+      targetPort: 443
+      nodePort: 30443
+      name: https-port
+  type: NodePort
+  selector:
+    app: nginx
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: gms
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx-gms
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          volumeMounts:
+            - mountPath: /etc/nginx
+              name: config
+          resources:
+            limits:
+              cpu: 250m
+              memory: 300Mi
+      volumes:
+        - name: config
+          configMap:
+            name: nginx-conf

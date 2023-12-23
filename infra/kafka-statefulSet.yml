@@ -43,7 +43,7 @@ spec:
             - name: ZOOKEEPER_SASL_ENABLE
               value: 'false'
             - name: KAFKA_ADVERTISED_LISTENERS
-              value: SASL_PLAINTEXT://kafka:29092
+              value: SASL_PLAINTEXT://kafka-broker:29092
             - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
               value: SASL_PLAINTEXT:SASL_PLAINTEXT
             - name: KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL

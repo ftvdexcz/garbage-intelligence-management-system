@@ -4,4 +4,4 @@ metadata:
   namespace: gms
   name: frontend
 data:
-  VUE_APP_BASE_URL: http://nginx:8081
+  VUE_APP_BASE_URL: http://longdqsys.io.vn:30080

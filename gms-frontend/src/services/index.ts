@@ -10,7 +10,7 @@ export interface BaseResponse<T> {
 
 export const createInstance = (): AxiosInstance => {
   const instance = axios.create({
-    baseURL: 'http://192.168.1.80:8081',
+    baseURL: process.env.VUE_APP_BASE_URL,
     timeout: 15000,
   });
 

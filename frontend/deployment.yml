@@ -36,7 +36,7 @@ spec:
             - containerPort: 7777
           env:
             - name: VUE_APP_BASE_URL
-              value: http://nginx:8081
+              value: 'http://nginx:8081'
           # resources:
           #   limits:
           #     cpu: 250m

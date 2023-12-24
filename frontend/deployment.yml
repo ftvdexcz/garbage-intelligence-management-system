@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: gms
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  ports:
+    - port: 7777
+      targetPort: 7777
+      nodePort: 32077
+  type: NodePort
+  selector:
+    app: frontend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: gms
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: ftvdexcz/gms-frontend:1.0
+          ports:
+            - containerPort: 7777
+          env:
+            - name: VUE_APP_BASE_URL
+              value: http://nginx:8081
+          # resources:
+          #   limits:
+          #     cpu: 250m
+          #     memory: 250Mi

@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ftvdexcz/gms-frontend:1.0
+          image: ftvdexcz/gms-frontend:2.0
           ports:
             - containerPort: 7777
           envFrom:

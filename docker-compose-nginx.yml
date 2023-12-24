@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-forward
+    restart: always
+    ports:
+      - '443:443'
+      - '6000:6000'
+    volumes:
+      - ./nginx/forward:/etc/nginx
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'

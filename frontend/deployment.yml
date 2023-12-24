@@ -34,9 +34,9 @@ spec:
           image: ftvdexcz/gms-frontend:1.0
           ports:
             - containerPort: 7777
-          env:
-            - name: VUE_APP_BASE_URL
-              value: 'http://nginx:8081'
+          envFrom:
+            - configMapRef:
+                name: frontend
           # resources:
           #   limits:
           #     cpu: 250m

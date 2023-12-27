@@ -11,8 +11,8 @@ spec:
       targetPort: 8081
       nodePort: 30080
       name: http-port
-    - port: 8082
-      targetPort: 8082
+    - port: 443
+      targetPort: 443
       nodePort: 30443
       name: https-port
   type: NodePort
@@ -39,12 +39,10 @@ spec:
           image: nginx:latest
           ports:
             - containerPort: 8081
-            - containerPort: 8082
+            - containerPort: 443
           volumeMounts:
             - mountPath: /etc/nginx
               name: config
-            - mountPath: '/certs'
-              name: cert-config
           # resources:
           #   limits:
           #     cpu: 250m
@@ -53,6 +51,3 @@ spec:
         - name: config
           configMap:
             name: nginx-conf
-        - name: cert-config
-          secret:
-            secretName: 'nginx-cert'

@@ -139,9 +139,8 @@ data:
           proxy_pass http://auth-service:15014/auth-service/cctv-auth;
         }
       }
-    }
 
-    server{
+      server{
         listen 8082 ssl;
 
         client_max_body_size 100M;
@@ -275,6 +274,8 @@ data:
         }
       }
     }
+    }
+
 
     events{
       worker_connections 1024;

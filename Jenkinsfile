@@ -25,9 +25,9 @@ pipeline {
                             //sh "git switch master"
                             sh script:"""
                                 #!/bin/bash
-                                echo "$(pwd)"
+                                echo '$(pwd)'
                                 cd ./service-cd
-                                echo "$(pwd)"
+                                echo '$(pwd)'
                                 cat ${deployFile}
                                 sed -i 's+"${registry}"/"${imageName}".*+"${registry}"/"${imageName}":"${tag}"+g' ${deployFile}
                                 cat ${deployFile}

@@ -23,7 +23,7 @@ pipeline {
                             sh "git config user.email ftvdexc95@gmail.com"
                             sh "git config user.name longdq"
                             //sh "git switch master"
-                            sh script:'''
+                            sh script:"""
                                 #!/bin/bash
                                 echo "$(pwd)"
                                 cd ./service-cd
@@ -34,7 +34,7 @@ pipeline {
                                 git add .
                                 git commit -m 'Done by Jenkins Job changemanifest "${deployFile}": "${tag}"'
                                 git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/garbage-intelligence-management-system.git HEAD:k8s
-                            '''
+                            """
                             }   
                         }
                     }

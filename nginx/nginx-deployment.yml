@@ -45,10 +45,10 @@ spec:
               name: config
             - mountPath: '/certs'
               name: cert-config
-          # resources:
-          #   limits:
-          #     cpu: 250m
-          #     memory: 200Mi
+          resources:
+            limits:
+              cpu: 250m
+              memory: 200Mi
       volumes:
         - name: config
           configMap:

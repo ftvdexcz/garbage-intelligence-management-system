@@ -29,7 +29,7 @@ pipeline {
                                 cd ./service-cd
                                 
                                 cat ${deployFile}
-                                `sed -i "s+${registry}/${imageName}.*+${registry}/${imageName}:${tag}+g" ${deployFile}`
+                                sed -i 's+|${registry}/${imageName}.*+${registry}/${imageName}:${tag}+g|' ${deployFile}
                                 cat ${deployFile}
                                 git add .
                                 git commit -m 'Done by Jenkins Job changemanifest ${deployFile}: ${tag}'

@@ -52,7 +52,7 @@ pipeline {
             stage('Trigger ManifestUpdate') {
                 steps{
                     echo "triggering updatemanifestjob"
-                    build job: 'gms-updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.buildNumber),string(name: 'SERVICE', env.GIT_BRANCH)]
+                    build job: 'gms-updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.buildNumber), string(name: 'SERVICE', value: env.GIT_BRANCH)]
                 }
             }
     }

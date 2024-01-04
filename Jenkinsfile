@@ -2,7 +2,7 @@ pipeline {
     agent any;
     environment{
         registry='ftvdexcz'
-        imageName='gms-frontend-ci'
+        imageName="gms-${env.GIT_BRANCH}-ci"
         buildNumber="${env.BUILD_NUMBER}"
     }
 

@@ -25,14 +25,14 @@ pipeline {
                             //sh "git switch master"
                             sh script:"""
                                 #!/bin/bash
-                                echo '$(pwd)'
+                                `echo "$(pwd)"`
                                 cd ./service-cd
-                                echo '$(pwd)'
+                                `echo "$(pwd)"`
                                 cat ${deployFile}
                                 sed -i 's+"${registry}"/"${imageName}".*+"${registry}"/"${imageName}":"${tag}"+g' ${deployFile}
                                 cat ${deployFile}
                                 git add .
-                                git commit -m 'Done by Jenkins Job changemanifest "${deployFile}": "${tag}"'
+                                `git commit -m 'Done by Jenkins Job changemanifest "${deployFile}": "${tag}"'`
                                 git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/garbage-intelligence-management-system.git HEAD:k8s
                             """
                             }   

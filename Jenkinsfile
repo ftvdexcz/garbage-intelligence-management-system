@@ -23,7 +23,7 @@ pipeline {
                             sh "git config user.email ftvdexc95@gmail.com"
                             sh "git config user.name longdq"
                             //sh "git switch master"
-                            sh "cd service-cd"
+                            sh "cd ./service-cd"
                             sh "ls"
                             sh "cat ${deployFile}"
                             sh "sed -i 's+${registry}/${imageName}.*+${registry}/${imageName}:${tag}+g' ${deployFile}"

@@ -4,7 +4,7 @@ pipeline {
         registry='ftvdexcz'
         imageName="gms-${env.SERVICE}-ci"
         tag="${env.DOCKERTAG}"
-        deployFile="${env.SERVICE}-deployment.yml"
+        deployFile="./service-cd/${env.SERVICE}-deployment.yml"
     }
 
     stages{
@@ -23,18 +23,14 @@ pipeline {
                             sh "git config user.email ftvdexc95@gmail.com"
                             sh "git config user.name longdq"
                             //sh "git switch master"
-                            sh:"""
-                               
+                            sh "cat ${deployFile}"
+                            sh "sed -i 's+${registry}/${imageName}.*+${registry}/${imageName}:${tag}+g' ${deployFile}"    
+                            sh "cat ${deployFile}"  
+                            sh "git add ."
+                            sh "git commit -m 'Done by Jenkins Job changemanifest ${deployFile}: ${tag}'"
+                            sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/garbage-intelligence-management-system.git HEAD:k8s"  
                                 
-                                cd ./service-cd
-                                
-                                cat ${deployFile}
-                                sed -i 's+${registry}/${imageName}.*+${registry}/${imageName}:${tag}+g' ${deployFile}
-                                cat ${deployFile}
-                                git add .
-                                git commit -m 'Done by Jenkins Job changemanifest ${deployFile}: ${tag}'
-                                git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/garbage-intelligence-management-system.git HEAD:k8s
-                            """
+                            
                             }   
                         }
                     }

@@ -23,13 +23,13 @@ pipeline {
                             sh "git config user.email ftvdexc95@gmail.com"
                             sh "git config user.name longdq"
                             //sh "git switch master"
-                            sh script:"""
-                                #!/bin/bash
+                            sh:"""
+                               
                                 
                                 cd ./service-cd
                                 
                                 cat ${deployFile}
-                                sed -i 's+|${registry}/${imageName}.*+${registry}/${imageName}:${tag}+g|' ${deployFile}
+                                sed -i 's+${registry}/${imageName}.*+${registry}/${imageName}:${tag}+g' ${deployFile}
                                 cat ${deployFile}
                                 git add .
                                 git commit -m 'Done by Jenkins Job changemanifest ${deployFile}: ${tag}'

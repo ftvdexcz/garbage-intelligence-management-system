@@ -2,16 +2,16 @@ pipeline {
     agent any;
     environment{
         registry='ftvdexcz'
-        imageName='gms-frontend-ssl-ci'
+        imageName='gms-frontend-ci'
         buildNumber="${env.BUILD_NUMBER}"
     }
 
     stages{
-        stage('Clone repository') {
-            steps{
-                checkout scm
+            stage('Clone repository') {
+                steps{
+                    checkout scm
+                }
             }
-        }
 
             stage('Build image') {
                 steps{

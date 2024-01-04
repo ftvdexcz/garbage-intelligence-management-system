@@ -24,7 +24,7 @@ pipeline {
                             sh "git config user.name longdq"
                             //sh "git switch master"
                             sh "cd service-cd"
-                            ls 
+                            sh "ls"
                             sh "cat ${deployFile}"
                             sh "sed -i 's+${registry}/${imageName}.*+${registry}/${imageName}:${tag}+g' ${deployFile}"
                             sh "cat ${deployFile}"

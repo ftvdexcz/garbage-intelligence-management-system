@@ -10,9 +10,11 @@ spec:
     - port: 7776
       targetPort: 7777
       nodePort: 31077
+      name: http
     - port: 444
       targetPort: 443
       nodePort: 31443
+      name: https
   type: NodePort
   selector:
     app: frontend-cd

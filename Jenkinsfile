@@ -15,7 +15,8 @@ pipeline {
             } 
 
             stage('Update manifest') {
-            script {
+                steps{
+script {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
@@ -32,6 +33,8 @@ pipeline {
       }
     }
   }
+                }
+            
 }
     }
 

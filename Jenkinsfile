@@ -10,24 +10,32 @@ pipeline {
 
             stage('Build image') {
                 steps{
-                    app = docker.build("ftvdexcz/gms-frontend-ssl-ci")
+                    script{
+                        app = docker.build("ftvdexcz/gms-frontend-ssl-ci")
+                    }
+                    
                 }
                 
             }
 
             stage('Test image') {
                 steps{
-                    app.inside {
-                        sh 'echo "Tests passed"'
+                    script{
+                        app.inside {
+                            sh 'echo "Tests passed"'
+                        }
                     }
                 }
             }
 
             stage('Push image') {
                 steps{
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        app.push("${env.BUILD_NUMBER}")
+                    script{
+                        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                            app.push("${env.BUILD_NUMBER}")
+                        }
                     }
+
                 }
                 
             }

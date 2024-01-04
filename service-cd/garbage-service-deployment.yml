@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: garbage-service-cd
-          image: ftvdexcz/gms-garbage-service-ci:1.0
+          image: ftvdexcz/gms-garbage-service-ci:3
           ports:
             - containerPort: 15023
           envFrom:

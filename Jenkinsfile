@@ -46,6 +46,7 @@ pipeline {
             stage('Clean image in local') {
                 steps{
                     sh "docker rmi -f registry.hub.docker.com/${registry}/${imageName}:${buildNumber}"
+                    sh "docker rmi -f docker rmi ${registry}/${imageName}:latest"
                 }
             }
             

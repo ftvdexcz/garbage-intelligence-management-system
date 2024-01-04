@@ -28,14 +28,13 @@ pipeline {
                                 echo "$(pwd)"
                                 cd ./service-cd
                                 echo "$(pwd)"
+                                cat ${deployFile}
+                                sed -i 's+${registry}/${imageName}.*+${registry}/${imageName}:${tag}+g' ${deployFile}
+                                cat ${deployFile}
+                                git add .
+                                git commit -m 'Done by Jenkins Job changemanifest ${deployFile}: ${tag}'
+                                git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/garbage-intelligence-management-system.git HEAD:k8s
                             '''
-                       
-                            sh "cat ${deployFile}"
-                            sh "sed -i 's+${registry}/${imageName}.*+${registry}/${imageName}:${tag}+g' ${deployFile}"
-                            sh "cat ${deployFile}"
-                            sh "git add ."
-                            sh "git commit -m 'Done by Jenkins Job changemanifest ${deployFile}: ${tag}'"
-                            sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/garbage-intelligence-management-system.git HEAD:k8s"
                             }   
                         }
                     }

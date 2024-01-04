@@ -22,9 +22,11 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 // import { mdiAccount } from '@mdi/js';
 
 // css
+import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import '@/assets/styles/global.css';
 import 'leaflet/dist/leaflet.css';
 import { createPinia } from 'pinia';
+import Smartlook from 'smartlook-client';
 
 loadFonts();
 
@@ -57,6 +59,8 @@ const vuetify = createVuetify({
     defaultTheme: 'dark',
   },
 });
+
+Smartlook.init('3aa1186c6a1831e13561c708ce13b0805267f22e', { region: 'eu' });
 
 const app = createApp(App);
 

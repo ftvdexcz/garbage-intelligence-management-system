@@ -48,7 +48,7 @@
         :key="item.title"
         :title="item.title"
         :value="item.value"
-        active-color="#2196F3"
+        color="#2196F3"
         class="py-3 pl-10"
         :to="item.link"
       >

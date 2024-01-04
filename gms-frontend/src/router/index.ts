@@ -28,6 +28,10 @@ const routes: Array<RouteRecordRaw> = [
         component: AppWarning,
       },
       {
+        path: '/logs',
+        component: AppWarning,
+      },
+      {
         path: '/bins',
         component: AppBin,
         children: [

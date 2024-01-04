@@ -173,7 +173,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref, defineProps } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import * as binService from '@/services/bin.service';
 import { Bin, newBin } from '@/models/bin';
 import { decamelizeKeys } from 'humps';

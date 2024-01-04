@@ -59,12 +59,7 @@
             @click.prevent="deleteBin(item.id)"
           />
 
-          <v-dialog
-            v-model="delDialog"
-            activator="parent"
-            width="400"
-            :transition="false"
-          >
+          <v-dialog v-model="delDialog" width="400" :transition="false">
             <v-card color="white">
               <v-card-text>
                 Bạn có chắc muốn xóa điểm thu rác với mã: {{ selectedId }} ?
@@ -131,6 +126,7 @@ const loadItems = async ({ page, itemsPerPage, sortBy }: any) => {
 };
 
 const deleteBin = (id: string) => {
+  delDialog.value = true;
   selectedId.value = id;
 };
 

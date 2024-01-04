@@ -10,11 +10,14 @@
   "dependencies": {
     "@types/humps": "^2.0.6",
     "@types/leaflet": "^1.9.7",
+    "@types/leaflet-routing-machine": "^3.2.8",
     "@videojs-player/vue": "^1.0.0",
     "axios": "^1.6.2",
     "humps": "^2.0.1",
+    "leaflet-routing-machine": "^3.2.12",
     "pinia": "^2.1.7",
     "roboto-fontface": "*",
+    "smartlook-client": "^8.2.0",
     "video.js": "^8.6.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
@@ -49,7 +52,8 @@
   "eslintConfig": {
     "root": true,
     "env": {
-      "node": true
+      "node": true,
+      "vue/setup-compiler-macros": true
     },
     "extends": [
       "plugin:vue/vue3-essential",
@@ -59,7 +63,10 @@
     "parserOptions": {
       "ecmaVersion": 2020
     },
-    "rules": {}
+    "rules": {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": "off"
+    }
   },
   "browserslist": [
     "> 1%",

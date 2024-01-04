@@ -91,7 +91,7 @@
 
 <script setup lang="ts">
 import { Bin } from '@/models/bin';
-import { ref, defineEmits, defineProps } from 'vue';
+import { ref } from 'vue';
 import { VideoPlayer } from '@videojs-player/vue';
 import 'video.js/dist/video-js.css';
 

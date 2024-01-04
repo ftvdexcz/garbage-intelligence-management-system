@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref, defineProps } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import * as truckService from '@/services/truck.service';
 import { Truck, newTruck } from '@/models/truck';
 

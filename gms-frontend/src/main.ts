@@ -26,7 +26,7 @@ import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import '@/assets/styles/global.css';
 import 'leaflet/dist/leaflet.css';
 import { createPinia } from 'pinia';
-// import Smartlook from 'smartlook-client';
+import Smartlook from 'smartlook-client';
 
 loadFonts();
 
@@ -60,15 +60,9 @@ const vuetify = createVuetify({
   },
 });
 
-// Smartlook.init('3aa1186c6a1831e13561c708ce13b0805267f22e', { region: 'eu' });
+Smartlook.init('3aa1186c6a1831e13561c708ce13b0805267f22e', { region: 'eu' });
 
 const app = createApp(App);
-
-// import VueGtag from 'vue-gtag';
-
-// app.use(VueGtag, {
-//   config: { id: 'GTM-NQ6K2HWJ' },
-// });
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 library.add(fas);

@@ -17,9 +17,9 @@
     "leaflet-routing-machine": "^3.2.12",
     "pinia": "^2.1.7",
     "roboto-fontface": "*",
+    "smartlook-client": "^8.2.0",
     "video.js": "^8.6.1",
     "vue": "^3.2.13",
-    "vue-gtag": "^2.0.1",
     "vue-router": "^4.0.3",
     "vuetify": "^3.4.1",
     "webfontloader": "^1.0.0"

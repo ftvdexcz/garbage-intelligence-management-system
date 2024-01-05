@@ -64,6 +64,12 @@ Smartlook.init('3aa1186c6a1831e13561c708ce13b0805267f22e', { region: 'eu' });
 
 const app = createApp(App);
 
+import VueGtag from 'vue-gtag';
+
+app.use(VueGtag, {
+  config: { id: 'GA_MEASUREMENT_ID' },
+});
+
 app.component('font-awesome-icon', FontAwesomeIcon);
 library.add(fas);
 library.add(far);

@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ftvdexcz/gms-frontend-ci:37
+          image: ftvdexcz/gms-frontend-ci:39
           ports:
             - containerPort: 7777
             - containerPort: 443

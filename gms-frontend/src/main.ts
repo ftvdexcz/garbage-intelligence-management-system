@@ -64,11 +64,11 @@ const vuetify = createVuetify({
 
 const app = createApp(App);
 
-import VueGtag from 'vue-gtag';
+// import VueGtag from 'vue-gtag';
 
-app.use(VueGtag, {
-  config: { id: 'GTM-NQ6K2HWJ' },
-});
+// app.use(VueGtag, {
+//   config: { id: 'GTM-NQ6K2HWJ' },
+// });
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 library.add(fas);

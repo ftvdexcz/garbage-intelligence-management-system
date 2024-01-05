@@ -67,7 +67,7 @@ const app = createApp(App);
 import VueGtag from 'vue-gtag';
 
 app.use(VueGtag, {
-  config: { id: 'GA_MEASUREMENT_ID' },
+  config: { id: 'G-1YWVVW18D6' },
 });
 
 app.component('font-awesome-icon', FontAwesomeIcon);

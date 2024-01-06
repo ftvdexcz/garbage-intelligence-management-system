@@ -928,10 +928,6 @@ grafana:
   enabled: true
   namespaceOverride: ''
 
-  data:
-    grafana.ini:
-      root_url: /api/v1/namespaces/monitoring/services/prometheus-grafana:http-web/proxy/
-
   ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
   ##
   forceDeployDatasources: false
@@ -1100,7 +1096,7 @@ grafana:
 
     # Path to use for scraping metrics. Might be different if server.root_url is set
     # in grafana.ini
-    path: '/api/v1/namespaces/monitoring/services/prometheus-grafana:http-web/proxy/metrics'
+    path: '/metrics'
 
     #  namespace: monitoring  (defaults to use the namespace this chart is deployed to)
 

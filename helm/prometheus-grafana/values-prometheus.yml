@@ -1368,7 +1368,11 @@ kubelet:
     ## MetricRelabelConfigs to apply to samples after scraping, but before ingestion.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
     ##
-    metricRelabelings: []
+    metricRelabelings:
+      - action: replace
+        sourceLabels:
+          - node
+        targetLabel: instance
     # - sourceLabels: [__name__, image]
     #   separator: ;
     #   regex: container_([a-z_]+);
@@ -1407,10 +1411,10 @@ kubeControllerManager:
 
   ## If your kube controller manager is not deployed as a pod, specify IPs it can be found on
   ##
-  endpoints: []
-  # - 10.141.4.22
-  # - 10.141.4.23
-  # - 10.141.4.24
+  endpoints:
+    - 172.16.10.100
+    - 172.16.10.101
+    - 172.16.10.102
 
   ## If using kubeControllerManager.endpoints only the port and targetPort are used
   ##
@@ -1646,10 +1650,10 @@ kubeEtcd:
 
   ## If your etcd is not deployed as a pod, specify IPs it can be found on
   ##
-  endpoints: []
-  # - 10.141.4.22
-  # - 10.141.4.23
-  # - 10.141.4.24
+  endpoints:
+    - 172.16.10.100
+    - 172.16.10.101
+    - 172.16.10.102
 
   ## Etcd service. If using kubeEtcd.endpoints only the port and targetPort are used
   ##
@@ -1738,10 +1742,10 @@ kubeScheduler:
 
   ## If your kube scheduler is not deployed as a pod, specify IPs it can be found on
   ##
-  endpoints: []
-  # - 10.141.4.22
-  # - 10.141.4.23
-  # - 10.141.4.24
+  endpoints:
+    - 172.16.10.100
+    - 172.16.10.101
+    - 172.16.10.102
 
   ## If using kubeScheduler.endpoints only the port and targetPort are used
   ##
@@ -1827,10 +1831,10 @@ kubeProxy:
 
   ## If your kube proxy is not deployed as a pod, specify IPs it can be found on
   ##
-  endpoints: []
-  # - 10.141.4.22
-  # - 10.141.4.23
-  # - 10.141.4.24
+  endpoints:
+    - 172.16.10.100
+    - 172.16.10.101
+    - 172.16.10.102
 
   service:
     enabled: true
@@ -1973,6 +1977,14 @@ kube-state-metrics:
 ##
 nodeExporter:
   enabled: true
+  serviceMonitor:
+    relabelings:
+      - action: replace
+        regex: (.*)
+        replacement: $1
+        sourceLabels:
+          - __meta_kubernetes_pod_node_name
+        targetLabel: kubernetes_node
   operatingSystems:
     linux:
       enabled: true
@@ -2044,7 +2056,13 @@ prometheus-node-exporter:
       ## RelabelConfigs to apply to samples before scraping
       ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
       ##
-      relabelings: []
+      relabelings:
+        - action: replace
+          regex: (.*)
+          replacement: $1
+          sourceLabels:
+            - __meta_kubernetes_pod_node_name
+          targetLabel: kubernetes_node
       # - sourceLabels: [__meta_kubernetes_pod_node_name]
       #   separator: ;
       #   regex: ^(.*)$

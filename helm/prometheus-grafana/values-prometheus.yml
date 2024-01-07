@@ -1411,10 +1411,7 @@ kubeControllerManager:
 
   ## If your kube controller manager is not deployed as a pod, specify IPs it can be found on
   ##
-  endpoints:
-    - 172.16.10.100
-    - 172.16.10.101
-    - 172.16.10.102
+  endpoints: []
 
   ## If using kubeControllerManager.endpoints only the port and targetPort are used
   ##
@@ -1425,8 +1422,8 @@ kubeControllerManager:
     ##
     port: null
     targetPort: null
-    # selector:
-    #   component: kube-controller-manager
+    selector:
+      component: kube-controller-manager
 
   serviceMonitor:
     enabled: true
@@ -1650,10 +1647,7 @@ kubeEtcd:
 
   ## If your etcd is not deployed as a pod, specify IPs it can be found on
   ##
-  endpoints:
-    - 172.16.10.100
-    - 172.16.10.101
-    - 172.16.10.102
+  endpoints: []
 
   ## Etcd service. If using kubeEtcd.endpoints only the port and targetPort are used
   ##
@@ -1661,8 +1655,8 @@ kubeEtcd:
     enabled: true
     port: 2381
     targetPort: 2381
-    # selector:
-    #   component: etcd
+    selector:
+      component: etcd
 
   ## Configure secure access to the etcd cluster by loading a secret into prometheus and
   ## specifying security configuration below. For example, with a secret named etcd-client-cert
@@ -1742,10 +1736,7 @@ kubeScheduler:
 
   ## If your kube scheduler is not deployed as a pod, specify IPs it can be found on
   ##
-  endpoints:
-    - 172.16.10.100
-    - 172.16.10.101
-    - 172.16.10.102
+  endpoints: []
 
   ## If using kubeScheduler.endpoints only the port and targetPort are used
   ##
@@ -1756,8 +1747,8 @@ kubeScheduler:
     ##
     port: null
     targetPort: null
-    # selector:
-    #   component: kube-scheduler
+    selector:
+      component: kube-scheduler
 
   serviceMonitor:
     enabled: true
@@ -1831,17 +1822,14 @@ kubeProxy:
 
   ## If your kube proxy is not deployed as a pod, specify IPs it can be found on
   ##
-  endpoints:
-    - 172.16.10.100
-    - 172.16.10.101
-    - 172.16.10.102
+  endpoints: []
 
   service:
     enabled: true
     port: 10249
     targetPort: 10249
-    # selector:
-    #   k8s-app: kube-proxy
+    selector:
+      k8s-app: kube-proxy
 
   serviceMonitor:
     enabled: true

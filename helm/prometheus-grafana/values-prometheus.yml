@@ -20,7 +20,7 @@ kubeVersionOverride: ''
 
 ## Provide a name to substitute for the full names of resources
 ##
-fullnameOverride: ''
+fullnameOverride: 'prometheus'
 
 ## Labels to apply to all resources
 ##
@@ -949,7 +949,7 @@ grafana:
   ##
   defaultDashboardsEditable: true
 
-  adminPassword: prom-operator
+  adminPassword: admin123
 
   rbac:
     ## If true, Grafana PSPs will be created

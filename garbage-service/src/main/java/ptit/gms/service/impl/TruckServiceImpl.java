@@ -149,7 +149,9 @@ public class TruckServiceImpl implements TruckService {
                     checks.put(d, true);
                 }
             }
-            checks.putIfAbsent(d, false);
+            if(checks.containsKey(d) == false){
+                checks.putIfAbsent(d, false);
+            }
         }
 
         BinEntity bin = binRepository.findByStatusAndId(Constant.STATUS_BIN_ACTIVE, checkPlateReqDto.getBinId());
